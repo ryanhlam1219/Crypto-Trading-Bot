@@ -1,4 +1,4 @@
 #file containing api and secret keys
-.env.dist
+.env
 #mac specific file
 .DS_Store
