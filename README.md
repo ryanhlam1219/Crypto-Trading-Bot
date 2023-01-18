@@ -13,7 +13,7 @@ More details here on [full project article](https://dev.to/nicolasbonnici/how-to
 ### Install dependencies
 
 ```bash
-pip install --no-cache-dir -r requirements.txt
+python3 pip install --no-cache-dir -r requirements.txt
 ```
 
 ### Usage
