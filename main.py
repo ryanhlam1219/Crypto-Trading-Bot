@@ -4,6 +4,10 @@
 import signal
 import sys
 import threading
+
+#TODO:remove this import for cleaner code
+import Exchanges.Binance as Client
+
 from decouple import config
 
 exchange_name = config('EXCHANGE')
@@ -14,6 +18,8 @@ trading_mode: str = config('TRADING_MODE')
 interval: int = int(config('CANDLE_INTERVAL'))
 currency: str = config('CURRENCY')
 asset: str = config('ASSET')
+key: str = config('BINANCE_API_KEY')
+secret: str = config('BINANCE_API_SECRET')
 
 if trading_mode == 'real':
     print("*** Caution: Real trading mode activated ***")
@@ -29,8 +35,11 @@ if len(sys.argv) > 1:
 # Load exchange
 print("Connecting to {} exchange...".format(exchange_name[0].upper() + exchange_name[1:]))
 
+client = Client.Binance(key,secret)
+client.getAccountStatus()
+
 def signal_handler(signal, frame):
-        print('\nstopping strategy...')
+        print('\nstopping client...')
         sys.exit(0)
 
 # Listen for keyboard interrupt event
