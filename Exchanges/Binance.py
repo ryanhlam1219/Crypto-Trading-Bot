@@ -36,8 +36,8 @@ class Binance(Exchange):
             "timestamp": int(round(time.time() * 1000)),
         }
         headers = {}
-        headers['X-MBX-APIKEY'] = self.key
-        signature = self.get_binanceus_signature(data, self.secret)
+        headers['X-MBX-APIKEY'] = self.apiKey
+        signature = self.get_binanceus_signature(data, self.apiSecret)
         params={
             **data,
             "signature": signature,
