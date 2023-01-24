@@ -37,6 +37,7 @@ print("Connecting to {} exchange...".format(exchange_name[0].upper() + exchange_
 
 client = Client.Binance(key,secret)
 client.getAccountStatus()
+client.getCandleStickData('BTCUSD')
 
 def signal_handler(signal, frame):
         print('\nstopping client...')

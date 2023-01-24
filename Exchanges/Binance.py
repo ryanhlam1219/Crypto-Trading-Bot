@@ -25,8 +25,7 @@ class Binance():
         mac = hmac.new(byte_key, message, hashlib.sha256).hexdigest()
         return mac
 
-    def getAccountStatus(self):
-        uri_path = '/sapi/v3/accountStatus'
+    def submitGetRequest(self, uri_path):
         data = {
             "timestamp": int(round(time.time() * 1000)),
         }
@@ -38,4 +37,18 @@ class Binance():
             "signature": signature,
         }
         response = requests.get((self.api_url + uri_path), params=params, headers=headers)
+        return response
+
+    def getAccountStatus(self):
+        uri_path = '/sapi/v3/accountStatus'
+        response = self.submitGetRequest(uri_path)
+        print("Account status:")
         print(json.dumps(json.loads(response.text)))
+
+    #takes in a list of symbols and returns 500 (default) candlesticks in 1 minute intervals
+    #using the most recent klines in USD
+    def getCandleStickData(self, symbol):
+        uri_path = '/api/v3/klines?symbol=' + symbol + '&interval=1m'
+        response = requests.get(self.api_url + uri_path)
+        print(json.dumps(json.loads(response.text)))
+
