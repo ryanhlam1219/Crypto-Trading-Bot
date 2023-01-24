@@ -34,8 +34,12 @@ if len(sys.argv) > 1:
 
 # Load exchange
 print("Connecting to {} exchange...".format(exchange_name[0].upper() + exchange_name[1:]))
-
 client = Client.Binance(key,secret)
+if(client.getConnectivityStatus()):
+    print("Connected.")
+else:
+    print("Could not establish connection to {} exchange...".format(exchange_name[0].upper() + exchange_name[1:]))
+
 client.getAccountStatus()
 client.getCandleStickData('BTCUSD')
 

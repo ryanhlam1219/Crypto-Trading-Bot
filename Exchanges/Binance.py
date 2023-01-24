@@ -6,18 +6,22 @@ import requests
 import time
 import json
 
+
 from datetime import datetime
 from math import floor
+from Exchanges.exchange import Exchange
 
-class Binance():
+class Binance(Exchange):
     api_url = "https://api.binance.us"
 
     def __init__(self, key: str, secret: str):
-        self.key = key
-        self.secret = secret
-        self.name = self.__class__.__name__
+        self.apiKey = key
+        self.apiSecret = secret
+        self.name = None
 
-     # get binanceus signature
+    # Generates an endpoint signature for get requests associated with the user's account
+    # @Param data: the data required to send to the endpoint
+    # @Param secret: the user's secret key
     def get_binanceus_signature(self, data, secret):
         postdata = urllib.parse.urlencode(data)
         message = postdata.encode()
@@ -25,7 +29,9 @@ class Binance():
         mac = hmac.new(byte_key, message, hashlib.sha256).hexdigest()
         return mac
 
-    def submitGetRequest(self, uri_path):
+    # Submits a get request for a user with a given endpoint signature
+    # @Param uri_path: the API endpoint path to use in order to submit the request
+    def submitGetRequestForEndpoint(self, uri_path):
         data = {
             "timestamp": int(round(time.time() * 1000)),
         }
@@ -39,16 +45,29 @@ class Binance():
         response = requests.get((self.api_url + uri_path), params=params, headers=headers)
         return response
 
+    # @Override
+    # returns the connection status to Binance US
+    def getConnectivityStatus(self):
+        uri_path = '/api/v3/ping'
+        response = requests.get(self.api_url + uri_path)
+        return True if response.text == '{}' else False
+    
+    # returns the user's account status
     def getAccountStatus(self):
         uri_path = '/sapi/v3/accountStatus'
-        response = self.submitGetRequest(uri_path)
+        response = self.submitGetRequestForEndpoint(uri_path)
         print("Account status:")
-        print(json.dumps(json.loads(response.text)))
+        print(json.dumps(json.loads(response.text), indent=2))
 
-    #takes in a list of symbols and returns 500 (default) candlesticks in 1 minute intervals
-    #using the most recent klines in USD
+    # @Override
+    # Pulls the current candlestick data for a given symbol
+    # @Param symbol: The currency and coin to extract candlestick data for ()
     def getCandleStickData(self, symbol):
-        uri_path = '/api/v3/klines?symbol=' + symbol + '&interval=1m'
+        uri_path = '/api/v3/klines?symbol=' + symbol + '&interval=1m&limit=5'
         response = requests.get(self.api_url + uri_path)
-        print(json.dumps(json.loads(response.text)))
+        json_data = json.loads(response.text)
+        for data in json_data:
+            print(json.dumps(data))
+
+
 
