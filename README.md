@@ -3,13 +3,21 @@
 Crypto trading bot written using Python 3.9. In order for this bot to establish a connection to the binance.us API, you must establish a network connection using IPv4 and not IPv6 as IPv6 is not supported. 
 
 If your active network is WiFi enter the following command:
-```networksetup -setv6off Wi-Fi```
+```
+networksetup -setv6off Wi-Fi
+```
 If you are on Ethernet:
-```networksetup -setv6off Ethernet```
+```
+networksetup -setv6off Ethernet
+```
 You may combine both of commands to disable IPv6 on WiFi and Ethernet at the same time:
-```networksetup -setv6off Ethernet && networksetup -setv6off Wi-Fi```
+```
+networksetup -setv6off Ethernet && networksetup -setv6off Wi-Fi
+```
 To re-enable IPv6, you need to replace setv6off to setv6automatic (the default state in macOS), for example:
-```networksetup -setv6automatic Wi-Fi && networksetup -setv6automatic Ethernet```
+```
+networksetup -setv6automatic Wi-Fi && networksetup -setv6automatic Ethernet
+```
 
 ## Pre-Requisites
 
