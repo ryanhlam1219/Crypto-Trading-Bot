@@ -6,7 +6,13 @@ Crypto trading bot written using Python 3.9.
 
 ### Setup Python3 and VS Code on your Desktop
 ```
-https://code.visualstudio.com/docs/python/python-tutorial
+# install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+#install python3
+brew install python3
+
 ```
 ### Create Github Account and Install Github Desktop
 ```
