@@ -23,7 +23,8 @@ networksetup -setv6automatic Wi-Fi && networksetup -setv6automatic Ethernet
 
 ### Setup Python3 and VS Code on your Desktop (at main directory)
 ```
-# install homebrew
+
+# install homebrew (ONLY IF MAC IS CATALINA OR NEWER)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
