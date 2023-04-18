@@ -20,7 +20,6 @@ networksetup -setv6automatic Wi-Fi && networksetup -setv6automatic Ethernet
 ```
 
 ## Pre-Requisites
-```
 ### Create Github Account and Install Github Desktop
 ```
 https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop
