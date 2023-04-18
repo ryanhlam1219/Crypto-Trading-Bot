@@ -48,7 +48,7 @@ python3 -m pip install --no-cache-dir -r requirements.txt
 
 You can set particular symbol pair by using an argument
 ```bash
-./main.py BTC_EUR
+python3 main.py BTC_EUR
 ```
 
 You can override any env parameter like so
