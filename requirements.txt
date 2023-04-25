@@ -1,3 +1,4 @@
 requests~=2.20
 Twisted~=22.10.0
 python-decouple~=3.4
+pandas~=2.0
