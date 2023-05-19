@@ -2,8 +2,10 @@ library(zoo)
 library(quantmod)
 library(TTR)
 
+###TODO: See how we can automate changing the file name in line 7 
 # Load the data from a CSV file, the file to be read should be placed in the CSV_FILES folder
 df <- read.csv('CSV_FILES/SHIBUSDT-1m-2023-05-14.csv')
+
 
 # Set the lookback periods
 rsi_period <- 14
