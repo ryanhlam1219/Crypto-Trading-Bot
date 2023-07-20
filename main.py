@@ -25,6 +25,7 @@ if trading_mode == 'real':
     print("*** Caution: Real trading mode activated ***")
 else:
     print("Test mode")
+    #need to add code to call Trading strategies and apply test data and test code
 
 if len(sys.argv) > 1:
     currencies = sys.argv[1].split('_')

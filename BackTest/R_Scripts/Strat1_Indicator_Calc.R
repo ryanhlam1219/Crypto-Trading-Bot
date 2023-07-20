@@ -2,8 +2,11 @@ library(zoo)
 library(quantmod)
 library(TTR)
 
-###TODO: See how we can automate changing the file name in line 7 
 # Load the data from a CSV file, the file to be read should be placed in the CSV_FILES folder
+# 1. figure out how to open .txt files and read line by line in R
+# 2. store the name of the csv file in the .txt file into string variable
+# 3. append to string variable to 'CSV_FILES/'
+# exampple: 'CSV_Files' + csvFileName 
 df <- read.csv('CSV_FILES/SHIBUSDT-1m-2023-05-14.csv')
 
 
