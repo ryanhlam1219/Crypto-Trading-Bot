@@ -42,5 +42,11 @@ python3 main.py BTC_EUR
 
 You can override any env parameter like so
 ```bash
-MODE=live ./main.py BTC_EUR
+./main.py BTC_EUR
+```
+
+Afterwards, within your .env file you can update your program to run on one of two modes:
+```bash
+TRADING_MODE="test" will run your backtest for testing your strategy
+TRADING_MODE="real" will run your program against an actual binance client and will use the live binance APIs
 ```
