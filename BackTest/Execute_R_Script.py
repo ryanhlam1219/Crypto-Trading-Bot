@@ -1,11 +1,69 @@
-import subprocess
+import pandas as pd
 
-# File Directory to start when locating the correct R script to run, all R scripts should be placed in the 'R_Scripts' folder
-FILEPATH = 'R_Scripts/'
+# Function to read CSV file based on filename
+def read_csv_file(file_name):
+    file_path = 'CSV_FILES/' + file_name  # Assuming CSV_FILES is the directory where CSV files are located
+    df = pd.read_csv(file_path)
+    return df
 
+# Read the .txt file with the list of CSV filenames
+with open('csv_files.txt', 'r') as file:
+    file_names = file.read().splitlines()
 
-# Executes a given R Script given the name of the file
-# @Param scriptName: the name of the script to execute
-def runScript(scriptName):
-    print(FILEPATH + scriptName)
-    subprocess.run(['RScript',FILEPATH + scriptName])
+# Create an empty dictionary to store data frames
+all_data = {}
+
+# Loop through the list and read each CSV file
+for csvFileName in file_names:
+    df = read_csv_file(csvFileName)
+
+    # Set the lookback periods
+    rsi_period = 14
+    stoch_period = 5
+    smooth_period = 3
+    wma_period = 144
+    sma_period = 5
+
+    # Calculate the RSI
+    delta = df['Close'].diff()
+    gain = delta.where(delta > 0, 0)
+    loss = -delta.where(delta < 0, 0)
+    avg_gain = gain.rolling(window=rsi_period, min_periods=1).mean()
+    avg_loss = loss.rolling(window=rsi_period, min_periods=1).mean()
+    rs = avg_gain / avg_loss
+    rsi = 100 - (100 / (1 + rs))
+
+    # Calculate the Stochastic RSI
+    rsi_low = rsi.rolling(window=stoch_period, min_periods=1).min()
+    rsi_high = rsi.rolling(window=stoch_period, min_periods=1).max()
+    stoch_rsi = (rsi - rsi_low) / (rsi_high - rsi_low) * 100
+    stoch_rsi_smooth = stoch_rsi.rolling(window=smooth_period, min_periods=1).mean()
+
+    # Calculate the weighted moving average
+    weights = range(1, wma_period + 1)
+    wma = df['Close'].rolling(window=wma_period).apply(lambda x: sum(x * weights) / sum(weights), raw=False)
+
+    # Calculate the simple moving average
+    sma = df['Close'].rolling(window=sma_period).mean()
+
+    # Determine the maximum number of rows available across the calculated indicators
+    max_rows = min(len(df), len(rsi), len(stoch_rsi_smooth), len(wma), len(sma))
+
+    # Combine the data frames with matching numbers of rows
+    output_df = pd.DataFrame({
+        **df.iloc[:max_rows, :].to_dict(orient='list'),
+        'rsi': rsi.iloc[:max_rows],
+        'stoch_rsi_smooth': stoch_rsi_smooth.iloc[:max_rows],
+        'wma': wma.iloc[:max_rows],
+        'sma': sma.iloc[:max_rows]
+    })
+
+    # Append the processed data frame to the dictionary
+    all_data[csvFileName] = output_df
+
+    # Optionally, write the results to a new CSV file for each CSV file processed
+    output_file_path = 'CSV_FILES/' + csvFileName.replace('.csv', '_output.csv')
+    output_df.to_csv(output_file_path, index=False)
+
+# Optionally, you can access the processed data frames using the 'all_data' dictionary
+# For example, all_data['SHIBUSDT-1m-2023-05-14.csv'] will give you the processed data frame for the file 'SHIBUSDT-1m-2023-05-14.csv'
