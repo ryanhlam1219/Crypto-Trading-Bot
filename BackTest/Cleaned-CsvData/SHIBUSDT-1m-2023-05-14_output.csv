@@ -1,4 +1,4 @@
-Open Time,Open,High,Low,Close,Volume,Close Time,rsi,stoch_rsi_smooth,wma,sma
+OpenTimeStamp,Open,High,Low,Close,Volume,CloseTimeStamp,rsi,stoch_rsi_smooth,wma,sma
 1680000000000.0,8.72e-06,8.73e-06,8.71e-06,8.72e-06,514977537,1680000000000.0,,,,
 1680000000000.0,8.72e-06,8.73e-06,8.71e-06,8.73e-06,769719430,1680000000000.0,100.0,,,
 1680000000000.0,8.73e-06,8.73e-06,8.71e-06,8.72e-06,707472374,1680000000000.0,50.0,0.0,,
