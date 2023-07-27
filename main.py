@@ -7,7 +7,7 @@ import threading
 
 #TODO:remove this import for cleaner code
 import Exchanges.Binance as Client
-import BackTest.ExecuteDataGathering as testScript
+import BackTest.ExecuteDataCleaning as testScript
 
 from decouple import config
 
