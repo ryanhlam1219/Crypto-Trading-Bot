@@ -3,14 +3,14 @@ import pandas as pd
 # Function to read CSV file based on filename
 # Ammend exchange name in file path when cleaning different exchanges
 def read_csv_file(file_name):
-    file_path = 'BackTest/CSV-Files/CSV-Files-BTCUSDT/' + file_name  # Assuming CSV_FILES is the directory where CSV files are located
-    df = pd.read_csv(file_path)
+    file_path = 'BackTest/CSV-Files/CSV-Files-SHIBUSDT/' + file_name  # Assuming CSV_FILES is the directory where CSV files are located
+    df = pd.read_csv(file_path, names=['OpenTimeStamp', 'Open', 'High', 'Close', 'Volume', 'CloseTimeStamp']) 
     return df
 
 def executeScript():
     # Read the .txt file with the list of CSV filenames
     # Ammend exchange name in file path when cleaning different exchanges
-    with open('BackTest/CSV-FileNames.txt/CSV-FileNames-BTCUSDT.txt', 'r') as file:
+    with open('BackTest/CSV-FileNames.txt/CSV-FileNames-SHIBUSDT.txt', 'r') as file:
         file_names = file.read().splitlines()
 
     # Create an empty dictionary to store data frames
@@ -66,8 +66,8 @@ def executeScript():
 
         # Optionally, write the results to a new CSV file for each CSV file processed
         # Ammend exchange name in file path when cleaning different exchanges
-        output_file_path = 'BackTest/Cleaned-CsvData/Cleaned-CsvData-BTCUSDT/' + csvFileName.replace('.csv', '_output.csv')
-        output_df.to_csv(output_file_path, index=False)
+        output_file_path = 'BackTest/Cleaned-CsvData/Cleaned-CsvData-SHIBUSDT/' + csvFileName.replace('.csv', '_output.csv')
+        output_df.to_csv(output_file_path, index=False, header=True)
 
     # Optionally, you can access the processed data frames using the 'all_data' dictionary
     # For example, all_data['SHIBUSDT-1m-2023-05-14.csv'] will give you the processed data frame for the file 'SHIBUSDT-1m-2023-05-14.csv'
