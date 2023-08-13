@@ -68,6 +68,3 @@ def executeScript():
         # Ammend exchange name in file path when cleaning different exchanges
         output_file_path = 'BackTest/Cleaned-CsvData/Cleaned-CsvData-SHIBUSDT/' + csvFileName.replace('.csv', '_output.csv')
         output_df.to_csv(output_file_path, index=False, header=True)
-
-    # Optionally, you can access the processed data frames using the 'all_data' dictionary
-    # For example, all_data['SHIBUSDT-1m-2023-05-14.csv'] will give you the processed data frame for the file 'SHIBUSDT-1m-2023-05-14.csv'
