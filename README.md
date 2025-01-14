@@ -1,6 +1,6 @@
 # Crypto bot
 
-Crypto trading bot written using Python 3.9. In order for this bot to establish a connection to the binance.us API, you must establish a network connection using IPv4 and not IPv6 as IPv6 is not supported. 
+Crypto trading bot written using Python 3.9. In order for this bot to establish a connection to the binance.us API, you must establish a network connection using IPv4 and not IPv6 as IPv6 is not supported. ([read more on this here](https://dev.binance.vision/t/ipv6-support-for-trading/17876))
 
 If your active network is WiFi enter the following command:
 ```
@@ -37,12 +37,12 @@ python3 -m pip install --no-cache-dir -r requirements.txt
 
 You can set particular symbol pair by using an argument
 ```bash
-python3 main.py BTC_EUR
+python3 main.py BTC_US
 ```
 
 You can override any env parameter like so
 ```bash
-./main.py BTC_EUR
+./main.py BTC_US
 ```
 
 Afterwards, within your .env file you can update your program to run on one of two modes:
