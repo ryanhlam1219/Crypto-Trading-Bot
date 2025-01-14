@@ -37,12 +37,12 @@ python3 -m pip install --no-cache-dir -r requirements.txt
 
 You can set particular symbol pair by using an argument
 ```bash
-python3 main.py BTC_EUR
+python3 main.py BTC_US
 ```
 
 You can override any env parameter like so
 ```bash
-./main.py BTC_EUR
+./main.py BTC_US
 ```
 
 Afterwards, within your .env file you can update your program to run on one of two modes:
