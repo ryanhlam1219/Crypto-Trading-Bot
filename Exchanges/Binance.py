@@ -32,38 +32,39 @@ class Binance(Exchange):
 
     # Submits a get request for a user with a given endpoint signature
     # @Param uri_path: the API endpoint path to use in order to submit the request
-    def submit_get_request_for_endpoint(self, uri_path):
-        data = {
-            "timestamp": int(round(time.time() * 1000)),
-        }
+    # @Param data: the Payload to submit as part of the GET request
+    def submit_get_request(self, uri_path, data):
         headers = {}
         headers['X-MBX-APIKEY'] = self.apiKey
         signature = self.get_binanceus_signature(data, self.apiSecret)
-        params={
+        payload={
             **data,
             "signature": signature,
         }
-        response = requests.get((self.api_url + uri_path), params=params, headers=headers)
+        response = requests.get((self.api_url + uri_path), params=payload, headers=headers)
         return response
 
     # @Override
     # returns the connection status to Binance US
-    def get_connectivity_status(self):
+    def getConnectivityStatus(self):
         uri_path = '/api/v3/ping'
         response = requests.get(self.api_url + uri_path)
         return True if response.text == '{}' else False
     
     # returns the user's account status
-    def get_account_status(self):
+    def getAccountStatus(self):
         uri_path = '/sapi/v3/accountStatus'
-        response = self.submitGetRequestForEndpoint(uri_path)
+        data = {
+            "timestamp": int(round(time.time() * 1000)),
+        }
+        response = self.submit_get_request(uri_path, data)
         print("Account status:")
         print(json.dumps(json.loads(response.text), indent=2))
 
     # @Override
     # Pulls the current candlestick data for a given symbol
     # @Param interval: the interval in minutes for which to fetch candlestick data 
-    def get_candle_stick_data(self, interval):
+    def getCandleStickData(self, interval):
         uri_path = '/api/v3/klines?symbol=' + self.currency_asset + f'&interval={interval}m'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
