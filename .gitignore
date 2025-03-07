@@ -2,3 +2,10 @@
 .env
 #mac specific file
 .DS_Store
+#pycache outputs
+Exchanges/__pycache__/
+Backtest/Cleaned-CsvData/
+Backtest/CSV-FileNamaes.txt/
+Backtest/CSV-Files/
+Backtest/__pycache__/
+Strategies/__pycache__/

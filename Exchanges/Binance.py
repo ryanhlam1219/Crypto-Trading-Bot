@@ -70,5 +70,28 @@ class Binance(Exchange):
         json_data = json.loads(response.text)
         return json_data
 
+    # Attaches auth headers and returns results of a POST request
+    def submit_post_request(self, uri_path, data):
+        headers = {}
+        headers['X-MBX-APIKEY'] = self.apiKey
+        signature = self.get_binanceus_signature(data, self.apiSecret)
+        payload={
+            **data,
+            "signature": signature,
+            }
+        req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
+        return req.text
 
+    def create_new_order(self, side, order_type, quantity):
+        uri_path = "/api/v3/order/test"
+        data = {
+            "symbol": self.currency_asset,
+            "side": side,
+            "type": order_type,
+            "quantity": quantity,
+            "timestamp": int(round(time.time() * 1000))
+        }
+
+        result = self.submit_post_request(uri_path, data, self.api_key, self.secret_key)
+        print("POST {}: {}".format(uri_path, result))
 
