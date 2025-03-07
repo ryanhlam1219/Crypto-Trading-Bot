@@ -114,16 +114,16 @@ class GridTradingStrategy(Strategy):
         print("Starting grid trading strategy...")
 
         # Ensure connection to the exchange is established
-        if not self.client.getConnectivityStatus():
+        if not self.client.get_connectivity_status():
             print("Could not establish connection to exchange...")
             return
 
         print("Fetching account status...")
-        self.client.getAccountStatus()
+        self.client.get_account_status()
 
         # Fetch the initial market price to set up the grid
         print("Fetching initial market price...")
-        candlestick_data = self.client.getCandleStickData(self.interval)
+        candlestick_data = self.client.get_candle_stick_data(self.interval)
         if not isinstance(candlestick_data, list) or len(candlestick_data) == 0:
             raise ValueError("Received invalid candlestick data")
 
@@ -138,7 +138,7 @@ class GridTradingStrategy(Strategy):
         # Infinite loop to monitor price movements and manage trades
         while True:
             print("Fetching latest market price...")
-            candlestick_data = self.client.getCandleStickData(self.interval)
+            candlestick_data = self.client.get_candle_stick_data(self.interval)
             current_price = self.extract_latest_price(candlestick_data)
 
             if current_price is not None:

@@ -46,13 +46,13 @@ class Binance(Exchange):
 
     # @Override
     # returns the connection status to Binance US
-    def getConnectivityStatus(self):
+    def get_connectivity_status(self):
         uri_path = '/api/v3/ping'
         response = requests.get(self.api_url + uri_path)
         return True if response.text == '{}' else False
     
     # returns the user's account status
-    def getAccountStatus(self):
+    def get_account_status(self):
         uri_path = '/sapi/v3/accountStatus'
         data = {
             "timestamp": int(round(time.time() * 1000)),
@@ -64,7 +64,7 @@ class Binance(Exchange):
     # @Override
     # Pulls the current candlestick data for a given symbol
     # @Param interval: the interval in minutes for which to fetch candlestick data 
-    def getCandleStickData(self, interval):
+    def get_candle_stick_data(self, interval):
         uri_path = '/api/v3/klines?symbol=' + self.currency_asset + f'&interval={interval}m'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
