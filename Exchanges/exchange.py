@@ -16,13 +16,13 @@ class Exchange(ABC):
     # abstract methods
 
     @abstractmethod
-    def get_connectivity_status():
+    def getConnectivityStatus():
         pass
 
     @abstractmethod
-    def get_candle_stick_data(currency:str, asset:str):
+    def getCandleStickData(currency:str, asset:str):
         pass
 
     @abstractmethod
-    def get_account_status():
+    def getAccountStatus():
         pass
