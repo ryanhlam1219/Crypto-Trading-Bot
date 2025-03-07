@@ -1,12 +1,15 @@
 from abc import ABC, abstractmethod
+from Exchanges import Exchange
 
 class Strategy(ABC):
-    def __init__(self, grid_size=10):
-        self.grid_size = grid_size
+    def __init__(self, client:Exchange, interval:int, stop_loss_percentage:int):
+        self.client = client
+        self.interval = interval
         self.current_level = None
         self.current_trade = None
         self.current_direction = "buy"
         self.current_profit_level = None
+        self.stop_loss_percentage = stop_loss_percentage
 
     @abstractmethod
     def execute_trade(self, price, direction):
@@ -17,7 +20,7 @@ class Strategy(ABC):
         pass
 
     @abstractmethod
-    def check_trade(self, price):
+    def check_trades(self, price):
         pass
 
     @abstractmethod
