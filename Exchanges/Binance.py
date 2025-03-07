@@ -14,10 +14,11 @@ from Exchanges.exchange import Exchange
 class Binance(Exchange):
     api_url = "https://api.binance.us"
 
-    def __init__(self, key: str, secret: str):
+    def __init__(self, key: str, secret: str, currency: str, asset: str):
         self.apiKey = key
         self.apiSecret = secret
         self.name = None
+        self.currency_asset = currency + asset
 
     # Generates an endpoint signature for get requests associated with the user's account
     # @Param data: the data required to send to the endpoint
@@ -62,8 +63,8 @@ class Binance(Exchange):
     # @Override
     # Pulls the current candlestick data for a given symbol
     # @Param symbol: The currency and coin to extract candlestick data for ()
-    def getCandleStickData(self, symbol):
-        uri_path = '/api/v3/klines?symbol=' + symbol + '&interval=1m&limit=5'
+    def getCandleStickData(self):
+        uri_path = '/api/v3/klines?symbol=' + self.currency_asset + '&interval=1m&limit=5'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
         for data in json_data:
