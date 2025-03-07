@@ -62,13 +62,12 @@ class Binance(Exchange):
 
     # @Override
     # Pulls the current candlestick data for a given symbol
-    # @Param symbol: The currency and coin to extract candlestick data for ()
-    def getCandleStickData(self):
-        uri_path = '/api/v3/klines?symbol=' + self.currency_asset + '&interval=1m&limit=5'
+    # @Param interval: the interval in minutes for which to fetch candlestick data 
+    def getCandleStickData(self, interval):
+        uri_path = '/api/v3/klines?symbol=' + self.currency_asset + f'&interval={interval}m'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
-        for data in json_data:
-            print(json.dumps(data))
+        return json_data
 
 
 
