@@ -22,6 +22,7 @@ class StrategyWrapper:
             self.strategy.run_strategy(0.000001)
         except DataFetchException as e:
             print("Backtest complete, stopping client")
+            self.strategy.calculate_net_profit()
             sys.exit(0)
             
         except Exception as e:

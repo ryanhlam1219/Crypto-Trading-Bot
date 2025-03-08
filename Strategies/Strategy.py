@@ -26,5 +26,9 @@ class Strategy(ABC):
         pass
 
     @abstractmethod
+    def calculate_net_profit():
+        pass
+    
+    @abstractmethod
     def run_strategy(self, trade_interval):
         pass
