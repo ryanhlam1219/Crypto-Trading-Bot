@@ -5,15 +5,17 @@ from Strategies.OrderTypes import OrderType, TradeDirection
 from Test.DataFetchException import DataFetchException
 
 class GridTradingStrategy(Strategy):
-    def __init__(self, client, interval, stop_loss_percentage, grid_size=10, num_levels=3):
+    def __init__(self, client, interval, stop_loss_percentage, grid_percentage=1, num_levels=3, min_candles=10):
         super().__init__(client, interval, stop_loss_percentage)
-        self.grid_size = grid_size
+        self.grid_percentage = grid_percentage  # Grid size as a percentage of market price
         self.num_levels = num_levels
+        self.min_candles = min_candles  # Minimum number of candlesticks required before trading
         self.active_trades = []
-        self.closed_trades = []  # Stores completed trades for profit calculations
-        print(f"Initialized GridTradingStrategy with grid size: {self.grid_size}, levels: {self.num_levels}, and stop-loss: {self.stop_loss_percentage}%")
+        self.closed_trades = []
+        self.candlestick_data = []  # Store collected candlestick data
+        print(f"Initialized GridTradingStrategy with grid percentage: {self.grid_percentage}, levels: {self.num_levels}, stop-loss: {self.stop_loss_percentage}%, and min candles: {self.min_candles}")
 
-    def execute_trade(self, price, direction):
+    def execute_trade(self, price, direction, grid_size):
         try:
             if not isinstance(price, (int, float)) or price <= 0:
                 raise ValueError("Invalid price. Price must be a positive number.")
@@ -21,14 +23,14 @@ class GridTradingStrategy(Strategy):
             if direction not in (TradeDirection.BUY, TradeDirection.SELL):
                 raise ValueError("Invalid trade direction. Must be 'buy' or 'sell'.")
 
-            stop_loss = price - (self.grid_size * (self.stop_loss_percentage / 100)) if direction == TradeDirection.BUY \
-                        else price + (self.grid_size * (self.stop_loss_percentage / 100))
-            profit_target = price + self.grid_size if direction == TradeDirection.BUY else price - self.grid_size
+            stop_loss = price - (grid_size * (self.stop_loss_percentage / 100)) if direction == TradeDirection.BUY \
+                        else price + (grid_size * (self.stop_loss_percentage / 100))
+            profit_target = price + grid_size if direction == TradeDirection.BUY else price - grid_size
 
             trade = {"entry": price, "direction": direction.value, "profit_target": profit_target, "stop_loss": stop_loss}
             self.active_trades.append(trade)
 
-            self.client.create_new_order(direction.value, OrderType.LIMIT_ORDER, 1, price=price)
+            self.client.create_new_order(direction.value, OrderType.LIMIT_ORDER, 1)
             print(f"Executed {direction.value} order at {price}. Profit target: {profit_target}, Stop-loss: {stop_loss}")
         except Exception as e:
             print(f"Error executing trade: {e}")
@@ -42,7 +44,7 @@ class GridTradingStrategy(Strategy):
                 trade["exit"] = price
                 trade["profit"] = profit
                 self.closed_trades.append(trade)
-                print(f"Closed {trade['direction']} order at {price}. Profit: {profit}")
+                print(f"Closed {trade['direction']} order at {price}. Profit: ${round(profit,2)}")
         except Exception as e:
             print(f"Error closing trade: {e}")
             traceback.print_exc()
@@ -57,6 +59,7 @@ class GridTradingStrategy(Strategy):
 
             net_profit_percentage = (total_profit / total_entry_amount) * 100
             print(f"Net Profit Percentage: {net_profit_percentage:.2f}%")
+            print(f"Total Profit: ${round(total_profit,2)}")
             return net_profit_percentage
         except Exception as e:
             print(f"Error calculating net profit: {e}")
@@ -79,12 +82,15 @@ class GridTradingStrategy(Strategy):
                 return
 
             self.client.get_account_status()
-            candlestick_data = self.client.get_candle_stick_data(self.interval)
-
-            if not isinstance(candlestick_data, list) or len(candlestick_data) == 0:
-                raise ValueError("Received invalid candlestick data.")
-
-            base_price = self.__extract_latest_price(candlestick_data)
+            
+            while len(self.candlestick_data) < self.min_candles:
+                new_data = self.client.get_candle_stick_data(self.interval)
+                if isinstance(new_data, list):
+                    self.candlestick_data.extend(new_data[-(self.min_candles - len(self.candlestick_data)):])
+                print("Not enough candlestick data collected. Waiting...")
+                time.sleep(trade_interval)
+            
+            base_price = self.__extract_latest_price(self.candlestick_data)
             if base_price is None:
                 print("Failed to retrieve initial price. Exiting strategy.")
                 return
@@ -92,9 +98,11 @@ class GridTradingStrategy(Strategy):
             self.__initialize_grid(base_price)
 
             while True:
-                candlestick_data = self.client.get_candle_stick_data(self.interval)
-                if isinstance(candlestick_data, list) and candlestick_data:
-                    current_price = self.__extract_latest_price(candlestick_data)
+                new_data = self.client.get_candle_stick_data(self.interval)
+                if isinstance(new_data, list):
+                    self.candlestick_data.extend(new_data)
+                    self.candlestick_data = self.candlestick_data[-self.min_candles:]
+                    current_price = self.__extract_latest_price(self.candlestick_data)
                     if current_price is not None:
                         self.check_trades(current_price)
                 time.sleep(trade_interval)
@@ -115,9 +123,10 @@ class GridTradingStrategy(Strategy):
 
     def __initialize_grid(self, base_price):
         try:
+            grid_size = base_price * self.grid_percentage
             for i in range(1, self.num_levels + 1):
-                self.execute_trade(base_price - (i * self.grid_size), TradeDirection.BUY)
-                self.execute_trade(base_price + (i * self.grid_size), TradeDirection.SELL)
+                self.execute_trade(base_price - (i * grid_size), TradeDirection.BUY, grid_size)
+                self.execute_trade(base_price + (i * grid_size), TradeDirection.SELL, grid_size)
         except Exception as e:
             print(f"Error initializing grid: {e}")
             traceback.print_exc()
