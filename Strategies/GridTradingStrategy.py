@@ -1,6 +1,9 @@
 import time
+import traceback
 from Strategies.Strategy import Strategy
 from Strategies.OrderTypes import OrderType, TradeDirection
+from Test.DataFetchException import DataFetchException
+
 
 class GridTradingStrategy(Strategy):
     """
@@ -72,10 +75,13 @@ class GridTradingStrategy(Strategy):
 
         except ValueError as ve:
             print(f"ValueError: {ve}")
+            traceback.print_exc
         except AttributeError as ae:
             print(f"AttributeError: {ae}")
+            traceback.print_exc
         except Exception as e:
             print(f"Unexpected error during trade execution: {e}")
+            traceback.print_exc
 
 
     def close_trade(self, trade, price):
@@ -119,12 +125,16 @@ class GridTradingStrategy(Strategy):
 
         except ValueError as ve:
             print(f"ValueError: {ve}")
+            traceback.print_exc
         except KeyError as ke:
             print(f"KeyError: {ke}")
+            traceback.print_exc
         except AttributeError as ae:
             print(f"AttributeError: {ae}")
         except Exception as e:
             print(f"Unexpected error during trade closure: {e}")
+            traceback.print_exc
+
 
 
     def check_trades(self, price):
@@ -171,10 +181,13 @@ class GridTradingStrategy(Strategy):
 
         except ValueError as ve:
             print(f"ValueError: {ve}")
+            traceback.print_exc
         except AttributeError as ae:
             print(f"AttributeError: {ae}")
+            traceback.print_exc            
         except Exception as e:
             print(f"Unexpected error while checking trades: {e}")
+            traceback.print_exc
 
 
     def __extract_latest_price(self, candlestick_data):
@@ -205,10 +218,13 @@ class GridTradingStrategy(Strategy):
 
         except ValueError as ve:
             print(f"ValueError: {ve}")
+            traceback.print_exc
         except TypeError as te:
             print(f"TypeError: {te}")
+            traceback.print_exc
         except Exception as e:
             print(f"Unexpected error while extracting latest price: {e}")
+            traceback.print_exc
 
         return None  # Return None if any error occurs
 
@@ -247,18 +263,23 @@ class GridTradingStrategy(Strategy):
                     self.execute_trade(sell_price, TradeDirection.SELL)
                 except Exception as e:
                     print(f"Error executing trade at grid level {i}: {e}")
+                    traceback.print_exc
 
         except ValueError as ve:
             print(f"ValueError: {ve}")
+            traceback.print_exc
         except AttributeError as ae:
             print(f"AttributeError: {ae}")
+            traceback.print_exc
         except Exception as e:
             print(f"Unexpected error while initializing grid: {e}")
+            traceback.print_exc
 
 
-    def run_strategy(self):
+    def run_strategy(self, trade_interval):
         """
         Runs the grid trading strategy in a loop.
+        :param trade_interval: the interval in seconds to wait before fetching the updated market price
         """
         try:
             print("Starting grid trading strategy...")
@@ -301,31 +322,25 @@ class GridTradingStrategy(Strategy):
 
             # Start trading loop
             while True:
-                try:
-                    print("Fetching latest market price...")
-                    candlestick_data = self.client.get_candle_stick_data(self.interval)
+                print("Fetching latest market price...")
+                candlestick_data = self.client.get_candle_stick_data(self.interval)
 
-                    if not isinstance(candlestick_data, list) or len(candlestick_data) == 0:
-                        print("Warning: Received empty or invalid candlestick data. Skipping this iteration.")
-                        continue
+                if not isinstance(candlestick_data, list) or len(candlestick_data) == 0:
+                    print("Warning: Received empty or invalid candlestick data. Skipping this iteration.")
+                    continue
 
-                    current_price = self.__extract_latest_price(candlestick_data)
-                    if current_price is not None:
-                        print(f"Current market price: {current_price}")
-                        self.check_trades(current_price)
-                    else:
-                        print("Failed to extract latest price. Skipping this iteration.")
+                current_price = self.__extract_latest_price(candlestick_data)
+                if current_price is not None:
+                    print(f"Current market price: {current_price}")
+                    self.check_trades(current_price)
+                else:
+                    print("Failed to extract latest price. Skipping this iteration.")
 
-                    print(f"Waiting for {self.interval} minute(s) before next price update...")
-                    time.sleep(self.interval * 60)
-
-                except Exception as e:
-                    print(f"Unexpected error in trading loop: {e}")
-                    time.sleep(5)  # Short delay before retrying to avoid continuous failures
-
+                print(f"Waiting for {trade_interval} seconds before initiating next trade")
+                time.sleep(trade_interval)
         except ValueError as ve:
             print(f"ValueError: {ve}")
+            traceback.print_exc
         except AttributeError as ae:
             print(f"AttributeError: {ae}")
-        except Exception as e:
-            print(f"Unexpected error while running strategy: {e}")
+            traceback.print_exc

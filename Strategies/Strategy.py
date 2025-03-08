@@ -26,5 +26,5 @@ class Strategy(ABC):
         pass
 
     @abstractmethod
-    def run_strategy(self):
+    def run_strategy(self, trade_interval):
         pass

@@ -27,3 +27,7 @@ class Exchange(ABC):
     @abstractmethod
     def get_account_status():
         pass
+
+    @abstractmethod
+    def create_new_order():
+        pass

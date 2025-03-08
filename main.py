@@ -7,7 +7,7 @@ from decouple import config
 
 # Local imports
 import Exchanges
-import csv
+import Test
 
 # Constants for configuration keys
 EXCHANGE_NAME = "exchange_name"
@@ -20,6 +20,7 @@ CURRENCY = "currency"
 ASSET = "asset"
 API_KEY = "key"
 API_SECRET = "secret"
+TRADE_INTERVAL = "trade_interval"
 TEST_DATA_DIRECTORY = "Test/HistoricalData"
 
 def load_configuration():
@@ -34,7 +35,8 @@ def load_configuration():
         CURRENCY: config('CURRENCY'),
         ASSET: config('ASSET'),
         API_KEY: config('API_KEY'),
-        API_SECRET: config('API_SECRET')
+        API_SECRET: config('API_SECRET'),
+        TRADE_INTERVAL: config('TRADE_INTERVAL')
     }
 
 def signal_handler(signal, frame):
@@ -57,8 +59,8 @@ def handle_cli_arguments(currency, asset):
 
 def initialize_exchange_client(exchange_name, key, secret, currency, asset):
     """Dynamically imports and initializes the exchange client."""
-    exchange_module = importlib.import_module(f"Exchanges.{exchange_name.capitalize()}")
-    exchange_class = getattr(exchange_module, exchange_name.capitalize())
+    exchange_module = importlib.import_module(f"Exchanges.{exchange_name}")
+    exchange_class = getattr(exchange_module, exchange_name)
     return exchange_class(key, secret, currency, asset)
 
 def initialize_strategy(strategy_name, client, interval):
@@ -84,7 +86,7 @@ def run_trading_mode(config):
 
         # Initialize and run the strategy
         strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL])
-        strategy_instance.run_strategy()
+        strategy_instance.run_strategy(config[TRADE_INTERVAL])
 
         # Keep script running
         threading.Event().wait()
@@ -103,14 +105,26 @@ def run_trading_mode(config):
 
 def run_test_mode(config):
     """Runs the bot in test mode."""
+
+    # Connect to Test Client
     print("BackTest mode enabled...")
-    print("Using Test Binance Client for collecting data...")
-    yearsPast = 1
+    print(f"Using {config[EXCHANGE_NAME]}BacktestClient for collecting data...")
     currency, asset = handle_cli_arguments(config[CURRENCY], config[ASSET])
-    TestClient = Exchanges.BacktestClient(config[API_KEY], config[API_SECRET], currency, asset)
+    TestClient = initialize_exchange_client(f"{config[EXCHANGE_NAME]}BacktestClient", config[API_KEY], config[API_SECRET], currency, asset)
+
+    # Collect Historical Data
+    yearsPast = 1
+    print(f"Writing Historical Data for past {yearsPast} year(s) with interval of {config[INTERVAL]} minute")
     historicalData = TestClient.get_historical_candle_stick_data(config[INTERVAL], yearsPast)
-    print(f"Writing Historical Data for past {yearsPast} year(s) with interval of {config[INTERVAL]}")
     TestClient.write_candlestick_to_csv(historicalData, f"{TEST_DATA_DIRECTORY}/past-{yearsPast}-years-historical-data-{currency}{asset}.csv")
+    
+    # Initialize Strategy and Strategy Wrapper
+    strategy_instance = initialize_strategy(config[STRATEGY], TestClient, config[INTERVAL])
+    strategy_wrapper = Test.StrategyWrapper(strategy_instance)
+
+    # Execute the Backtest
+    strategy_wrapper.run_strategy()
+
 
 if __name__ == "__main__":
     # Register signal handler
