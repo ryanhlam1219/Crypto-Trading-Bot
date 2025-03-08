@@ -105,15 +105,18 @@ class TestExchange(Exchange):
         req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
         return req.text
 
-    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity):
+    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None, time_in_force="GTC"):
         """
-        Creates a new test order on Binance US.
-        
+        Creates a new order on Binance US.
+
         :param direction: Trade direction (buy/sell).
         :param order_type: Type of order to place.
         :param quantity: Quantity of the asset to trade.
+        :param price: Price for limit orders (optional, required for LIMIT orders).
+        :param time_in_force: Time-in-force policy (default: "GTC").
         """
         uri_path = "/api/v3/order/test"
+
         data = {
             "symbol": self.currency_asset,
             "side": direction,
@@ -121,9 +124,17 @@ class TestExchange(Exchange):
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))
         }
-        
+
+        # Ensure price is included for LIMIT orders
+        if order_type == OrderType.LIMIT_ORDER:
+            if price is None:
+                raise ValueError("Price must be provided for LIMIT orders.")
+            data["price"] = price
+            data["timeInForce"] = time_in_force  # Required for limit orders
+
         result = self.__submit_post_request(uri_path, data)
         print("POST {}: {}".format(uri_path, result))
+
 
     @staticmethod
     def __get_binance_order_type(order_type: OrderType):
