@@ -39,12 +39,12 @@ class GridTradingStrategy(Strategy):
         # Store trade details
         trade = {
             "entry": price,
-            "direction": direction,
+            "direction": direction.value,
             "profit_target": profit_target,
             "stop_loss": stop_loss
         }
         self.active_trades.append(trade)
-        self.client.create_new_order(direction, OrderType.LIMIT_ORDER, 1)
+        self.client.create_new_order(direction.value, OrderType.LIMIT_ORDER, 1, price=price)
 
         print(f"Executed {direction} order at {price}. Profit target: {profit_target}, Stop-loss: {stop_loss}")
 
@@ -97,7 +97,7 @@ class GridTradingStrategy(Strategy):
         :param base_price: The current market price used as the grid center.
         """
         print("Initializing grid levels...")
-        for i in range(self.num_levels):
+        for i in range(1, self.num_levels + 1):
             buy_price = base_price - (i * self.grid_size)
             self.execute_trade(buy_price, TradeDirection.BUY)
             sell_price = base_price + (i * self.grid_size)
