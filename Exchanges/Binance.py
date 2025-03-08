@@ -26,10 +26,7 @@ class Binance(Exchange):
         :param currency: Base currency (e.g., USD).
         :param asset: Trading asset (e.g., BTC).
         """
-        self.apiKey = key
-        self.apiSecret = secret
-        self.name = None
-        self.currency_asset = currency + asset
+        super().__init__(key, secret, currency, asset)
 
     def __get_binanceus_signature(self, data, secret):
         """
@@ -105,15 +102,18 @@ class Binance(Exchange):
         req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
         return req.text
 
-    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity):
+    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None, time_in_force="GTC"):
         """
-        Creates a new test order on Binance US.
-        
+        Creates a new order on Binance US.
+
         :param direction: Trade direction (buy/sell).
         :param order_type: Type of order to place.
         :param quantity: Quantity of the asset to trade.
+        :param price: Price for limit orders (optional, required for LIMIT orders).
+        :param time_in_force: Time-in-force policy (default: "GTC").
         """
-        uri_path = "/api/v3/order"
+        uri_path = "/api/v3/order/test"
+
         data = {
             "symbol": self.currency_asset,
             "side": direction,
@@ -121,7 +121,14 @@ class Binance(Exchange):
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))
         }
-        
+
+        # Ensure price is included for LIMIT orders
+        if order_type == OrderType.LIMIT_ORDER:
+            if price is None:
+                raise ValueError("Price must be provided for LIMIT orders.")
+            data["price"] = price
+            data["timeInForce"] = time_in_force  # Required for limit orders
+
         result = self.__submit_post_request(uri_path, data)
         print("POST {}: {}".format(uri_path, result))
 
@@ -143,6 +150,6 @@ class Binance(Exchange):
         }
 
         if order_type in order_mapping:
-            return order_mapping[order_type]
+            return str(order_mapping[order_type])
         else:
             raise ValueError(f"Unsupported order type: {order_type}")
