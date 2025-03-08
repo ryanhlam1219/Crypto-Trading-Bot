@@ -11,7 +11,7 @@ from datetime import datetime
 from math import floor
 from Exchanges.exchange import Exchange
 
-class Binance(Exchange):
+class TestExchange(Exchange):
     api_url = "https://api.binance.us"
 
     def __init__(self, key: str, secret: str, currency: str, asset: str):
@@ -83,7 +83,7 @@ class Binance(Exchange):
         return req.text
 
     def create_new_order(self, side, order_type, quantity):
-        uri_path = "/api/v3/order"
+        uri_path = "/api/v3/order/test"
         data = {
             "symbol": self.currency_asset,
             "side": side,
