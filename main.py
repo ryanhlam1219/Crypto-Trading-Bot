@@ -73,35 +73,22 @@ def run_trading_mode(config):
     """Runs the bot in real trading mode."""
     # Handle CLI arguments
     currency, asset = handle_cli_arguments(config["currency"], config["asset"])
-    try:
-        if config[TRADING_MODE] == "real": 
-            print("*** Caution: Real trading mode activated ***")
-            print(f"Connecting to {config['exchange_name']} exchange...")
-            # Initialize Exchange Client
-            client = initialize_exchange_client(config["exchange_name"], config["key"], config["secret"], currency, asset)
-        elif config[TRADING_MODE] == "test":
-            print("*** Live Testing Mode Enabled ***")
-            print("Using Test Binance Client for strategy testing...")
-            client = Exchanges.TestExchange(config[API_KEY], config[API_SECRET], currency, asset)
+    if config[TRADING_MODE] == "real": 
+        print("*** Caution: Real trading mode activated ***")
+        print(f"Connecting to {config['exchange_name']} exchange...")
+        # Initialize Exchange Client
+        client = initialize_exchange_client(config["exchange_name"], config["key"], config["secret"], currency, asset)
+    elif config[TRADING_MODE] == "test":
+        print("*** Live Testing Mode Enabled ***")
+        print("Using Test Binance Client for strategy testing...")
+        client = Exchanges.TestExchange(config[API_KEY], config[API_SECRET], currency, asset)
 
-        # Initialize and run the strategy
-        strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL])
-        strategy_instance.run_strategy(config[TRADE_INTERVAL])
+    # Initialize and run the strategy
+    strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL])
+    strategy_instance.run_strategy(int(config[TRADE_INTERVAL]))
 
-        # Keep script running
-        threading.Event().wait()
-
-    except (ModuleNotFoundError, AttributeError):
-        print(f"Error: Strategy '{config[STRATEGY]}' not found. Check configuration and imports.")
-        sys.exit(1)
-    
-    except ValueError as e:
-        print(f"Value Error: {e}")
-        sys.exit(1)
-
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        sys.exit(1)
+    # Keep script running
+    threading.Event().wait()
 
 def run_test_mode(config):
     """Runs the bot in test mode."""
@@ -113,8 +100,8 @@ def run_test_mode(config):
     TestClient = initialize_exchange_client(f"{config[EXCHANGE_NAME]}BacktestClient", config[API_KEY], config[API_SECRET], currency, asset)
 
     # Collect Historical Data
-    yearsPast = 1
-    print(f"Writing Historical Data for past {yearsPast} year(s) with interval of {config[INTERVAL]} minute")
+    yearsPast = 5
+    print(f"Writing Historical Data for past {yearsPast} year(s) with interval of {config[INTERVAL]} minutes")
     historicalData = TestClient.get_historical_candle_stick_data(config[INTERVAL], yearsPast)
     TestClient.write_candlestick_to_csv(historicalData, f"{TEST_DATA_DIRECTORY}/past-{yearsPast}-years-historical-data-{currency}{asset}.csv")
     

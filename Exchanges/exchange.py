@@ -9,7 +9,6 @@ class Exchange(ABC):
     def __init__(self, key: str, secret: str, currency: str, asset: str):
         self.apiKey = key
         self.apiSecret = secret
-        self.name = None
         self.currency = currency
         self.asset = asset
         self.currency_asset = currency + asset

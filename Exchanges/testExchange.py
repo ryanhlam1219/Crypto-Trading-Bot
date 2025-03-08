@@ -26,7 +26,7 @@ class TestExchange(Exchange):
         :param currency: Base currency (e.g., USD).
         :param asset: Trading asset (e.g., BTC).
         """
-        super.__init__(key, secret, currency, asset)
+        super().__init__(key, secret, currency, asset)
 
     def __get_binanceus_signature(self, data, secret):
         """
