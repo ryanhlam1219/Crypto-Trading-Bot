@@ -12,6 +12,7 @@ class Exchange(ABC):
         self.name = None
         self.currency = currency
         self.asset = asset
+        self.currency_asset = currency + asset
 
     # abstract methods
 
