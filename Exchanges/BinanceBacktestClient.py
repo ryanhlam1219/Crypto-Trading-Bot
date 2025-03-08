@@ -8,13 +8,13 @@ import json
 import threading
 import csv
 
-
 from datetime import datetime, timedelta
 from math import floor
 from Exchanges.exchange import Exchange
 from Test.DataFetchException import DataFetchException
 from Strategies.OrderTypes import OrderType
 from Strategies.OrderTypes import TradeDirection
+from threading import Lock
 
 class BinanceBacktestClient(Exchange):
     api_url = "https://api.binance.us"
@@ -27,14 +27,14 @@ class BinanceBacktestClient(Exchange):
         self.test_data = []
         self.testIndex = 0
 
-    def __fetch_candle_data_from_time_interval(self, interval, start_time, end_time, results_lock):
+    def __fetch_candle_data_from_time_interval(self, interval, start_time, end_time, results_lock: Lock):
         """
-        Fetches candlestick data for a given time range and stores unique values in results.
+        Fetches candlestick data for a given time range and stores unique values in self.test_data.
         Uses a lock to prevent concurrent modification issues.
         """
         uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m'
         limit = 1000
-        local_data = []  # Store local data to reduce thread contention
+        local_data = []  # List to store data before merging into test_data
 
         while start_time < end_time:
             response = requests.get(f'{self.api_url}{uri_path}&startTime={start_time}&limit={limit}')
@@ -43,18 +43,22 @@ class BinanceBacktestClient(Exchange):
                 print(f"Error fetching data: {response.status_code}, {response.text}")
                 break
 
-            json_data = json.loads(response.text)
+            json_data = response.json()  # Directly parse JSON response
             if not json_data:
                 break
 
-            local_data.extend(json_data)  # Use extend() instead of append()
+            # Ensure each element in json_data is a list before adding
+            if all(isinstance(item, list) for item in json_data):
+                local_data.extend(json_data)
+            else:
+                print("Warning: Received data is not a list of lists")
 
             start_time = json_data[-1][0] + 1  # Move to the next batch
             time.sleep(0.2)
 
         # Merge local data into self.test_data in a thread-safe way
         with results_lock:
-            self.test_data.extend(local_data)  # Use extend() instead of append()
+            self.test_data.extend(local_data)  # Ensures test_data remains a list of lists
 
     @staticmethod
     def __get_binance_order_type(order_type: OrderType):
@@ -117,17 +121,24 @@ class BinanceBacktestClient(Exchange):
     def get_candle_stick_data(self, interval):
         """
         Fetches the latest candlestick (Kline) data for the given interval.
-        Exits program once all results have been completed.
+        Ensures that the returned value is always a list of lists.
         """
         if self.testIndex >= len(self.test_data):
             raise DataFetchException("No more candlestick data available", error_code=404)
 
-        mockCandleStickData = self.test_data[self.testIndex]  # This should now be a single list, not nested
+        mockCandleStickData = self.test_data[self.testIndex]
         self.testIndex += 1
-        dataAccessPercentage = 100.00 * (self.testIndex/len(self.test_data))
+        dataAccessPercentage = 100.00 * (self.testIndex / len(self.test_data))
         print(f"Completion Percentage: {dataAccessPercentage}%")
 
-        return mockCandleStickData if isinstance(mockCandleStickData[0], list) else [mockCandleStickData]
+        # **Ensure safety: Always return a list of lists**
+        if not isinstance(mockCandleStickData, list):
+            mockCandleStickData = [[mockCandleStickData]]
+        elif not all(isinstance(item, list) for item in mockCandleStickData):
+            mockCandleStickData = [mockCandleStickData] 
+
+        return mockCandleStickData
+
 
     def write_candlestick_to_csv(self, data, filename="candlestick_data.csv"):
         """

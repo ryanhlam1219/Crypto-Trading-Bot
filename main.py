@@ -100,7 +100,7 @@ def run_test_mode(config):
     TestClient = initialize_exchange_client(f"{config[EXCHANGE_NAME]}BacktestClient", config[API_KEY], config[API_SECRET], currency, asset)
 
     # Collect Historical Data
-    yearsPast = 5
+    yearsPast = 1
     print(f"Writing Historical Data for past {yearsPast} year(s) with interval of {config[INTERVAL]} minutes")
     historicalData = TestClient.get_historical_candle_stick_data(config[INTERVAL], yearsPast)
     TestClient.write_candlestick_to_csv(historicalData, f"{TEST_DATA_DIRECTORY}/past-{yearsPast}-years-historical-data-{currency}{asset}.csv")

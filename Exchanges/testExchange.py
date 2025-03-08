@@ -83,7 +83,7 @@ class TestExchange(Exchange):
         :param interval: Time interval in minutes for the candlestick data.
         :return: JSON response containing candlestick data.
         """
-        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m'
+        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m&limit=1'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
         return json_data
