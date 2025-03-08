@@ -6,9 +6,8 @@ import importlib
 from decouple import config
 
 # Local imports
-import Strategies
 import Exchanges
-import BackTest
+import csv
 
 # Constants for configuration keys
 EXCHANGE_NAME = "exchange_name"
@@ -21,6 +20,7 @@ CURRENCY = "currency"
 ASSET = "asset"
 API_KEY = "key"
 API_SECRET = "secret"
+TEST_DATA_DIRECTORY = "Test/HistoricalData"
 
 def load_configuration():
     """Loads configuration from environment variables."""
@@ -47,6 +47,7 @@ def handle_cli_arguments(currency, asset):
     if len(sys.argv) > 1:
         currencies = sys.argv[1].split('_')
         if len(currencies) > 1:
+            print(f'Using Currency and Asset: [{currencies[0]}, {currencies[1]}]')
             return currencies[0], currencies[1]
         else:
             raise ValueError(f"Invalid keyboard input when executing bot: '{sys.argv[1]}'")
@@ -79,17 +80,17 @@ def run_trading_mode(config):
         elif config[TRADING_MODE] == "test":
             print("*** Live Testing Mode Enabled ***")
             print("Using Test Binance Client for strategy testing...")
-            client = Exchanges.TestExchange(config["key"], config["secret"], currency, asset)
+            client = Exchanges.TestExchange(config[API_KEY], config[API_SECRET], currency, asset)
 
         # Initialize and run the strategy
-        strategy_instance = initialize_strategy(config["strategy"], client, config["interval"])
+        strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL])
         strategy_instance.run_strategy()
 
         # Keep script running
         threading.Event().wait()
 
     except (ModuleNotFoundError, AttributeError):
-        print(f"Error: Strategy '{config['strategy']}' not found. Check configuration and imports.")
+        print(f"Error: Strategy '{config[STRATEGY]}' not found. Check configuration and imports.")
         sys.exit(1)
     
     except ValueError as e:
@@ -100,10 +101,16 @@ def run_trading_mode(config):
         print(f"Unexpected error: {e}")
         sys.exit(1)
 
-def run_test_mode():
+def run_test_mode(config):
     """Runs the bot in test mode."""
     print("BackTest mode enabled...")
-    BackTest.executeScript()
+    print("Using Test Binance Client for collecting data...")
+    yearsPast = 1
+    currency, asset = handle_cli_arguments(config[CURRENCY], config[ASSET])
+    TestClient = Exchanges.BacktestClient(config[API_KEY], config[API_SECRET], currency, asset)
+    historicalData = TestClient.get_historical_candle_stick_data(config[INTERVAL], yearsPast)
+    print(f"Writing Historical Data for past {yearsPast} year(s) with interval of {config[INTERVAL]}")
+    TestClient.write_candlestick_to_csv(historicalData, f"{TEST_DATA_DIRECTORY}/past-{yearsPast}-years-historical-data-{currency}{asset}.csv")
 
 if __name__ == "__main__":
     # Register signal handler
@@ -113,8 +120,8 @@ if __name__ == "__main__":
     config_data = load_configuration()
 
     if config_data[MODE] == "backtest":
-        run_test_mode()
+        run_test_mode(config_data)
     elif config_data[MODE] == "trade":
         run_trading_mode(config_data)
     else:
-        raise ValueError(f'Incorrect mode provided in .env: {config_data[MODE]}')
+        raise ValueError(f'Incorrect Mode value provided in .env: {config_data[MODE]}')
