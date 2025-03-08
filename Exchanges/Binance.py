@@ -6,92 +6,143 @@ import requests
 import time
 import json
 
-
 from datetime import datetime
 from math import floor
 from Exchanges.exchange import Exchange
+from Strategies.OrderTypes import OrderType, TradeDirection
 
 class Binance(Exchange):
+    """
+    A class representing an exchange for testing purposes, specifically interfacing with Binance US.
+    """
     api_url = "https://api.binance.us"
 
     def __init__(self, key: str, secret: str, currency: str, asset: str):
+        """
+        Initializes the TestExchange instance with API credentials and trading pair information.
+        
+        :param key: API key for authentication.
+        :param secret: API secret for signing requests.
+        :param currency: Base currency (e.g., USD).
+        :param asset: Trading asset (e.g., BTC).
+        """
         self.apiKey = key
         self.apiSecret = secret
         self.name = None
         self.currency_asset = currency + asset
 
-    # Generates an endpoint signature for get requests associated with the user's account
-    # @Param data: the data required to send to the endpoint
-    # @Param secret: the user's secret key
-    def get_binanceus_signature(self, data, secret):
+    def __get_binanceus_signature(self, data, secret):
+        """
+        Generates an HMAC SHA256 signature for Binance US API requests.
+        
+        :param data: Dictionary containing the request parameters.
+        :param secret: API secret key used for signing.
+        :return: Hexadecimal representation of the HMAC signature.
+        """
         postdata = urllib.parse.urlencode(data)
         message = postdata.encode()
         byte_key = bytes(secret, 'UTF-8')
         mac = hmac.new(byte_key, message, hashlib.sha256).hexdigest()
         return mac
 
-    # Submits a get request for a user with a given endpoint signature
-    # @Param uri_path: the API endpoint path to use in order to submit the request
-    # @Param data: the Payload to submit as part of the GET request
-    def submit_get_request(self, uri_path, data):
-        headers = {}
-        headers['X-MBX-APIKEY'] = self.apiKey
-        signature = self.get_binanceus_signature(data, self.apiSecret)
-        payload={
-            **data,
-            "signature": signature,
-        }
+    def __submit_get_request(self, uri_path, data):
+        """
+        Submits an authenticated GET request to the Binance US API.
+        
+        :param uri_path: API endpoint path.
+        :param data: Dictionary containing request parameters.
+        :return: Response object from the GET request.
+        """
+        headers = {'X-MBX-APIKEY': self.apiKey}
+        signature = self.__get_binanceus_signature(data, self.apiSecret)
+        payload = {**data, "signature": signature}
         response = requests.get((self.api_url + uri_path), params=payload, headers=headers)
         return response
 
-    # @Override
-    # returns the connection status to Binance US
     def get_connectivity_status(self):
+        """
+        Checks the connection status to Binance US.
+        
+        :return: True if the API is reachable, otherwise False.
+        """
         uri_path = '/api/v3/ping'
         response = requests.get(self.api_url + uri_path)
         return True if response.text == '{}' else False
     
-    # returns the user's account status
     def get_account_status(self):
+        """
+        Fetches and prints the user's Binance US account status.
+        """
         uri_path = '/sapi/v3/accountStatus'
-        data = {
-            "timestamp": int(round(time.time() * 1000)),
-        }
-        response = self.submit_get_request(uri_path, data)
+        data = {"timestamp": int(round(time.time() * 1000))}
+        response = self.__submit_get_request(uri_path, data)
         print("Account status:")
         print(json.dumps(json.loads(response.text), indent=2))
 
-    # @Override
-    # Pulls the current candlestick data for a given symbol
-    # @Param interval: the interval in minutes for which to fetch candlestick data 
     def get_candle_stick_data(self, interval):
-        uri_path = '/api/v3/klines?symbol=' + self.currency_asset + f'&interval={interval}m'
+        """
+        Retrieves candlestick (K-line) data for the trading pair.
+        
+        :param interval: Time interval in minutes for the candlestick data.
+        :return: JSON response containing candlestick data.
+        """
+        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
         return json_data
 
-    # Attaches auth headers and returns results of a POST request
-    def submit_post_request(self, uri_path, data):
-        headers = {}
-        headers['X-MBX-APIKEY'] = self.apiKey
-        signature = self.get_binanceus_signature(data, self.apiSecret)
-        payload={
-            **data,
-            "signature": signature,
-            }
+    def __submit_post_request(self, uri_path, data):
+        """
+        Submits an authenticated POST request to the Binance US API.
+        
+        :param uri_path: API endpoint path.
+        :param data: Dictionary containing request parameters.
+        :return: Response text from the POST request.
+        """
+        headers = {'X-MBX-APIKEY': self.apiKey}
+        signature = self.__get_binanceus_signature(data, self.apiSecret)
+        payload = {**data, "signature": signature}
         req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
         return req.text
 
-    def create_new_order(self, side, order_type, quantity):
+    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity):
+        """
+        Creates a new test order on Binance US.
+        
+        :param direction: Trade direction (buy/sell).
+        :param order_type: Type of order to place.
+        :param quantity: Quantity of the asset to trade.
+        """
         uri_path = "/api/v3/order"
         data = {
             "symbol": self.currency_asset,
-            "side": side,
-            "type": order_type,
+            "side": direction,
+            "type": self.__get_binance_order_type(order_type),
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))
         }
-
-        result = self.submit_post_request(uri_path, data, self.api_key, self.secret_key)
+        
+        result = self.__submit_post_request(uri_path, data)
         print("POST {}: {}".format(uri_path, result))
 
+    @staticmethod
+    def __get_binance_order_type(order_type: OrderType):
+        """
+        Converts a custom order type to a Binance-compatible order type.
+        
+        :param order_type: Custom order type.
+        :return: Binance-compatible order type.
+        :raises ValueError: If the order type is not supported.
+        """
+        order_mapping = {
+            OrderType.LIMIT_ORDER: "LIMIT",
+            OrderType.MARKET_ORDER: "MARKET",
+            OrderType.STOP_LIMIT_ORDER: "STOP_LOSS_LIMIT",
+            OrderType.TAKE_PROFIT_LIMIT_ORDER: "TAKE_PROFIT_LIMIT",
+            OrderType.LIMIT_MAKER_ORDER: "LIMIT_MAKER"
+        }
+
+        if order_type in order_mapping:
+            return order_mapping[order_type]
+        else:
+            raise ValueError(f"Unsupported order type: {order_type}")
