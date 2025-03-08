@@ -20,7 +20,7 @@ class Exchange(ABC):
         pass
 
     @abstractmethod
-    def get_candle_stick_data(currency:str, asset:str) -> list[list]:
+    def get_candle_stick_data() -> list[list]:
         pass
 
     @abstractmethod

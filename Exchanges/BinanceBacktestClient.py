@@ -96,7 +96,7 @@ class BinanceBacktestClient(Exchange):
         """
         print("Account status: Mocked due to Binance BacktestClient usage")
 
-    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity):
+    def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None):
         """
         Mocks a new order for Backtesting
 

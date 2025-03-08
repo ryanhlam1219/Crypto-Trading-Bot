@@ -30,7 +30,7 @@ class GridTradingStrategy(Strategy):
             trade = {"entry": price, "direction": direction.value, "profit_target": profit_target, "stop_loss": stop_loss}
             self.active_trades.append(trade)
 
-            self.client.create_new_order(direction.value, OrderType.LIMIT_ORDER, 1)
+            self.client.create_new_order(direction.value, OrderType.LIMIT_ORDER, 1, price=price)
             print(f"Executed {direction.value} order at {price}. Profit target: {profit_target}, Stop-loss: {stop_loss}")
         except Exception as e:
             print(f"Error executing trade: {e}")

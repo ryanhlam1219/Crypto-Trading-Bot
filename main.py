@@ -65,6 +65,7 @@ def initialize_exchange_client(exchange_name, key, secret, currency, asset):
 
 def initialize_strategy(strategy_name, client, interval):
     """Dynamically imports and initializes the strategy."""
+    print(f"Using {strategy_name} to determine trades")
     strategy_module = importlib.import_module(f"Strategies.{strategy_name}")
     strategy_class = getattr(strategy_module, strategy_name)
     return strategy_class(client, interval, 5)
