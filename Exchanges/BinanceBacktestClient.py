@@ -109,7 +109,7 @@ class BinanceBacktestClient(Exchange):
 
         data = {
             "symbol": self.currency_asset,
-            "side": direction,
+            "side": direction._value_,
             "type": self.__get_binance_order_type(order_type),
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))

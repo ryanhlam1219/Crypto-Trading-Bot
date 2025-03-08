@@ -116,7 +116,7 @@ class TestExchange(Exchange):
 
         data = {
             "symbol": self.currency_asset,
-            "side": direction,
+            "side": direction.value,
             "type": self.__get_binance_order_type(order_type),
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))
