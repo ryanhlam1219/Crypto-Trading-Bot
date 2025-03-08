@@ -1,7 +1,11 @@
 import time
 from Strategies.Strategy import Strategy
+from Strategies.OrderTypes import OrderType, TradeDirection
 
 class GridTradingStrategy(Strategy):
+    """
+    A strategy that places buy and sell orders at predefined price levels (grid trading).
+    """
     def __init__(self, client, interval, stop_loss_percentage, grid_size=10, num_levels=3):
         """
         Initializes the grid trading strategy.
@@ -26,11 +30,11 @@ class GridTradingStrategy(Strategy):
         :param direction: "buy" or "sell".
         """
         # Calculate stop-loss based on direction
-        stop_loss = price - (self.grid_size * (self.stop_loss_percentage / 100)) if direction == "buy" \
+        stop_loss = price - (self.grid_size * (self.stop_loss_percentage / 100)) if direction == TradeDirection.BUY \
                     else price + (self.grid_size * (self.stop_loss_percentage / 100))
 
         # Set profit target at a fixed grid level
-        profit_target = price + self.grid_size if direction == "buy" else price - self.grid_size
+        profit_target = price + self.grid_size if direction == TradeDirection.BUY else price - self.grid_size
 
         # Store trade details
         trade = {
@@ -39,8 +43,9 @@ class GridTradingStrategy(Strategy):
             "profit_target": profit_target,
             "stop_loss": stop_loss
         }
-
         self.active_trades.append(trade)
+        self.client.create_new_order(direction, OrderType.LIMIT_ORDER, 1)
+
         print(f"Executed {direction} order at {price}. Profit target: {profit_target}, Stop-loss: {stop_loss}")
 
     def close_trade(self, trade, price):
@@ -50,11 +55,8 @@ class GridTradingStrategy(Strategy):
         :param trade: The trade dictionary containing trade details.
         :param price: The price at which the trade is closed.
         """
-        # Calculate profit or loss based on direction
-        profit = (price - trade["entry"]) if trade["direction"] == "buy" else (trade["entry"] - price)
+        profit = (price - trade["entry"]) if trade["direction"] == TradeDirection.BUY else (trade["entry"] - price)
         print(f"Closed {trade['direction']} order at {price}. Profit: {profit}")
-
-        # Remove the closed trade from active trades
         self.active_trades.remove(trade)
 
     def check_trades(self, price):
@@ -64,19 +66,16 @@ class GridTradingStrategy(Strategy):
         :param price: The current market price.
         """
         for trade in self.active_trades[:]:  # Iterate over a copy to allow modification
-            # Check if profit target is reached
-            if (trade["direction"] == "buy" and price >= trade["profit_target"]) or \
-               (trade["direction"] == "sell" and price <= trade["profit_target"]):
+            if (trade["direction"] == TradeDirection.BUY and price >= trade["profit_target"]) or \
+               (trade["direction"] == TradeDirection.SELL and price <= trade["profit_target"]):
                 print("Profit target reached. Closing trade.")
                 self.close_trade(trade, price)
-
-            # Check if stop-loss is triggered
-            elif (trade["direction"] == "buy" and price <= trade["stop_loss"]) or \
-                 (trade["direction"] == "sell" and price >= trade["stop_loss"]):
+            elif (trade["direction"] == TradeDirection.BUY and price <= trade["stop_loss"]) or \
+                 (trade["direction"] == TradeDirection.SELL and price >= trade["stop_loss"]):
                 print("Stop-loss hit. Closing trade.")
                 self.close_trade(trade, price)
 
-    def extract_latest_price(self, candlestick_data):
+    def __extract_latest_price(self, candlestick_data):
         """
         Extracts the latest closing price from candlestick data.
 
@@ -91,7 +90,7 @@ class GridTradingStrategy(Strategy):
             print("Error: Invalid or empty candlestick data received.")
             return None
 
-    def initialize_grid(self, base_price):
+    def __initialize_grid(self, base_price):
         """
         Initializes grid trades at predefined levels above and below the base price.
 
@@ -99,52 +98,36 @@ class GridTradingStrategy(Strategy):
         """
         print("Initializing grid levels...")
         for i in range(self.num_levels):
-            # Set buy orders below the base price
             buy_price = base_price - (i * self.grid_size)
-            self.execute_trade(buy_price, "buy")
-
-            # Set sell orders above the base price
+            self.execute_trade(buy_price, TradeDirection.BUY)
             sell_price = base_price + (i * self.grid_size)
-            self.execute_trade(sell_price, "sell")
+            self.execute_trade(sell_price, TradeDirection.SELL)
 
     def run_strategy(self):
         """
         Runs the grid trading strategy in a loop.
         """
         print("Starting grid trading strategy...")
-
-        # Ensure connection to the exchange is established
         if not self.client.get_connectivity_status():
             print("Could not establish connection to exchange...")
             return
-
         print("Fetching account status...")
         self.client.get_account_status()
-
-        # Fetch the initial market price to set up the grid
         print("Fetching initial market price...")
         candlestick_data = self.client.get_candle_stick_data(self.interval)
         if not isinstance(candlestick_data, list) or len(candlestick_data) == 0:
             raise ValueError("Received invalid candlestick data")
-
-        base_price = self.extract_latest_price(candlestick_data)
+        base_price = self.__extract_latest_price(candlestick_data)
         if base_price is None:
             print("Failed to retrieve initial price. Exiting strategy.")
             raise ValueError("Failed to retrieve initial price. Exiting strategy.")
-
-        # Set up the initial grid trades
-        self.initialize_grid(base_price)
-
-        # Infinite loop to monitor price movements and manage trades
+        self.__initialize_grid(base_price)
         while True:
             print("Fetching latest market price...")
             candlestick_data = self.client.get_candle_stick_data(self.interval)
-            current_price = self.extract_latest_price(candlestick_data)
-
+            current_price = self.__extract_latest_price(candlestick_data)
             if current_price is not None:
                 print(f"Current market price: {current_price}")
-                self.check_trades(current_price)  # Check for trades to close
-
-            # Wait before fetching the next price update
+                self.check_trades(current_price)
             print(f"Waiting for {self.interval} minute(s) before next price update...")
             time.sleep(self.interval * 60)
