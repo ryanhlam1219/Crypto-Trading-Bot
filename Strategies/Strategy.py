@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
-from Exchanges import Exchange
-from enum import Enum
+from Exchanges.exchange import Exchange
+from Strategies.OrderTypes import TradeDirection
 
-class TradeDirection(Enum):
-    BUY = "BUY"
-    SELL = "SELL"
 
 class Strategy(ABC):
     def __init__(self, client:Exchange, interval:int, stop_loss_percentage:int):
