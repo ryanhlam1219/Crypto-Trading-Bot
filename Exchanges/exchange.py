@@ -1,11 +1,9 @@
 import datetime
 from abc import ABC, abstractmethod
-from twisted.internet import reactor
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from Strategies.OrderTypes import TradeDirection, OrderType  # Only for type hints
-
+    from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
 class Exchange(ABC):
     api_url: str
 
@@ -23,7 +21,7 @@ class Exchange(ABC):
         pass
 
     @abstractmethod
-    def get_candle_stick_data(self) -> list[list]:
+    def get_candle_stick_data(self, interval:int) -> "CandleStickData":
         pass
 
     @abstractmethod

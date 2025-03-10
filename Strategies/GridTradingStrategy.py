@@ -1,7 +1,7 @@
 import time
 import traceback
 from Strategies.Strategy import Strategy
-from Strategies.OrderTypes import OrderType, TradeDirection
+from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
 from Test.DataFetchException import DataFetchException
 
 class GridTradingStrategy(Strategy):
@@ -15,13 +15,10 @@ class GridTradingStrategy(Strategy):
         self.candlestick_data = []  # Store collected candlestick data
         print(f"Initialized GridTradingStrategy with grid percentage: {self.grid_percentage}, levels: {self.num_levels}, stop-loss: {self.stop_loss_percentage}%, and min candles: {self.min_candles}")
 
-    def execute_trade(self, price, direction, grid_size):
+    def execute_trade(self, price: float, direction: TradeDirection, grid_size: float):
         try:
-            if not isinstance(price, (int, float)) or price <= 0:
+            if price <= 0:
                 raise ValueError("Invalid price. Price must be a positive number.")
-
-            if direction not in (TradeDirection.BUY, TradeDirection.SELL):
-                raise ValueError("Invalid trade direction. Must be 'buy' or 'sell'.")
 
             stop_loss = price - (grid_size * (self.stop_loss_percentage / 100)) if direction == TradeDirection.BUY \
                         else price + (grid_size * (self.stop_loss_percentage / 100))
@@ -30,13 +27,14 @@ class GridTradingStrategy(Strategy):
             trade = {"entry": price, "direction": direction.value, "profit_target": profit_target, "stop_loss": stop_loss}
             self.active_trades.append(trade)
 
-            self.client.create_new_order(direction.value, OrderType.LIMIT_ORDER, 1, price=price)
+            # Using create_new_order method with correct args
+            self.client.create_new_order(direction, OrderType.LIMIT_ORDER, 1, price)
             print(f"Executed {direction.value} order at {price}. Profit target: {profit_target}, Stop-loss: {stop_loss}")
         except Exception as e:
             print(f"Error executing trade: {e}")
             traceback.print_exc()
 
-    def close_trade(self, trade, price):
+    def close_trade(self, trade: dict, price: float):
         try:
             if trade in self.active_trades:
                 self.active_trades.remove(trade)
@@ -49,7 +47,7 @@ class GridTradingStrategy(Strategy):
             print(f"Error closing trade: {e}")
             traceback.print_exc()
 
-    def calculate_net_profit(self):
+    def calculate_net_profit(self) -> float:
         try:
             total_profit = sum(trade["profit"] for trade in self.closed_trades)
             total_entry_amount = sum(trade["entry"] for trade in self.closed_trades)
@@ -66,7 +64,7 @@ class GridTradingStrategy(Strategy):
             traceback.print_exc()
             return 0.0
 
-    def check_trades(self, price):
+    def check_trades(self, price: float):
         for trade in self.active_trades[:]:
             if (trade["direction"] == TradeDirection.BUY.value and price >= trade["profit_target"]) or \
                (trade["direction"] == TradeDirection.SELL.value and price <= trade["profit_target"]):
@@ -75,7 +73,7 @@ class GridTradingStrategy(Strategy):
                  (trade["direction"] == TradeDirection.SELL.value and price >= trade["stop_loss"]):
                 self.close_trade(trade, price)
 
-    def run_strategy(self, trade_interval):
+    def run_strategy(self, trade_interval: int):
         try:
             if not self.client.get_connectivity_status():
                 print("Could not establish connection to exchange. Exiting strategy.")
@@ -85,8 +83,8 @@ class GridTradingStrategy(Strategy):
             
             while len(self.candlestick_data) < self.min_candles:
                 new_data = self.client.get_candle_stick_data(self.interval)
-                if isinstance(new_data, list):
-                    self.candlestick_data.extend(new_data[-(self.min_candles - len(self.candlestick_data)):])
+                if isinstance(new_data, CandleStickData):
+                    self.candlestick_data.append(new_data)
                 print("Not enough candlestick data collected. Waiting...")
                 time.sleep(trade_interval)
             
@@ -99,8 +97,8 @@ class GridTradingStrategy(Strategy):
 
             while True:
                 new_data = self.client.get_candle_stick_data(self.interval)
-                if isinstance(new_data, list):
-                    self.candlestick_data.extend(new_data)
+                if isinstance(new_data, CandleStickData):
+                    self.candlestick_data.append(new_data)
                     self.candlestick_data = self.candlestick_data[-self.min_candles:]
                     current_price = self.__extract_latest_price(self.candlestick_data)
                     if current_price is not None:
@@ -112,16 +110,16 @@ class GridTradingStrategy(Strategy):
             print(f"Error in strategy execution: {e}")
             traceback.print_exc()
 
-    def __extract_latest_price(self, candlestick_data):
+    def __extract_latest_price(self, candlestick_data: list) -> float:
         try:
             latest_candle = candlestick_data[-1]
-            return float(latest_candle[4])
+            return latest_candle.close_price 
         except Exception as e:
             print(f"Error extracting latest price: {e}")
             traceback.print_exc()
             return None
 
-    def __initialize_grid(self, base_price):
+    def __initialize_grid(self, base_price: float):
         try:
             grid_size = base_price * self.grid_percentage
             for i in range(1, self.num_levels + 1):

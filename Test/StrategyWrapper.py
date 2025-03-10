@@ -1,6 +1,4 @@
 from Strategies.Strategy import Strategy
-from Exchanges.exchange import Exchange
-from Strategies.OrderTypes import TradeDirection
 from Test.DataFetchException import DataFetchException
 import sys
 import traceback

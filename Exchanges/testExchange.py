@@ -1,15 +1,13 @@
 import urllib.parse
 import hashlib
 import hmac
-import base64
 import requests
 import time
 import json
 
-from datetime import datetime
 from math import floor
 from Exchanges.exchange import Exchange
-from Strategies.OrderTypes import OrderType, TradeDirection
+from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
 
 class TestExchange(Exchange):
     """
@@ -86,7 +84,7 @@ class TestExchange(Exchange):
         uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m&limit=1'
         response = requests.get(self.api_url + uri_path)
         json_data = json.loads(response.text)
-        return json_data
+        return CandleStickData.from_list(json_data[0])
 
     def __submit_post_request(self, uri_path, data):
         """

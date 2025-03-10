@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from Exchanges.exchange import Exchange
-from Strategies.OrderTypes import TradeDirection
+from Strategies.ExhcangeModels import TradeDirection
 
 
 class Strategy(ABC):

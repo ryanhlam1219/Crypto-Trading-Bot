@@ -8,12 +8,10 @@ import json
 import threading
 import csv
 
-from datetime import datetime, timedelta
 from math import floor
 from Exchanges.exchange import Exchange
 from Test.DataFetchException import DataFetchException
-from Strategies.OrderTypes import OrderType
-from Strategies.OrderTypes import TradeDirection
+from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
 from threading import Lock
 
 class BinanceBacktestClient(Exchange):
@@ -137,7 +135,7 @@ class BinanceBacktestClient(Exchange):
         elif not all(isinstance(item, list) for item in mockCandleStickData):
             mockCandleStickData = [mockCandleStickData] 
 
-        return mockCandleStickData
+        return CandleStickData.from_list(mockCandleStickData[0])
 
 
     def write_candlestick_to_csv(self, data, filename="candlestick_data.csv"):
