@@ -1,6 +1,6 @@
 from Strategies.Strategy import Strategy
 from Test.DataFetchException import DataFetchException
-from Exchanges.BinanceBacktestClient import BinanceBacktestClient
+from Exchanges.Test.BinanceBacktestClient import BinanceBacktestClient
 import sys
 import traceback
 
