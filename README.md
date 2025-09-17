@@ -132,12 +132,65 @@ python -m pip install --no-cache-dir -r requirements.txt
 ```
 
 #### 3. Configure Environment
-Update the `.env` file with your Binance.US API credentials:
-```env
-BINANCE_API_KEY="your_api_key_here"
-BINANCE_API_SECRET="your_secret_key_here"
-TRADING_MODE="test"  # or "real" for live trading
+
+**Option A: Automated Setup (Recommended)**
+```bash
+./setup.sh
 ```
+This interactive script will:
+- Copy `.env.example` to `.env`
+- Prompt for your API credentials
+- Help you choose the right trading mode
+- Install dependencies automatically
+
+**Validate Your Configuration:**
+```bash
+python3 validate_env.py
+```
+This script checks your `.env` file for common issues and validates your configuration.
+
+**Option B: Manual Setup**
+
+**Step 1: Copy the example environment file**
+```bash
+cp .env.example .env
+```
+
+**Step 2: Edit the .env file with your API credentials**
+```bash
+# Open .env in your favorite text editor
+nano .env
+# or
+code .env
+```
+
+**Step 3: Replace placeholder values**
+Update these fields in your `.env` file:
+```env
+# Replace with your actual Binance.US API credentials
+API_KEY="your_actual_api_key_here"
+API_SECRET="your_actual_secret_key_here"
+
+# Choose your trading mode
+MODE="backtest"  # Safe for testing
+# MODE="trade"   # For live trading
+
+# Choose your exchange
+EXCHANGE="Binance"  # For live trading
+# EXCHANGE="BinanceBacktestClient"  # For backtesting
+# EXCHANGE="KrakenBacktestClient"   # For Kraken backtesting
+```
+
+**Available Exchanges:**
+- **Live Trading**: `Binance` (requires real API keys)
+- **Backtesting**: `BinanceBacktestClient`, `KrakenBacktestClient`
+- **Test Mode**: `TestExchange` (live data, simulated trades)
+
+**⚠️ Security Best Practices:**
+- Never commit your `.env` file with real API keys to version control
+- Use API keys with limited permissions (trading only, no withdrawals)
+- Start with small amounts when live trading
+- Keep your `.env` file secure and private
 
 ## 💡 Usage
 
@@ -179,13 +232,20 @@ After each trading session, the bot generates comprehensive performance reports 
 Crypto-Trading-Bot/
 ├── main.py                    # Main application entry point
 ├── requirements.txt           # Python dependencies
-├── .env                      # Environment configuration
+├── .env                      # Environment configuration (create from .env.example)
+├── .env.example              # Example environment configuration
+├── setup.sh                  # Automated setup script
+├── validate_env.py           # Configuration validation script
 ├── Utils/
 │   └── MetricsCollector.py   # Performance tracking system
 ├── Exchanges/
 │   ├── exchange.py           # Base exchange interface
-│   ├── Binance.py           # Binance.US implementation
-│   └── BinanceBacktestClient.py  # Backtesting client
+│   ├── Live/
+│   │   └── Binance.py       # Live Binance.US implementation
+│   └── Test/
+│       ├── BinanceBacktestClient.py  # Binance backtesting client
+│       ├── KrakenBacktestClient.py   # Kraken backtesting client
+│       └── testExchange.py           # Test exchange client
 ├── Strategies/
 │   ├── Strategy.py          # Base strategy interface
 │   └── GridTradingStrategy.py   # Grid trading implementation
