@@ -68,3 +68,7 @@ Backtest/Cleaned-CsvData/
 Backtest/CSV-FileNamaes.txt/
 Backtest/CSV-Files/
 Test/HistoricalData/
+
+# Fee collection logs
+Collect-Fees/logs/
+logs/
