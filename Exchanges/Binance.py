@@ -17,16 +17,17 @@ class Binance(Exchange):
     """
     api_url = "https://api.binance.us"
 
-    def __init__(self, key: str, secret: str, currency: str, asset: str):
+    def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector):
         """
-        Initializes the TestExchange instance with API credentials and trading pair information.
+        Initializes the Binance instance with API credentials and trading pair information.
         
         :param key: API key for authentication.
         :param secret: API secret for signing requests.
-        :param currency: Base currency (e.g., USD).
-        :param asset: Trading asset (e.g., BTC).
+        :param currency: The base currency (e.g., USD).
+        :param asset: The trading asset (e.g., BTC).
+        :param metrics_collector: MetricsCollector instance for performance tracking.
         """
-        super().__init__(key, secret, currency, asset)
+        super().__init__(key, secret, currency, asset, metrics_collector)
 
     def __get_binanceus_signature(self, data, secret):
         """
@@ -112,6 +113,7 @@ class Binance(Exchange):
         :param price: Price for limit orders (optional, required for LIMIT orders).
         :param time_in_force: Time-in-force policy (default: "GTC").
         """
+        start_time = time.time()
         uri_path = "/api/v3/order/test"
 
         data = {
@@ -129,8 +131,36 @@ class Binance(Exchange):
             data["price"] = price
             data["timeInForce"] = time_in_force  # Required for limit orders
 
-        result = self.__submit_post_request(uri_path, data)
-        print("POST {}: {}".format(uri_path, result))
+        try:
+            result = self.__submit_post_request(uri_path, data)
+            response_time = time.time() - start_time
+            
+            # Record API call metrics
+            if self.metrics_collector:
+                self.metrics_collector.record_api_call(
+                    endpoint=uri_path,
+                    method="POST",
+                    response_time=response_time,
+                    status_code=200,  # Assuming success if no exception
+                    success=True
+                )
+            
+            print("POST {}: {}".format(uri_path, result))
+            
+        except Exception as e:
+            response_time = time.time() - start_time
+            
+            # Record API error metrics
+            if self.metrics_collector:
+                self.metrics_collector.record_api_call(
+                    endpoint=uri_path,
+                    method="POST",
+                    response_time=response_time,
+                    status_code=500,  # Assuming server error
+                    success=False,
+                    error_message=str(e)
+                )
+            raise
 
     @staticmethod
     def __get_binance_order_type(order_type: OrderType):

@@ -4,15 +4,18 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
+    from Utils.MetricsCollector import MetricsCollector
+
 class Exchange(ABC):
     api_url: str
 
-    def __init__(self, key: str, secret: str, currency: str, asset: str):
+    def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector: "MetricsCollector"):
         self.apiKey = key
         self.apiSecret = secret
         self.currency = currency
         self.asset = asset
         self.currency_asset = currency + asset
+        self.metrics_collector = metrics_collector
 
     # Abstract methods
 
@@ -29,5 +32,5 @@ class Exchange(ABC):
         pass
 
     @abstractmethod
-    def create_new_order(self, direction: "TradeDirection", order_type: "OrderType", quantity: int):
+    def create_new_order(self, direction: "TradeDirection", order_type: "OrderType", quantity: int, price: float = None):
         pass

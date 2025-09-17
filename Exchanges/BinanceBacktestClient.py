@@ -17,11 +17,17 @@ from threading import Lock
 class BinanceBacktestClient(Exchange):
     api_url = "https://api.binance.us"
 
-    def __init__(self, key: str, secret: str, currency: str, asset: str):
+    def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector):
         """
         Initializes BinanceBacktestClient using the Exchange superclass constructor.
+        
+        :param key: API key for authentication.
+        :param secret: API secret for signing requests.
+        :param currency: The base currency (e.g., USD).
+        :param asset: The trading asset (e.g., BTC).
+        :param metrics_collector: MetricsCollector instance for performance tracking.
         """
-        super().__init__(key, secret, currency, asset)  # Calls parent constructor
+        super().__init__(key, secret, currency, asset, metrics_collector)  # Calls parent constructor
         self.test_data = []
         self.testIndex = 0
 
@@ -102,8 +108,8 @@ class BinanceBacktestClient(Exchange):
         :param order_type: Type of order to place.
         :param quantity: Quantity of the asset to trade.
         :param price: Price for limit orders (optional, required for LIMIT orders).
-        :param time_in_force: Time-in-force policy (default: "GTC").
         """
+        start_time = time.time()
 
         data = {
             "symbol": self.currency_asset,
@@ -112,6 +118,19 @@ class BinanceBacktestClient(Exchange):
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))
         }   
+
+        # Simulate API response time for backtest
+        response_time = time.time() - start_time
+        
+        # Record mock API call metrics
+        if self.metrics_collector:
+            self.metrics_collector.record_api_call(
+                endpoint="/api/v3/order/test",
+                method="POST",
+                response_time=response_time,
+                status_code=200,
+                success=True
+            )
 
         print(f"Executing Mock order {data}")
 

@@ -1,12 +1,70 @@
 #file containing api and secret keys
 .env
+
 #mac specific file
 .DS_Store
-#pycache outputs
-Exchanges/__pycache__/
+
+# Python cache files and directories
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backtest data files
 Backtest/Cleaned-CsvData/
 Backtest/CSV-FileNamaes.txt/
 Backtest/CSV-Files/
-Backtest/__pycache__/
-Strategies/__pycache__/
 Test/HistoricalData/

@@ -1,107 +1,254 @@
-# Crypto bot
-Crypto trading bot written using Python 3.9. In order for this bot to establish a connection to the binance.us API, you must establish a network connection using IPv4 and not IPv6 as IPv6 is not supported. ([read more on this here](https://dev.binance.vision/t/ipv6-support-for-trading/17876))
+# Crypto Trading Bot
 
-## IPv4 Check
-A connection to IPv4 will be requried for this application. Confirming your device is connected will depend on your operating system.
-To confrim a connection to Binance.US API exists at any point run:
-```
+Advanced crypto trading bot written in Python 3.13+ with comprehensive performance tracking and metrics collection. The bot supports multiple trading strategies and provides detailed analytics for both backtesting and live trading scenarios.
+
+## ✨ Features
+
+- **Multi-Exchange Support**: Built-in support for Binance.US with extensible architecture
+- **Strategy Framework**: Modular strategy system with Grid Trading implementation
+- **Comprehensive Metrics**: Advanced performance tracking with trade analytics
+- **Backtesting Engine**: Historical data testing with detailed performance reports
+- **Live Trading**: Real-time trading with API monitoring and error handling
+- **Professional Reporting**: Detailed P&L analysis, win rates, and performance metrics
+
+## 📊 Metrics & Analytics
+
+The bot includes a sophisticated `MetricsCollector` system that provides:
+- Trade entry/exit tracking with unique identifiers
+- Real-time P&L calculations and profit percentage analysis
+- API performance monitoring (response times, error rates)
+- Win rate statistics and trading performance analytics
+- Comprehensive performance reports for session analysis
+
+For detailed metrics documentation, see [METRICS_README.md](METRICS_README.md)
+
+## 🌐 Network Requirements
+
+In order for this bot to establish a connection to the Binance.US API, you must establish a network connection using IPv4 and not IPv6 as IPv6 is not supported. ([read more here](https://dev.binance.vision/t/ipv6-support-for-trading/17876))
+
+### IPv4 Connectivity Check
+
+To confirm a connection to Binance.US API exists, run:
+```bash
 curl -I https://api.binance.us
 ```
 
-### Check for MacOS Users
-Open Terminal (Cmd + Space, type Terminal, press Enter). From here run:
-```
+#### MacOS Users
+
+Open Terminal (Cmd + Space, type Terminal, press Enter). 
+
+**Check Wi-Fi connection:**
+```bash
 ipconfig getifaddr en0
 ```
-If connected via Wi-Fi, this should return an IPv4 address (e.g., 192.168.x.x). If connected via Ethernet, run:
-```
+
+**Check Ethernet connection:**
+```bash
 ipconfig getifaddr en1
 ```
-If an IPv4 address appears, you are already connected to IPv4. If no IPv4 address appears, or you only see an inet6 (IPv6) address, proceed to Disable for MacOS Users.
 
-### Check for Windows Users
-Open Command Prompt (Win + R, type cmd, press Enter). From here run:
-```
+If an IPv4 address appears (e.g., 192.168.x.x), you are connected to IPv4. If no IPv4 address appears, proceed to disable IPv6.
+
+#### Windows Users
+
+Open Command Prompt (Win + R, type cmd, press Enter):
+```cmd
 ipconfig
 ```
-Look for "IPv4 Address" under your active network to confirm a connection exists. If it doesn't, proceed to Enable for Windows Users.
 
-### Disable for MacOS Users
-If your active network is WiFi enter the following command:
-```
+Look for "IPv4 Address" under your active network. If no IPv4 address appears, proceed to enable IPv4.
+
+### IPv6 Disable Instructions
+
+#### MacOS - Disable IPv6
+
+**For Wi-Fi:**
+```bash
 networksetup -setv6off Wi-Fi
 ```
-If you are on Ethernet:
-```
+
+**For Ethernet:**
+```bash
 networksetup -setv6off Ethernet
 ```
-You may combine both of commands to disable IPv6 on WiFi and Ethernet at the same time:
-```
+
+**For both networks:**
+```bash
 networksetup -setv6off Ethernet && networksetup -setv6off Wi-Fi
 ```
-To re-enable IPv6, you need to replace setv6off to setv6automatic (the default state in macOS), for example:
-```
+
+**To re-enable IPv6:**
+```bash
 networksetup -setv6automatic Wi-Fi && networksetup -setv6automatic Ethernet
 ```
 
-### Enable for Windows Users
-Enable IPv4 in Network Settings:
+#### Windows - Enable IPv4
 
-Open Control Panel → Network and Sharing Center.
-Click Change adapter settings on the left.
-Right-click your active network (Wi-Fi or Ethernet) → Properties.
-Find Internet Protocol Version 4 (TCP/IPv4).
-If unchecked, check the box and click OK.
+1. Open Control Panel → Network and Sharing Center
+2. Click "Change adapter settings" on the left
+3. Right-click your active network (Wi-Fi or Ethernet) → Properties
+4. Find "Internet Protocol Version 4 (TCP/IPv4)"
+5. If unchecked, check the box and click OK
 
-If IPv4 is enabled but still missing, try:
-```
+If IPv4 is enabled but still not working, try:
+```cmd
 ipconfig /release
 ipconfig /renew
 ```
 
-## Pre-Requisites
+## 🚀 Getting Started
 
-### Setup a Binance.US Account
-You will need a Binance.US account in order to utilize the trading bot. Following the [Binance.US](https://support.binance.us/en/articles/9842800-how-to-create-an-api-key-on-binance-us) Documentation. 
+### Prerequisites
 
-Make sure to save your Secret Key and API Key! You will only be able to view your secret key once, and you will need to configure your bot. 
+### Prerequisites
 
-### Create Github Account and Install Github Desktop (Optional)
+#### 1. Binance.US Account Setup
+You will need a Binance.US account to utilize the trading bot. Follow the [Binance.US API Documentation](https://support.binance.us/en/articles/9842800-how-to-create-an-api-key-on-binance-us) to create your API keys.
+
+**Important:** Save your Secret Key and API Key securely! You will only be able to view your secret key once.
+
+#### 2. Python Environment
+- Python 3.13+ required
+- pip package manager
+
+#### 3. Git (Optional)
+For easy repository management, install [GitHub Desktop](https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop)
+
+### Installation
+
+#### 1. Clone Repository
+```bash
+git clone https://github.com/ryanhlam1219/Crypto-Trading-Bot.git
+cd Crypto-Trading-Bot
 ```
-https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/installing-and-authenticating-to-github-desktop/installing-github-desktop
-```
-### Clone Repository into local environment
 
-## Install and configure project
-
-### Install dependencies
-
-```For Mac OS
+#### 2. Install Dependencies
+```bash
+# For macOS/Linux
 python3 -m pip install --no-cache-dir -r requirements.txt
+
+# For Windows
+python -m pip install --no-cache-dir -r requirements.txt
 ```
 
-### Install dependencies
-
-Update the .env file with your API keys. This is found in your Binance.US account under API Management. Update the lines in .env here:
+#### 3. Configure Environment
+Update the `.env` file with your Binance.US API credentials:
+```env
+BINANCE_API_KEY="your_api_key_here"
+BINANCE_API_SECRET="your_secret_key_here"
+TRADING_MODE="test"  # or "real" for live trading
 ```
-BINANCE_API_KEY=""
-BINANCE_API_SECRET=""
-```
 
-### Usage
+## 💡 Usage
 
-You can set particular symbol pair by using an argument
+### Basic Trading
+Run with a specific trading pair:
 ```bash
-python3 main.py BTC_US
+python3 main.py BTC_USD
 ```
 
-You can override any env parameter like so
-```bash
-./main.py BTC_US
+### Trading Modes
+Configure your trading mode in the `.env` file:
+
+**Test Mode (Backtesting):**
+```env
+TRADING_MODE="test"
+```
+- Runs backtests using historical data
+- No real money involved
+- Perfect for strategy testing and validation
+
+**Live Trading Mode:**
+```env
+TRADING_MODE="real"
+```
+- Connects to live Binance.US API
+- Uses real funds
+- **Use with caution!**
+
+### Performance Reports
+After each trading session, the bot generates comprehensive performance reports including:
+- Total trades executed and P&L analysis
+- Win rate percentages and average profit per trade
+- API performance metrics and response times
+- Detailed trade history with entry/exit prices
+
+## 🏗️ Project Structure
+
+```
+Crypto-Trading-Bot/
+├── main.py                    # Main application entry point
+├── requirements.txt           # Python dependencies
+├── .env                      # Environment configuration
+├── Utils/
+│   └── MetricsCollector.py   # Performance tracking system
+├── Exchanges/
+│   ├── exchange.py           # Base exchange interface
+│   ├── Binance.py           # Binance.US implementation
+│   └── BinanceBacktestClient.py  # Backtesting client
+├── Strategies/
+│   ├── Strategy.py          # Base strategy interface
+│   └── GridTradingStrategy.py   # Grid trading implementation
+└── Test/
+    ├── StrategyWrapper.py   # Testing utilities
+    └── DataFetchException.py   # Exception handling
 ```
 
-Afterwards, within your .env file you can update your program to run on one of two modes:
-```bash
-TRADING_MODE="test" will run your backtest for testing your strategy
-TRADING_MODE="real" will run your program against an actual binance client and will use the live binance APIs
-```
+## 📈 Supported Strategies
+
+### Grid Trading Strategy
+- Automated buy/sell orders at predetermined price levels
+- Profits from market volatility within defined ranges
+- Configurable grid spacing and position sizing
+- Risk management with stop-loss capabilities
+
+## 🔧 Configuration Options
+
+Key configuration parameters in `.env`:
+- `TRADING_MODE`: "test" or "real"
+- `STRATEGY`: Trading strategy selection
+- `EXCHANGE_NAME`: Exchange selection
+- `INTERVAL`: Price update intervals
+
+## 📋 Requirements
+
+See `requirements.txt` for complete dependency list. Key packages include:
+- `requests`: HTTP API communication
+- `python-decouple`: Environment configuration
+- `threading`: Concurrent operations
+- Custom exchange and strategy modules
+
+## ⚠️ Important Notes
+
+- **Risk Warning**: Cryptocurrency trading involves significant financial risk
+- **API Security**: Never commit your `.env` file with real API keys
+- **Testing First**: Always test strategies thoroughly before live trading
+- **IPv4 Required**: Ensure IPv4 connectivity for Binance.US API access
+- **Monitoring**: Monitor bot performance and market conditions regularly
+
+## 📚 Documentation
+
+- [Metrics Documentation](METRICS_README.md) - Detailed performance tracking guide
+- [Binance.US API Docs](https://docs.binance.us/) - Official API documentation
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## ⚡ Quick Start
+
+1. **Setup**: Create Binance.US account and generate API keys
+2. **Install**: Clone repo and install dependencies
+3. **Configure**: Update `.env` with your API keys
+4. **Test**: Run in test mode first: `TRADING_MODE="test"`
+5. **Trade**: When ready, switch to `TRADING_MODE="real"`
+
+**Remember**: Start with small amounts and always understand the risks involved in cryptocurrency trading!

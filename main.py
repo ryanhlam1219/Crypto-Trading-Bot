@@ -3,11 +3,18 @@ import signal
 import sys
 import threading
 import importlib
+import os
 from decouple import config
+
+# Add current directory and utils to path for imports
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_dir)
+sys.path.insert(0, os.path.join(current_dir, 'utils'))
 
 # Local imports
 import Exchanges
 import Test
+from MetricsCollector import MetricsCollector
 
 # Constants for configuration keys
 EXCHANGE_NAME = "exchange_name"
@@ -57,35 +64,38 @@ def handle_cli_arguments(currency, asset):
         print(f"No system arguments used: defaulting to config currency={currency}, asset={asset}")
         return currency, asset
 
-def initialize_exchange_client(exchange_name, key, secret, currency, asset):
+def initialize_exchange_client(exchange_name, key, secret, currency, asset, metrics_collector):
     """Dynamically imports and initializes the exchange client."""
     exchange_module = importlib.import_module(f"Exchanges.{exchange_name}")
     exchange_class = getattr(exchange_module, exchange_name)
-    return exchange_class(key, secret, currency, asset)
+    return exchange_class(key, secret, currency, asset, metrics_collector)
 
-def initialize_strategy(strategy_name, client, interval):
+def initialize_strategy(strategy_name, client, interval, metrics_collector):
     """Dynamically imports and initializes the strategy."""
     print(f"Using {strategy_name} to determine trades")
     strategy_module = importlib.import_module(f"Strategies.{strategy_name}")
     strategy_class = getattr(strategy_module, strategy_name)
-    return strategy_class(client, interval, 5)
+    return strategy_class(client, interval, 5, metrics_collector)
 
 def run_trading_mode(config):
     """Runs the bot in real trading mode."""
+    # Create metrics collector
+    metrics_collector = MetricsCollector()
+    
     # Handle CLI arguments
     currency, asset = handle_cli_arguments(config["currency"], config["asset"])
     if config[TRADING_MODE] == "real": 
         print("*** Caution: Real trading mode activated ***")
         print(f"Connecting to {config['exchange_name']} exchange...")
         # Initialize Exchange Client
-        client = initialize_exchange_client(config["exchange_name"], config["key"], config["secret"], currency, asset)
+        client = initialize_exchange_client(config["exchange_name"], config["key"], config["secret"], currency, asset, metrics_collector)
     elif config[TRADING_MODE] == "test":
         print("*** Live Testing Mode Enabled ***")
         print("Using Test Binance Client for strategy testing...")
-        client = Exchanges.TestExchange(config[API_KEY], config[API_SECRET], currency, asset)
+        client = Exchanges.TestExchange(config[API_KEY], config[API_SECRET], currency, asset, metrics_collector)
 
     # Initialize and run the strategy
-    strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL])
+    strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL], metrics_collector)
     strategy_instance.run_strategy(int(config[TRADE_INTERVAL]))
 
     # Keep script running
@@ -93,12 +103,14 @@ def run_trading_mode(config):
 
 def run_test_mode(config):
     """Runs the bot in test mode."""
+    # Create metrics collector
+    metrics_collector = MetricsCollector()
 
     # Connect to Test Client
     print("BackTest mode enabled...")
     print(f"Using {config[EXCHANGE_NAME]}BacktestClient for collecting data...")
     currency, asset = handle_cli_arguments(config[CURRENCY], config[ASSET])
-    TestClient = initialize_exchange_client(f"{config[EXCHANGE_NAME]}BacktestClient", config[API_KEY], config[API_SECRET], currency, asset)
+    TestClient = initialize_exchange_client(f"{config[EXCHANGE_NAME]}BacktestClient", config[API_KEY], config[API_SECRET], currency, asset, metrics_collector)
 
     # Collect Historical Data
     yearsPast = 1
@@ -107,7 +119,7 @@ def run_test_mode(config):
     TestClient.write_candlestick_to_csv(historicalData, f"{TEST_DATA_DIRECTORY}/past-{yearsPast}-years-historical-data-{currency}{asset}.csv")
     
     # Initialize Strategy and Strategy Wrapper
-    strategy_instance = initialize_strategy(config[STRATEGY], TestClient, config[INTERVAL])
+    strategy_instance = initialize_strategy(config[STRATEGY], TestClient, config[INTERVAL], metrics_collector)
     strategy_wrapper = Test.StrategyWrapper(strategy_instance)
 
     # Execute the Backtest
