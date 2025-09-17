@@ -1,5 +1,6 @@
 from Strategies.Strategy import Strategy
 from Test.DataFetchException import DataFetchException
+from Exchanges.BinanceBacktestClient import BinanceBacktestClient
 import sys
 import traceback
 
@@ -15,11 +16,19 @@ class StrategyWrapper:
         self.strategy = strategy
 
     def run_strategy(self):
-        """Runs the trading strategy."""
+        """Runs the trading strategy with progress bar for backtesting."""
         try:
+            # Initialize progress bar if using BinanceBacktestClient
+            if isinstance(self.strategy.client, BinanceBacktestClient):
+                self.strategy.client.initialize_strategy_progress_bar()
+            
             self.strategy.run_strategy(0.000001)
         except DataFetchException as e:
-            print("Backtest complete, stopping client")
+            # Close progress bar if it was initialized
+            if isinstance(self.strategy.client, BinanceBacktestClient):
+                self.strategy.client.close_strategy_progress_bar()
+            
+            print("\nBacktest complete, stopping client")
             
             # Use MetricsCollector for final profit calculation if available
             if self.strategy.metrics_collector:
@@ -47,5 +56,9 @@ class StrategyWrapper:
             sys.exit(0)
             
         except Exception as e:
+            # Close progress bar if it was initialized
+            if isinstance(self.strategy.client, BinanceBacktestClient):
+                self.strategy.client.close_strategy_progress_bar()
+            
             print(f"An Error occured when executing Strategy: {e}")
             traceback.print_exc()

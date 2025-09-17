@@ -7,6 +7,7 @@ import time
 import json
 import threading
 import csv
+from tqdm import tqdm
 
 from math import floor
 from Exchanges.exchange import Exchange
@@ -30,8 +31,29 @@ class BinanceBacktestClient(Exchange):
         super().__init__(key, secret, currency, asset, metrics_collector)  # Calls parent constructor
         self.test_data = []
         self.testIndex = 0
+        self.strategy_pbar = None
 
-    def __fetch_candle_data_from_time_interval(self, interval, start_time, end_time, results_lock: Lock):
+    def initialize_strategy_progress_bar(self):
+        """
+        Initialize progress bar for strategy execution during backtest.
+        """
+        if len(self.test_data) > 0:
+            self.strategy_pbar = tqdm(
+                total=len(self.test_data),
+                desc="Running backtest",
+                unit="candles",
+                bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}] {rate_fmt}"
+            )
+        
+    def close_strategy_progress_bar(self):
+        """
+        Close the strategy progress bar.
+        """
+        if self.strategy_pbar:
+            self.strategy_pbar.close()
+            self.strategy_pbar = None
+
+    def __fetch_candle_data_from_time_interval(self, interval, start_time, end_time, results_lock: Lock, pbar=None):
         """
         Fetches candlestick data for a given time range and stores unique values in self.test_data.
         Uses a lock to prevent concurrent modification issues.
@@ -44,7 +66,8 @@ class BinanceBacktestClient(Exchange):
             response = requests.get(f'{self.api_url}{uri_path}&startTime={start_time}&limit={limit}')
             
             if response.status_code != 200:
-                print(f"Error fetching data: {response.status_code}, {response.text}")
+                if pbar:
+                    pbar.write(f"Error fetching data: {response.status_code}, {response.text}")
                 break
 
             json_data = response.json()  # Directly parse JSON response
@@ -55,9 +78,15 @@ class BinanceBacktestClient(Exchange):
             if all(isinstance(item, list) for item in json_data):
                 local_data.extend(json_data)
             else:
-                print("Warning: Received data is not a list of lists")
+                if pbar:
+                    pbar.write("Warning: Received data is not a list of lists")
 
             start_time = json_data[-1][0] + 1  # Move to the next batch
+            
+            # Update progress bar if provided
+            if pbar:
+                pbar.update(len(json_data))
+            
             time.sleep(0.2)
 
         # Merge local data into self.test_data in a thread-safe way
@@ -145,8 +174,22 @@ class BinanceBacktestClient(Exchange):
 
         mockCandleStickData = self.test_data[self.testIndex]
         self.testIndex += 1
-        dataAccessPercentage = 100.00 * (self.testIndex / len(self.test_data))
-        print(f"Completion Percentage: {dataAccessPercentage}%")
+        
+        # Update progress bar if it exists
+        if hasattr(self, 'strategy_pbar') and self.strategy_pbar:
+            self.strategy_pbar.update(1)
+            current_price = mockCandleStickData[4] if len(mockCandleStickData) > 4 else 0
+            
+            # Try to get P&L from metrics collector if available
+            postfix_data = {"Price": f"${float(current_price):.2f}"}
+            if hasattr(self, 'metrics_collector') and self.metrics_collector:
+                try:
+                    total_pnl = self.metrics_collector.calculate_total_profit_loss()
+                    postfix_data["PnL"] = f"${total_pnl:.2f}"
+                except:
+                    pass  # If metrics not available, just show price
+            
+            self.strategy_pbar.set_postfix(postfix_data)
 
         # **Ensure safety: Always return a list of lists**
         if not isinstance(mockCandleStickData, list):
@@ -181,7 +224,7 @@ class BinanceBacktestClient(Exchange):
 
     def get_historical_candle_stick_data(self, interval, yearsPast, threads=5):
         """
-        Fetches historical candlestick data using multithreading.
+        Fetches historical candlestick data using multithreading with progress bar.
         """
         # Verify API connectivity
         if requests.get(self.api_url + "/api/v3/ping").text != '{}':
@@ -191,21 +234,33 @@ class BinanceBacktestClient(Exchange):
         start_time = current_time_ms - (yearsPast * 365 * 24 * 60 * 60 * 1000)
         end_time = current_time_ms
 
-        # Define chunks for multithreading
+        # Estimate total data points for progress bar
         total_range = end_time - start_time
+        interval_ms = interval * 60 * 1000  # Convert minutes to milliseconds
+        estimated_candles = total_range // interval_ms
+
+        # Define chunks for multithreading
         chunk_size = total_range // threads  
 
         results_lock = threading.Lock()  # Lock to prevent concurrent modification of self.test_data
         threads_list = []
 
-        for i in range(threads):
-            chunk_start = start_time + (i * chunk_size)
-            chunk_end = chunk_start + chunk_size if i < threads - 1 else end_time
-            thread = threading.Thread(target=self.__fetch_candle_data_from_time_interval, args=(interval, chunk_start, chunk_end, results_lock))
-            threads_list.append(thread)
-            thread.start()
+        # Create progress bar for data fetching
+        with tqdm(total=estimated_candles, 
+                 desc=f"Fetching {self.currency_asset} data ({yearsPast}y)", 
+                 unit="candles",
+                 bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}] {rate_fmt}") as pbar:
+            
+            for i in range(threads):
+                chunk_start = start_time + (i * chunk_size)
+                chunk_end = chunk_start + chunk_size if i < threads - 1 else end_time
+                thread = threading.Thread(target=self.__fetch_candle_data_from_time_interval, 
+                                        args=(interval, chunk_start, chunk_end, results_lock, pbar))
+                threads_list.append(thread)
+                thread.start()
 
-        for thread in threads_list:
-            thread.join()
+            for thread in threads_list:
+                thread.join()
 
+        print(f"Successfully fetched {len(self.test_data)} candlestick data points")
         return self.test_data  # Return the updated test data
