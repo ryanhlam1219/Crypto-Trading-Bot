@@ -1,24 +1,174 @@
+# 💰 Fee Collection System
 
-Calculate difference/ratio find the fee for whenever based off price
+A comprehensive trading fee analysis tool that monitors and compares fees across multiple cryptocurrency exchanges.
 
-ratio average = for each time get the difference from each one and their fees, then add them up then divide by the number of ratios there are. 
-Ex.  T1 - T2 = T_ratio ; fee(T2) - fee(T1) = fee_ratio 
-For T3-T2 = T1_ratio ; fee(T3) - fee(T2) = fee1_ratio 
-Thus, Ratio1 = T_ratio / fee_ratio
-Ratio2 = T1_ratio / fee1_ratio 
+## 🎯 What It Does
 
-Add however number of ratios together and divide by number of ratios 
-This would be the ratio average for that specific epoch
+This system continuously collects real-time trading fee data from multiple exchanges to help you:
+- **Compare fees** across different exchanges
+- **Track fee changes** over time
+- **Calculate fee ratios** for arbitrage opportunities
+- **Analyze transaction costs** at different volume levels
 
-T_amt * (ratio average) = fee_Tamt
+## 🏗️ Architecture
 
-HashMap (rate execution rate fees)
-Map = {Key: Price Point/Size of Transaction, Value: {{Fee, Timestamp}}
+```
+Collect-Fees/
+├── exchanges/              # Exchange-specific fee collectors
+│   ├── binance_collector.py    # Binance.US fee data
+│   ├── kraken_collector.py     # Kraken fee data
+│   ├── gemini_collector.py     # Gemini fee data
+│   └── coinbase_collector.py   # Coinbase Pro fee data
+├── data/                   # Historical fee data storage
+├── logs/                   # Runtime logs (auto-generated)
+├── config.py              # Configuration management
+├── fee_collector.py       # Main collection orchestrator
+├── ratio_calculator.py    # Fee ratio analysis
+└── run.py                 # Entry point
+```
 
-EXAMPLE
-Key: {$1000, $2000, $4000, $8000, $16000...,$N} (all the way until $1 million)
-Values : { [{5.00, 43944398840398490}], 
-[{10.00, 413414398590854}], {[7.00, 43944398840398490]}
+## 🚀 Quick Start
 
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-The keys and values are arrays but each match correspondingly. Transaction/Money put in must be at least 0.001 of the price of the coin itself. Then we increment of values 2x, so 0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.28, 2.56 and so on until it hits 10x the price of the coin. Then given all the fees and transaction at the point in time, give a ratio / average for that given timestamp. when calculating the difference, do so for each price and fee (within the same time epoch). For example if there are 1, 2, 3, 4, 5 transaction amounts and fees, then it would be T5 - T4, T4-T3, T3-T2, T2-T1, and do so for the fees as well to calculate ratio.                                                                     
+### 2. Configure API Keys
+Create a `.env` file with your exchange API credentials:
+```env
+# Exchange API Keys (add only the exchanges you want to monitor)
+BINANCE_API_KEY=your_binance_api_key
+BINANCE_API_SECRET=your_binance_secret
+
+KRAKEN_API_KEY=your_kraken_api_key  
+KRAKEN_API_SECRET=your_kraken_secret
+
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_API_SECRET=your_gemini_secret
+
+# Trading pair to monitor
+BASE_CURRENCY=BTC
+QUOTE_CURRENCY=USD
+
+# Collection interval (seconds)
+COLLECTION_INTERVAL_SECONDS=300
+```
+
+### 3. Run the Collector
+```bash
+python3 run.py
+```
+
+## 📊 How It Works
+
+### Fee Collection Process
+1. **Connect** to configured exchanges via their APIs
+2. **Fetch** current trading fees for the specified pair
+3. **Calculate** fees at different transaction volumes
+4. **Store** data with timestamps for historical analysis
+5. **Repeat** at configured intervals
+
+### Ratio Analysis
+The system calculates fee ratios between exchanges to identify:
+- **Arbitrage opportunities** where fee differences exceed transfer costs
+- **Optimal routing** for trades based on transaction size
+- **Historical trends** in fee competitiveness
+
+### Transaction Volume Analysis
+Tests fee calculations across multiple transaction sizes:
+- Starts from minimum trade size (0.001 × coin price)
+- Doubles incrementally: 0.002, 0.004, 0.008, etc.
+- Continues up to 10× the coin price
+- Provides comprehensive fee mapping across volume ranges
+
+## 📈 Data Output
+
+### Fee Data Structure
+```json
+{
+  "timestamp": "2025-09-17T16:30:00Z",
+  "exchange": "binance",
+  "symbol": "BTCUSD", 
+  "transaction_amount": 1000.00,
+  "fee_usd": 1.50,
+  "fee_percentage": 0.15,
+  "price": 45000.00
+}
+```
+
+### Ratio Analysis
+```json
+{
+  "timestamp": "2025-09-17T16:30:00Z",
+  "exchange_pair": "binance_vs_kraken",
+  "ratio": 1.25,
+  "fee_difference": 0.05,
+  "arbitrage_opportunity": true
+}
+```
+
+## ⚙️ Configuration Options
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| `BASE_CURRENCY` | Asset to trade (BTC, ETH, etc.) | BTC |
+| `QUOTE_CURRENCY` | Currency to price in (USD, EUR, etc.) | USD |
+| `COLLECTION_INTERVAL_SECONDS` | Time between collections | 300 |
+| `LOG_LEVEL` | Logging verbosity | INFO |
+
+## 🔒 Security Notes
+
+- **Read-only permissions**: Only requires API keys with read access
+- **No trading**: System only queries fee information, never places orders
+- **Local storage**: All data stored locally in the `data/` directory
+- **Environment variables**: Keep API keys in `.env` file (never commit to git)
+
+## 📋 Requirements
+
+- Python 3.9+
+- Exchange API keys (read-only permissions sufficient)
+- Internet connection for API access
+
+## 🔧 Troubleshooting
+
+### No Data Collected
+- Check that API keys are correctly configured in `.env`
+- Verify API keys have read permissions
+- Check logs in `logs/` directory for error details
+
+### Exchange Connection Errors
+- Verify exchange API endpoints are accessible
+- Check if your IP is whitelisted (if required by exchange)
+- Ensure API rate limits aren't exceeded
+
+### Configuration Issues
+```bash
+# Test configuration
+python3 -c "from config import Config; print(Config.validate_config())"
+```
+
+## 📊 Example Usage
+
+Monitor BTC/USD fees across all exchanges:
+```bash
+# Set environment
+export BASE_CURRENCY=BTC
+export QUOTE_CURRENCY=USD
+
+# Run collector
+python3 run.py
+```
+
+Analyze ETH/USD with custom interval:
+```bash
+export BASE_CURRENCY=ETH
+export QUOTE_CURRENCY=USD
+export COLLECTION_INTERVAL_SECONDS=600
+
+python3 run.py
+```
+
+---
+
+**Note**: This tool is for analysis purposes only. Always verify fee calculations with exchange documentation before making trading decisions.                                                                     
