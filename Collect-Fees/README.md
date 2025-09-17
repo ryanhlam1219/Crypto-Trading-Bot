@@ -69,11 +69,14 @@ python3 run.py
 4. **Store** data with timestamps for historical analysis
 5. **Repeat** at configured intervals
 
-### Ratio Analysis
-The system calculates fee ratios between exchanges to identify:
-- **Arbitrage opportunities** where fee differences exceed transfer costs
-- **Optimal routing** for trades based on transaction size
-- **Historical trends** in fee competitiveness
+### Fee Analysis
+The system analyzes trading fees in multiple ways:
+- **Fee Rate Tracking** - Monitor percentage-based fees across exchanges
+- **Volume Impact Analysis** - How fees change with transaction size
+- **Cross-Exchange Comparison** - Identify the most cost-effective exchange
+- **Historical Trends** - Track fee changes over time
+
+**Note:** The current ratio calculation implementation has some mathematical inconsistencies and may not provide meaningful arbitrage signals. The system is most valuable for direct fee comparison and trend analysis.
 
 ### Transaction Volume Analysis
 Tests fee calculations across multiple transaction sizes:
@@ -84,7 +87,7 @@ Tests fee calculations across multiple transaction sizes:
 
 ## 📈 Data Output
 
-### Fee Data Structure
+### Data Analysis
 ```json
 {
   "timestamp": "2025-09-17T16:30:00Z",
@@ -97,14 +100,17 @@ Tests fee calculations across multiple transaction sizes:
 }
 ```
 
-### Ratio Analysis
+### Fee Comparison
 ```json
 {
-  "timestamp": "2025-09-17T16:30:00Z",
-  "exchange_pair": "binance_vs_kraken",
-  "ratio": 1.25,
-  "fee_difference": 0.05,
-  "arbitrage_opportunity": true
+  "timestamp": "2025-09-17T16:30:00Z", 
+  "exchanges": {
+    "binance": {"fee_usd": 1.50, "fee_rate": 0.15},
+    "kraken": {"fee_usd": 2.00, "fee_rate": 0.20},
+    "gemini": {"fee_usd": 1.75, "fee_rate": 0.175}
+  },
+  "best_exchange": "binance",
+  "savings_vs_worst": 0.50
 }
 ```
 

@@ -1,0 +1,19 @@
+{
+  "timestamp": "20250917_165640",
+  "collection_info": {
+    "base_currency": "BTC",
+    "quote_currency": "USD",
+    "exchanges": [
+      "Binance",
+      "Kraken",
+      "Gemini"
+    ],
+    "total_data_points": 0
+  },
+  "fee_data": {},
+  "ratio_analysis": {
+    "exchange_averages": {},
+    "cross_exchange_average": 0.0,
+    "prediction_formula": "fee = transaction_amount / ratio_average"
+  }
+}
