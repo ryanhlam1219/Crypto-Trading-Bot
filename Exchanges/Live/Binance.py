@@ -1,15 +1,17 @@
 import urllib.parse
 import hashlib
 import hmac
+import base64
 import requests
 import time
 import json
 
+from datetime import datetime
 from math import floor
-from Exchanges.exchange import Exchange
+from ..exchange import Exchange
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 
-class TestExchange(Exchange):
+class Binance(Exchange):
     """
     A class representing an exchange for testing purposes, specifically interfacing with Binance US.
     """
@@ -17,12 +19,12 @@ class TestExchange(Exchange):
 
     def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector):
         """
-        Initializes the TestExchange instance with API credentials and trading pair information.
+        Initializes the Binance instance with API credentials and trading pair information.
         
         :param key: API key for authentication.
         :param secret: API secret for signing requests.
-        :param currency: Base currency (e.g., USD).
-        :param asset: Trading asset (e.g., BTC).
+        :param currency: The base currency (e.g., USD).
+        :param asset: The trading asset (e.g., BTC).
         :param metrics_collector: MetricsCollector instance for performance tracking.
         """
         super().__init__(key, secret, currency, asset, metrics_collector)
@@ -111,11 +113,12 @@ class TestExchange(Exchange):
         :param price: Price for limit orders (optional, required for LIMIT orders).
         :param time_in_force: Time-in-force policy (default: "GTC").
         """
+        start_time = time.time()
         uri_path = "/api/v3/order/test"
 
         data = {
             "symbol": self.currency_asset,
-            "side": direction.value,
+            "side": direction._value_,
             "type": self.__get_binance_order_type(order_type),
             "quantity": quantity,
             "timestamp": int(round(time.time() * 1000))
@@ -129,7 +132,6 @@ class TestExchange(Exchange):
             data["timeInForce"] = time_in_force  # Required for limit orders
 
         try:
-            start_time = time.time()
             result = self.__submit_post_request(uri_path, data)
             response_time = time.time() - start_time
             
@@ -139,25 +141,26 @@ class TestExchange(Exchange):
                     endpoint=uri_path,
                     method="POST",
                     response_time=response_time,
-                    status_code=200,
+                    status_code=200,  # Assuming success if no exception
                     success=True
                 )
             
             print("POST {}: {}".format(uri_path, result))
             
         except Exception as e:
+            response_time = time.time() - start_time
+            
             # Record API error metrics
             if self.metrics_collector:
                 self.metrics_collector.record_api_call(
                     endpoint=uri_path,
-                    method="POST", 
-                    response_time=time.time() - start_time if 'start_time' in locals() else 0,
-                    status_code=500,
+                    method="POST",
+                    response_time=response_time,
+                    status_code=500,  # Assuming server error
                     success=False,
                     error_message=str(e)
                 )
             raise
-
 
     @staticmethod
     def __get_binance_order_type(order_type: OrderType):
@@ -177,6 +180,6 @@ class TestExchange(Exchange):
         }
 
         if order_type in order_mapping:
-            return order_mapping[order_type]
+            return str(order_mapping[order_type])
         else:
             raise ValueError(f"Unsupported order type: {order_type}")

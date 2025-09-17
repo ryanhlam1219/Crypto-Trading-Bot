@@ -10,7 +10,7 @@ import csv
 from tqdm import tqdm
 
 from math import floor
-from Exchanges.exchange import Exchange
+from ..exchange import Exchange
 from Test.DataFetchException import DataFetchException
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from threading import Lock
