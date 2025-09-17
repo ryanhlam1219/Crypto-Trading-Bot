@@ -1,0 +1,5982 @@
+{
+  "timestamp": "20250906_230705",
+  "exchange": "Gemini",
+  "base_currency": "BTC",
+  "quote_currency": "USD",
+  "fee_data": {
+    "1000.0": [
+      {
+        "fee": 3.5,
+        "timestamp": 1757211565.500504,
+        "transaction_size": 1000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:25.500504"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211597.379096,
+        "transaction_size": 1000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:19:57.379096"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211629.676351,
+        "transaction_size": 1000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:29.676351"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211662.290524,
+        "transaction_size": 1000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:02.290524"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211694.801643,
+        "transaction_size": 1000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:34.801643"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211727.9244149,
+        "transaction_size": 1000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:07.924415"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211761.3849459,
+        "transaction_size": 1000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:41.384946"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211795.142957,
+        "transaction_size": 1000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:15.142957"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211828.3538299,
+        "transaction_size": 1000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:48.353830"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211861.433644,
+        "transaction_size": 1000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:21.433644"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211894.231864,
+        "transaction_size": 1000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:54.231864"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211930.0245461,
+        "transaction_size": 1000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:30.024546"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211965.0619578,
+        "transaction_size": 1000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:05.061958"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757211998.7168121,
+        "transaction_size": 1000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:38.716812"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212031.642381,
+        "transaction_size": 1000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:11.642381"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212065.4805708,
+        "transaction_size": 1000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:45.480571"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212097.976916,
+        "transaction_size": 1000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:17.976916"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212131.447318,
+        "transaction_size": 1000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:51.447318"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212163.129384,
+        "transaction_size": 1000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:23.129384"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212198.289763,
+        "transaction_size": 1000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:29:58.289763"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212232.670458,
+        "transaction_size": 1000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:32.670458"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212269.6919308,
+        "transaction_size": 1000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:09.691931"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212304.2643259,
+        "transaction_size": 1000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:44.264326"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212337.110019,
+        "transaction_size": 1000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:17.110019"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212369.77146,
+        "transaction_size": 1000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:49.771460"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212404.0064719,
+        "transaction_size": 1000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:24.006472"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212437.6568232,
+        "transaction_size": 1000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:57.656823"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212470.335077,
+        "transaction_size": 1000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:30.335077"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212504.1458602,
+        "transaction_size": 1000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:04.145860"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212538.6507268,
+        "transaction_size": 1000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:38.650727"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212571.6330009,
+        "transaction_size": 1000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:11.633001"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212605.663458,
+        "transaction_size": 1000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:45.663458"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212638.442066,
+        "transaction_size": 1000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:18.442066"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212671.911318,
+        "transaction_size": 1000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:51.911318"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212704.4178638,
+        "transaction_size": 1000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:24.417864"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212737.3278542,
+        "transaction_size": 1000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:38:57.327854"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212770.4592981,
+        "transaction_size": 1000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:30.459298"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212803.948632,
+        "transaction_size": 1000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:03.948632"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212836.54495,
+        "transaction_size": 1000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:36.544950"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212870.379468,
+        "transaction_size": 1000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:10.379468"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212902.6521049,
+        "transaction_size": 1000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:42.652105"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212936.933302,
+        "transaction_size": 1000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:16.933302"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757212969.779853,
+        "transaction_size": 1000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:49.779853"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213006.230825,
+        "transaction_size": 1000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:26.230825"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213040.129184,
+        "transaction_size": 1000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:00.129184"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213075.644448,
+        "transaction_size": 1000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:35.644448"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213111.581273,
+        "transaction_size": 1000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:11.581273"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213143.92045,
+        "transaction_size": 1000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:43.920450"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213177.515456,
+        "transaction_size": 1000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:17.515456"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213215.5002398,
+        "transaction_size": 1000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:46:55.500240"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213252.0458891,
+        "transaction_size": 1000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:32.045889"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213287.3755121,
+        "transaction_size": 1000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:07.375512"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213322.910969,
+        "transaction_size": 1000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:42.910969"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213359.90101,
+        "transaction_size": 1000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:19.901010"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213394.113816,
+        "transaction_size": 1000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:54.113816"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213428.8022661,
+        "transaction_size": 1000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:28.802266"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213464.285944,
+        "transaction_size": 1000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:04.285944"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213500.7467132,
+        "transaction_size": 1000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:40.746713"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213535.137301,
+        "transaction_size": 1000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:15.137301"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213570.078582,
+        "transaction_size": 1000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:50.078582"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213604.4790819,
+        "transaction_size": 1000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:24.479082"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213639.157818,
+        "transaction_size": 1000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:59.157818"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213673.7906518,
+        "transaction_size": 1000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:33.790652"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213707.822936,
+        "transaction_size": 1000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:07.822936"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213741.882323,
+        "transaction_size": 1000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:41.882323"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213774.406233,
+        "transaction_size": 1000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:14.406233"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213807.8338199,
+        "transaction_size": 1000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:47.833820"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213843.986691,
+        "transaction_size": 1000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:23.986691"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213877.0326521,
+        "transaction_size": 1000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:57:57.032652"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213910.31986,
+        "transaction_size": 1000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:30.319860"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213944.266183,
+        "transaction_size": 1000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:04.266183"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757213976.9663548,
+        "transaction_size": 1000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:36.966355"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214010.661494,
+        "transaction_size": 1000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:10.661494"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214043.752745,
+        "transaction_size": 1000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:43.752745"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214077.406569,
+        "transaction_size": 1000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:17.406569"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214112.213398,
+        "transaction_size": 1000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:52.213398"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214146.333015,
+        "transaction_size": 1000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:26.333015"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214180.086468,
+        "transaction_size": 1000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:00.086468"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214214.5634649,
+        "transaction_size": 1000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:34.563465"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214248.654766,
+        "transaction_size": 1000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:08.654766"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214281.665942,
+        "transaction_size": 1000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:41.665942"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214316.0697432,
+        "transaction_size": 1000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:16.069743"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214350.017962,
+        "transaction_size": 1000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:50.017962"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214383.745844,
+        "transaction_size": 1000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:23.745844"
+      },
+      {
+        "fee": 3.5,
+        "timestamp": 1757214417.1796532,
+        "transaction_size": 1000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:06:57.179653"
+      }
+    ],
+    "2000.0": [
+      {
+        "fee": 7.0,
+        "timestamp": 1757211566.3740869,
+        "transaction_size": 2000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:26.374087"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211598.213498,
+        "transaction_size": 2000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:19:58.213498"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211630.550999,
+        "transaction_size": 2000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:30.550999"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211663.1653178,
+        "transaction_size": 2000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:03.165318"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211695.652525,
+        "transaction_size": 2000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:35.652525"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211728.779905,
+        "transaction_size": 2000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:08.779905"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211762.2910779,
+        "transaction_size": 2000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:42.291078"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211796.03699,
+        "transaction_size": 2000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:16.036990"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211829.2180228,
+        "transaction_size": 2000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:49.218023"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211862.328762,
+        "transaction_size": 2000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:22.328762"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211895.104343,
+        "transaction_size": 2000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:55.104343"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211931.2057998,
+        "transaction_size": 2000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:31.205800"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211965.932023,
+        "transaction_size": 2000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:05.932023"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757211999.596179,
+        "transaction_size": 2000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:39.596179"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212032.539126,
+        "transaction_size": 2000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:12.539126"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212066.358989,
+        "transaction_size": 2000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:46.358989"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212098.853512,
+        "transaction_size": 2000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:18.853512"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212132.341336,
+        "transaction_size": 2000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:52.341336"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212163.990609,
+        "transaction_size": 2000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:23.990609"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212199.166998,
+        "transaction_size": 2000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:29:59.166998"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212233.94474,
+        "transaction_size": 2000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:33.944740"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212270.560987,
+        "transaction_size": 2000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:10.560987"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212305.147292,
+        "transaction_size": 2000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:45.147292"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212337.952079,
+        "transaction_size": 2000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:17.952079"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212370.671205,
+        "transaction_size": 2000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:50.671205"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212404.888781,
+        "transaction_size": 2000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:24.888781"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212438.503069,
+        "transaction_size": 2000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:58.503069"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212471.194346,
+        "transaction_size": 2000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:31.194346"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212505.168025,
+        "transaction_size": 2000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:05.168025"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212539.53194,
+        "transaction_size": 2000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:39.531940"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212572.560261,
+        "transaction_size": 2000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:12.560261"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212606.5400808,
+        "transaction_size": 2000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:46.540081"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212639.298031,
+        "transaction_size": 2000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:19.298031"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212672.8004138,
+        "transaction_size": 2000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:52.800414"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212705.2576609,
+        "transaction_size": 2000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:25.257661"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212738.1867409,
+        "transaction_size": 2000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:38:58.186741"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212771.349853,
+        "transaction_size": 2000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:31.349853"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212804.842298,
+        "transaction_size": 2000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:04.842298"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212837.395287,
+        "transaction_size": 2000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:37.395287"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212871.266013,
+        "transaction_size": 2000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:11.266013"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212903.5144582,
+        "transaction_size": 2000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:43.514458"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212937.828667,
+        "transaction_size": 2000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:17.828667"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757212970.6820722,
+        "transaction_size": 2000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:50.682072"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213007.1903832,
+        "transaction_size": 2000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:27.190383"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213041.044393,
+        "transaction_size": 2000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:01.044393"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213076.787837,
+        "transaction_size": 2000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:36.787837"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213112.5107021,
+        "transaction_size": 2000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:12.510702"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213144.783576,
+        "transaction_size": 2000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:44.783576"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213178.435401,
+        "transaction_size": 2000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:18.435401"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213216.427315,
+        "transaction_size": 2000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:46:56.427315"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213252.937233,
+        "transaction_size": 2000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:32.937233"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213288.2932942,
+        "transaction_size": 2000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:08.293294"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213323.7992268,
+        "transaction_size": 2000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:43.799227"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213360.8362722,
+        "transaction_size": 2000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:20.836272"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213395.033705,
+        "transaction_size": 2000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:55.033705"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213429.747432,
+        "transaction_size": 2000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:29.747432"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213465.398686,
+        "transaction_size": 2000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:05.398686"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213501.651458,
+        "transaction_size": 2000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:41.651458"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213536.055466,
+        "transaction_size": 2000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:16.055466"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213570.976789,
+        "transaction_size": 2000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:50.976789"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213605.3662772,
+        "transaction_size": 2000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:25.366277"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213641.0888069,
+        "transaction_size": 2000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:01.088807"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213674.666307,
+        "transaction_size": 2000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:34.666307"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213708.680743,
+        "transaction_size": 2000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:08.680743"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213742.725249,
+        "transaction_size": 2000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:42.725249"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213775.441094,
+        "transaction_size": 2000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:15.441094"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213808.6816,
+        "transaction_size": 2000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:48.681600"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213844.867177,
+        "transaction_size": 2000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:24.867177"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213877.919561,
+        "transaction_size": 2000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:57:57.919561"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213911.1804311,
+        "transaction_size": 2000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:31.180431"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213945.121187,
+        "transaction_size": 2000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:05.121187"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757213977.8223019,
+        "transaction_size": 2000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:37.822302"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214011.56834,
+        "transaction_size": 2000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:11.568340"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214044.582795,
+        "transaction_size": 2000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:44.582795"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214078.306973,
+        "transaction_size": 2000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:18.306973"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214113.067604,
+        "transaction_size": 2000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:53.067604"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214147.189735,
+        "transaction_size": 2000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:27.189735"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214180.984758,
+        "transaction_size": 2000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:00.984758"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214215.4702249,
+        "transaction_size": 2000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:35.470225"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214249.521997,
+        "transaction_size": 2000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:09.521997"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214282.567797,
+        "transaction_size": 2000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:42.567797"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214316.951135,
+        "transaction_size": 2000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:16.951135"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214350.8609438,
+        "transaction_size": 2000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:50.860944"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214384.617599,
+        "transaction_size": 2000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:24.617599"
+      },
+      {
+        "fee": 7.0,
+        "timestamp": 1757214418.052804,
+        "transaction_size": 2000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:06:58.052804"
+      }
+    ],
+    "4000.0": [
+      {
+        "fee": 14.0,
+        "timestamp": 1757211567.226549,
+        "transaction_size": 4000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:27.226549"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211599.0873349,
+        "transaction_size": 4000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:19:59.087335"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211631.425925,
+        "transaction_size": 4000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:31.425925"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211664.022584,
+        "transaction_size": 4000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:04.022584"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211696.5076742,
+        "transaction_size": 4000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:36.507674"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211729.650121,
+        "transaction_size": 4000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:09.650121"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211763.160337,
+        "transaction_size": 4000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:43.160337"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211796.8785129,
+        "transaction_size": 4000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:16.878513"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211830.056031,
+        "transaction_size": 4000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:50.056031"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211863.198536,
+        "transaction_size": 4000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:23.198536"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211895.9579132,
+        "transaction_size": 4000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:55.957913"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211932.4228039,
+        "transaction_size": 4000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:32.422804"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757211966.8013709,
+        "transaction_size": 4000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:06.801371"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212000.483794,
+        "transaction_size": 4000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:40.483794"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212033.40289,
+        "transaction_size": 4000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:13.402890"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212067.236146,
+        "transaction_size": 4000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:47.236146"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212099.746735,
+        "transaction_size": 4000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:19.746735"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212133.207052,
+        "transaction_size": 4000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:53.207052"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212164.883637,
+        "transaction_size": 4000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:24.883637"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212200.014946,
+        "transaction_size": 4000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:00.014946"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212235.444702,
+        "transaction_size": 4000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:35.444702"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212271.44432,
+        "transaction_size": 4000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:11.444320"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212306.018003,
+        "transaction_size": 4000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:46.018003"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212338.837756,
+        "transaction_size": 4000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:18.837756"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212371.5646431,
+        "transaction_size": 4000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:51.564643"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212405.7394729,
+        "transaction_size": 4000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:25.739473"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212439.354622,
+        "transaction_size": 4000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:59.354622"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212472.048179,
+        "transaction_size": 4000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:32.048179"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212506.032875,
+        "transaction_size": 4000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:06.032875"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212540.388713,
+        "transaction_size": 4000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:40.388713"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212573.44506,
+        "transaction_size": 4000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:13.445060"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212607.4403079,
+        "transaction_size": 4000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:47.440308"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212640.144589,
+        "transaction_size": 4000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:20.144589"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212673.673366,
+        "transaction_size": 4000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:53.673366"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212706.115256,
+        "transaction_size": 4000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:26.115256"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212739.047768,
+        "transaction_size": 4000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:38:59.047768"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212772.218324,
+        "transaction_size": 4000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:32.218324"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212805.704573,
+        "transaction_size": 4000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:05.704573"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212838.248479,
+        "transaction_size": 4000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:38.248479"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212872.133651,
+        "transaction_size": 4000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:12.133651"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212904.3818188,
+        "transaction_size": 4000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:44.381819"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212938.714169,
+        "transaction_size": 4000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:18.714169"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757212971.556751,
+        "transaction_size": 4000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:51.556751"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213008.137683,
+        "transaction_size": 4000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:28.137683"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213041.991046,
+        "transaction_size": 4000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:01.991046"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213078.264859,
+        "transaction_size": 4000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:38.264859"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213113.43228,
+        "transaction_size": 4000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:13.432280"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213145.6636422,
+        "transaction_size": 4000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:45.663642"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213179.273144,
+        "transaction_size": 4000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:19.273144"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213217.309514,
+        "transaction_size": 4000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:46:57.309514"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213253.872041,
+        "transaction_size": 4000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:33.872041"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213289.2045171,
+        "transaction_size": 4000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:09.204517"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213324.711147,
+        "transaction_size": 4000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:44.711147"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213361.753054,
+        "transaction_size": 4000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:21.753054"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213395.953752,
+        "transaction_size": 4000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:55.953752"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213430.654855,
+        "transaction_size": 4000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:30.654855"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213466.4837399,
+        "transaction_size": 4000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:06.483740"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213502.6164758,
+        "transaction_size": 4000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:42.616476"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213536.9367208,
+        "transaction_size": 4000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:16.936721"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213571.919163,
+        "transaction_size": 4000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:51.919163"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213606.276339,
+        "transaction_size": 4000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:26.276339"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213642.022523,
+        "transaction_size": 4000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:02.022523"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213675.5274198,
+        "transaction_size": 4000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:35.527420"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213709.535467,
+        "transaction_size": 4000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:09.535467"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213743.573452,
+        "transaction_size": 4000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:43.573452"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213776.352978,
+        "transaction_size": 4000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:16.352978"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213809.562262,
+        "transaction_size": 4000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:49.562262"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213845.7423449,
+        "transaction_size": 4000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:25.742345"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213878.798414,
+        "transaction_size": 4000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:57:58.798414"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213912.0214112,
+        "transaction_size": 4000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:32.021411"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213945.9684658,
+        "transaction_size": 4000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:05.968466"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757213978.701088,
+        "transaction_size": 4000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:38.701088"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214012.424951,
+        "transaction_size": 4000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:12.424951"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214045.42821,
+        "transaction_size": 4000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:45.428210"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214079.209365,
+        "transaction_size": 4000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:19.209365"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214113.915065,
+        "transaction_size": 4000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:53.915065"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214148.025113,
+        "transaction_size": 4000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:28.025113"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214181.843942,
+        "transaction_size": 4000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:01.843942"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214216.362709,
+        "transaction_size": 4000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:36.362709"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214250.404062,
+        "transaction_size": 4000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:10.404062"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214283.455584,
+        "transaction_size": 4000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:43.455584"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214317.901498,
+        "transaction_size": 4000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:17.901498"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214351.74409,
+        "transaction_size": 4000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:51.744090"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214385.5031621,
+        "transaction_size": 4000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:25.503162"
+      },
+      {
+        "fee": 14.0,
+        "timestamp": 1757214418.9114492,
+        "transaction_size": 4000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:06:58.911449"
+      }
+    ],
+    "8000.0": [
+      {
+        "fee": 28.0,
+        "timestamp": 1757211568.1086779,
+        "transaction_size": 8000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:28.108678"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211599.9165592,
+        "transaction_size": 8000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:19:59.916559"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211632.300006,
+        "transaction_size": 8000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:32.300006"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211664.906941,
+        "transaction_size": 8000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:04.906941"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211697.369419,
+        "transaction_size": 8000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:37.369419"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211730.5118861,
+        "transaction_size": 8000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:10.511886"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211764.0385752,
+        "transaction_size": 8000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:44.038575"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211797.7159512,
+        "transaction_size": 8000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:17.715951"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211830.929209,
+        "transaction_size": 8000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:50.929209"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211864.073772,
+        "transaction_size": 8000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:24.073772"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211896.776426,
+        "transaction_size": 8000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:56.776426"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211933.8194401,
+        "transaction_size": 8000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:33.819440"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757211967.69857,
+        "transaction_size": 8000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:07.698570"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212001.373736,
+        "transaction_size": 8000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:41.373736"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212034.269762,
+        "transaction_size": 8000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:14.269762"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212068.114812,
+        "transaction_size": 8000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:48.114812"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212100.6136372,
+        "transaction_size": 8000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:20.613637"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212134.075202,
+        "transaction_size": 8000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:54.075202"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212165.774548,
+        "transaction_size": 8000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:25.774548"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212200.892826,
+        "transaction_size": 8000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:00.892826"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212236.665594,
+        "transaction_size": 8000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:36.665594"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212272.312423,
+        "transaction_size": 8000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:12.312423"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212306.9124942,
+        "transaction_size": 8000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:46.912494"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212339.719219,
+        "transaction_size": 8000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:19.719219"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212372.4241018,
+        "transaction_size": 8000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:52.424102"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212406.606109,
+        "transaction_size": 8000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:26.606109"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212440.205617,
+        "transaction_size": 8000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:00.205617"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212472.9180422,
+        "transaction_size": 8000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:32.918042"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212506.958116,
+        "transaction_size": 8000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:06.958116"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212541.263809,
+        "transaction_size": 8000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:41.263809"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212574.2984488,
+        "transaction_size": 8000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:14.298449"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212608.3182368,
+        "transaction_size": 8000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:48.318237"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212640.985905,
+        "transaction_size": 8000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:20.985905"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212674.5236192,
+        "transaction_size": 8000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:54.523619"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212706.9582012,
+        "transaction_size": 8000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:26.958201"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212739.896147,
+        "transaction_size": 8000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:38:59.896147"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212773.098954,
+        "transaction_size": 8000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:33.098954"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212806.590949,
+        "transaction_size": 8000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:06.590949"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212839.082609,
+        "transaction_size": 8000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:39.082609"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212873.025745,
+        "transaction_size": 8000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:13.025745"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212905.258995,
+        "transaction_size": 8000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:45.258995"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212939.598975,
+        "transaction_size": 8000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:19.598975"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757212972.421105,
+        "transaction_size": 8000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:52.421105"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213009.1856341,
+        "transaction_size": 8000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:29.185634"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213042.9286249,
+        "transaction_size": 8000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:02.928625"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213079.412312,
+        "transaction_size": 8000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:39.412312"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213114.303244,
+        "transaction_size": 8000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:14.303244"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213146.5284522,
+        "transaction_size": 8000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:46.528452"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213180.185688,
+        "transaction_size": 8000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:20.185688"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213218.2190862,
+        "transaction_size": 8000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:46:58.219086"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213254.793632,
+        "transaction_size": 8000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:34.793632"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213290.1053529,
+        "transaction_size": 8000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:10.105353"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213325.619658,
+        "transaction_size": 8000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:45.619658"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213362.678487,
+        "transaction_size": 8000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:22.678487"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213396.901959,
+        "transaction_size": 8000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:56.901959"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213431.5766459,
+        "transaction_size": 8000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:31.576646"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213467.530862,
+        "transaction_size": 8000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:07.530862"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213503.576084,
+        "transaction_size": 8000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:43.576084"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213537.8361769,
+        "transaction_size": 8000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:17.836177"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213572.8163252,
+        "transaction_size": 8000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:52.816325"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213607.187867,
+        "transaction_size": 8000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:27.187867"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213642.952773,
+        "transaction_size": 8000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:02.952773"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213676.3987231,
+        "transaction_size": 8000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:36.398723"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213710.413017,
+        "transaction_size": 8000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:10.413017"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213744.440973,
+        "transaction_size": 8000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:44.440973"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213777.216375,
+        "transaction_size": 8000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:17.216375"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213810.422061,
+        "transaction_size": 8000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:50.422061"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213846.608214,
+        "transaction_size": 8000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:26.608214"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213879.672482,
+        "transaction_size": 8000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:57:59.672482"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213912.889882,
+        "transaction_size": 8000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:32.889882"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213946.836985,
+        "transaction_size": 8000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:06.836985"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757213979.563473,
+        "transaction_size": 8000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:39.563473"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214013.3212469,
+        "transaction_size": 8000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:13.321247"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214046.3063538,
+        "transaction_size": 8000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:46.306354"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214080.085282,
+        "transaction_size": 8000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:20.085282"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214114.770338,
+        "transaction_size": 8000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:54.770338"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214148.873308,
+        "transaction_size": 8000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:28.873308"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214182.6896992,
+        "transaction_size": 8000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:02.689699"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214217.259497,
+        "transaction_size": 8000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:37.259497"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214251.2662468,
+        "transaction_size": 8000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:11.266247"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214284.332086,
+        "transaction_size": 8000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:44.332086"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214318.887831,
+        "transaction_size": 8000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:18.887831"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214352.576694,
+        "transaction_size": 8000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:52.576694"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214386.3846881,
+        "transaction_size": 8000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:26.384688"
+      },
+      {
+        "fee": 28.0,
+        "timestamp": 1757214419.795126,
+        "transaction_size": 8000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:06:59.795126"
+      }
+    ],
+    "16000.0": [
+      {
+        "fee": 56.0,
+        "timestamp": 1757211568.9562619,
+        "transaction_size": 16000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:28.956262"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211600.777892,
+        "transaction_size": 16000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:20:00.777892"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211633.177705,
+        "transaction_size": 16000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:33.177705"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211665.765592,
+        "transaction_size": 16000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:05.765592"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211698.267877,
+        "transaction_size": 16000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:38.267877"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211731.40578,
+        "transaction_size": 16000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:11.405780"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211764.9021828,
+        "transaction_size": 16000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:44.902183"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211798.572244,
+        "transaction_size": 16000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:18.572244"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211831.7702882,
+        "transaction_size": 16000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:51.770288"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211864.9329689,
+        "transaction_size": 16000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:24.932969"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211897.657388,
+        "transaction_size": 16000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:57.657388"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211934.876915,
+        "transaction_size": 16000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:34.876915"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757211968.582731,
+        "transaction_size": 16000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:08.582731"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212002.247726,
+        "transaction_size": 16000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:42.247726"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212035.107863,
+        "transaction_size": 16000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:15.107863"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212068.996613,
+        "transaction_size": 16000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:48.996613"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212101.465685,
+        "transaction_size": 16000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:21.465685"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212134.946698,
+        "transaction_size": 16000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:54.946698"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212166.6706932,
+        "transaction_size": 16000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:26.670693"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212201.751785,
+        "transaction_size": 16000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:01.751785"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212237.910806,
+        "transaction_size": 16000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:37.910806"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212273.187891,
+        "transaction_size": 16000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:13.187891"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212307.768072,
+        "transaction_size": 16000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:47.768072"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212340.595055,
+        "transaction_size": 16000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:20.595055"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212373.2865689,
+        "transaction_size": 16000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:53.286569"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212407.478803,
+        "transaction_size": 16000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:27.478803"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212441.066818,
+        "transaction_size": 16000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:01.066818"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212473.774303,
+        "transaction_size": 16000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:33.774303"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212507.849658,
+        "transaction_size": 16000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:07.849658"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212542.1838348,
+        "transaction_size": 16000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:42.183835"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212575.16913,
+        "transaction_size": 16000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:15.169130"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212609.1547468,
+        "transaction_size": 16000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:49.154747"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212641.863317,
+        "transaction_size": 16000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:21.863317"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212675.3963368,
+        "transaction_size": 16000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:55.396337"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212707.823124,
+        "transaction_size": 16000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:27.823124"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212740.7440362,
+        "transaction_size": 16000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:00.744036"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212773.995351,
+        "transaction_size": 16000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:33.995351"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212807.462107,
+        "transaction_size": 16000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:07.462107"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212839.954902,
+        "transaction_size": 16000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:39.954902"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212873.942175,
+        "transaction_size": 16000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:13.942175"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212906.1204102,
+        "transaction_size": 16000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:46.120410"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212940.464451,
+        "transaction_size": 16000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:20.464451"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757212973.295443,
+        "transaction_size": 16000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:53.295443"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213010.5821052,
+        "transaction_size": 16000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:30.582105"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213043.830486,
+        "transaction_size": 16000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:03.830486"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213080.580509,
+        "transaction_size": 16000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:40.580509"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213115.188695,
+        "transaction_size": 16000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:15.188695"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213147.372245,
+        "transaction_size": 16000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:47.372245"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213181.076375,
+        "transaction_size": 16000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:21.076375"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213219.129947,
+        "transaction_size": 16000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:46:59.129947"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213255.713224,
+        "transaction_size": 16000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:35.713224"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213291.034435,
+        "transaction_size": 16000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:11.034435"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213326.52406,
+        "transaction_size": 16000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:46.524060"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213363.610044,
+        "transaction_size": 16000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:23.610044"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213397.796538,
+        "transaction_size": 16000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:57.796538"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213432.5184,
+        "transaction_size": 16000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:32.518400"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213468.504875,
+        "transaction_size": 16000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:08.504875"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213504.461178,
+        "transaction_size": 16000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:44.461178"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213538.75782,
+        "transaction_size": 16000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:18.757820"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213573.72188,
+        "transaction_size": 16000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:53.721880"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213608.134955,
+        "transaction_size": 16000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:28.134955"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213643.8318589,
+        "transaction_size": 16000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:03.831859"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213677.271779,
+        "transaction_size": 16000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:37.271779"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213711.259528,
+        "transaction_size": 16000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:11.259528"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213745.275496,
+        "transaction_size": 16000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:45.275496"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213778.071892,
+        "transaction_size": 16000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:18.071892"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213811.268775,
+        "transaction_size": 16000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:51.268775"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213847.498927,
+        "transaction_size": 16000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:27.498927"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213880.542342,
+        "transaction_size": 16000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:58:00.542342"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213913.763957,
+        "transaction_size": 16000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:33.763957"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213947.6802728,
+        "transaction_size": 16000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:07.680273"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757213980.443031,
+        "transaction_size": 16000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:40.443031"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214014.23699,
+        "transaction_size": 16000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:14.236990"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214047.199741,
+        "transaction_size": 16000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:47.199741"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214080.950227,
+        "transaction_size": 16000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:20.950227"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214115.633156,
+        "transaction_size": 16000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:55.633156"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214149.7076821,
+        "transaction_size": 16000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:29.707682"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214183.5553489,
+        "transaction_size": 16000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:03.555349"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214218.120476,
+        "transaction_size": 16000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:38.120476"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214252.159306,
+        "transaction_size": 16000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:12.159306"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214285.210798,
+        "transaction_size": 16000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:45.210798"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214319.8862789,
+        "transaction_size": 16000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:19.886279"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214353.436558,
+        "transaction_size": 16000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:53.436558"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214387.2442749,
+        "transaction_size": 16000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:27.244275"
+      },
+      {
+        "fee": 56.0,
+        "timestamp": 1757214420.660768,
+        "transaction_size": 16000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:07:00.660768"
+      }
+    ],
+    "32000.0": [
+      {
+        "fee": 112.0,
+        "timestamp": 1757211569.821242,
+        "transaction_size": 32000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:29.821242"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211601.620708,
+        "transaction_size": 32000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:20:01.620708"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211634.066595,
+        "transaction_size": 32000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:34.066595"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211666.614988,
+        "transaction_size": 32000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:06.614988"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211699.137454,
+        "transaction_size": 32000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:39.137454"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211732.2665339,
+        "transaction_size": 32000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:12.266534"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211765.767688,
+        "transaction_size": 32000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:45.767688"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211799.438677,
+        "transaction_size": 32000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:19.438677"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211832.6371078,
+        "transaction_size": 32000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:52.637108"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211865.762326,
+        "transaction_size": 32000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:25.762326"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211898.534219,
+        "transaction_size": 32000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:58.534219"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211935.7452931,
+        "transaction_size": 32000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:35.745293"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757211969.455904,
+        "transaction_size": 32000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:09.455904"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212003.0935638,
+        "transaction_size": 32000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:43.093564"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212036.000562,
+        "transaction_size": 32000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:16.000562"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212069.886656,
+        "transaction_size": 32000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:49.886656"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212102.337209,
+        "transaction_size": 32000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:22.337209"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212135.813472,
+        "transaction_size": 32000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:55.813472"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212167.5544078,
+        "transaction_size": 32000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:27.554408"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212202.614588,
+        "transaction_size": 32000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:02.614588"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212239.165248,
+        "transaction_size": 32000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:39.165248"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212274.061717,
+        "transaction_size": 32000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:14.061717"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212308.634447,
+        "transaction_size": 32000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:48.634447"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212341.479159,
+        "transaction_size": 32000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:21.479159"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212374.155283,
+        "transaction_size": 32000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:54.155283"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212408.3438542,
+        "transaction_size": 32000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:28.343854"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212441.925194,
+        "transaction_size": 32000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:01.925194"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212474.6434839,
+        "transaction_size": 32000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:34.643484"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212508.841061,
+        "transaction_size": 32000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:08.841061"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212543.048785,
+        "transaction_size": 32000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:43.048785"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212576.0326731,
+        "transaction_size": 32000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:16.032673"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212610.0026948,
+        "transaction_size": 32000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:50.002695"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212642.760872,
+        "transaction_size": 32000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:22.760872"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212676.278949,
+        "transaction_size": 32000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:56.278949"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212708.693185,
+        "transaction_size": 32000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:28.693185"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212741.654149,
+        "transaction_size": 32000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:01.654149"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212774.8473852,
+        "transaction_size": 32000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:34.847385"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212808.343889,
+        "transaction_size": 32000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:08.343889"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212840.8206668,
+        "transaction_size": 32000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:40.820667"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212874.7970839,
+        "transaction_size": 32000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:14.797084"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212906.998975,
+        "transaction_size": 32000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:46.998975"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212941.3371708,
+        "transaction_size": 32000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:21.337171"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757212974.172935,
+        "transaction_size": 32000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:54.172935"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213011.713161,
+        "transaction_size": 32000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:31.713161"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213044.687906,
+        "transaction_size": 32000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:04.687906"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213081.933308,
+        "transaction_size": 32000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:41.933308"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213116.041513,
+        "transaction_size": 32000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:16.041513"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213148.2296572,
+        "transaction_size": 32000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:48.229657"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213181.9512918,
+        "transaction_size": 32000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:21.951292"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213220.0682712,
+        "transaction_size": 32000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:47:00.068271"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213256.6386628,
+        "transaction_size": 32000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:36.638663"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213291.987419,
+        "transaction_size": 32000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:11.987419"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213327.446214,
+        "transaction_size": 32000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:47.446214"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213364.5085618,
+        "transaction_size": 32000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:24.508562"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213398.682453,
+        "transaction_size": 32000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:58.682453"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213433.437023,
+        "transaction_size": 32000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:33.437023"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213469.486241,
+        "transaction_size": 32000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:09.486241"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213505.328279,
+        "transaction_size": 32000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:45.328279"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213539.679894,
+        "transaction_size": 32000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:19.679894"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213574.634401,
+        "transaction_size": 32000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:54.634401"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213609.0525281,
+        "transaction_size": 32000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:29.052528"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213644.729234,
+        "transaction_size": 32000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:04.729234"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213678.169983,
+        "transaction_size": 32000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:38.169983"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213712.140676,
+        "transaction_size": 32000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:12.140676"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213746.1556458,
+        "transaction_size": 32000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:46.155646"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213778.9615219,
+        "transaction_size": 32000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:18.961522"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213812.140985,
+        "transaction_size": 32000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:52.140985"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213848.346878,
+        "transaction_size": 32000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:28.346878"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213881.434607,
+        "transaction_size": 32000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:58:01.434607"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213914.655723,
+        "transaction_size": 32000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:34.655723"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213948.5968,
+        "transaction_size": 32000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:08.596800"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757213981.2862458,
+        "transaction_size": 32000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:41.286246"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214015.117515,
+        "transaction_size": 32000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:15.117515"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214048.0835981,
+        "transaction_size": 32000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:48.083598"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214081.876523,
+        "transaction_size": 32000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:21.876523"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214116.484722,
+        "transaction_size": 32000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:56.484722"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214150.60035,
+        "transaction_size": 32000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:30.600350"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214184.4393432,
+        "transaction_size": 32000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:04.439343"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214218.983976,
+        "transaction_size": 32000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:38.983976"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214253.058078,
+        "transaction_size": 32000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:13.058078"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214286.106682,
+        "transaction_size": 32000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:46.106682"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214320.879511,
+        "transaction_size": 32000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:20.879511"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214354.293098,
+        "transaction_size": 32000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:54.293098"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214388.144781,
+        "transaction_size": 32000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:28.144781"
+      },
+      {
+        "fee": 112.0,
+        "timestamp": 1757214421.539758,
+        "transaction_size": 32000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:07:01.539758"
+      }
+    ],
+    "64000.0": [
+      {
+        "fee": 224.0,
+        "timestamp": 1757211570.6902442,
+        "transaction_size": 64000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:30.690244"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211602.4766688,
+        "transaction_size": 64000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:20:02.476669"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211634.9446468,
+        "transaction_size": 64000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:34.944647"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211667.5159612,
+        "transaction_size": 64000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:07.515961"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211699.999939,
+        "transaction_size": 64000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:39.999939"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211733.130162,
+        "transaction_size": 64000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:13.130162"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211766.6862001,
+        "transaction_size": 64000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:46.686200"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211800.317356,
+        "transaction_size": 64000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:20.317356"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211833.498338,
+        "transaction_size": 64000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:53.498338"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211866.63819,
+        "transaction_size": 64000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:26.638190"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211899.373625,
+        "transaction_size": 64000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:24:59.373625"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211936.718583,
+        "transaction_size": 64000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:36.718583"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757211970.327233,
+        "transaction_size": 64000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:10.327233"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212003.969897,
+        "transaction_size": 64000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:43.969897"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212036.858696,
+        "transaction_size": 64000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:16.858696"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212070.838656,
+        "transaction_size": 64000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:50.838656"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212103.2165499,
+        "transaction_size": 64000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:23.216550"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212136.684038,
+        "transaction_size": 64000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:56.684038"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212168.4273212,
+        "transaction_size": 64000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:28.427321"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212203.487233,
+        "transaction_size": 64000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:03.487233"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212240.6305861,
+        "transaction_size": 64000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:40.630586"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212274.951387,
+        "transaction_size": 64000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:14.951387"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212309.514665,
+        "transaction_size": 64000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:49.514665"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212342.408672,
+        "transaction_size": 64000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:22.408672"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212375.0495129,
+        "transaction_size": 64000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:55.049513"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212409.2241228,
+        "transaction_size": 64000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:29.224123"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212442.787929,
+        "transaction_size": 64000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:02.787929"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212475.522075,
+        "transaction_size": 64000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:35.522075"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212509.699811,
+        "transaction_size": 64000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:09.699811"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212543.91505,
+        "transaction_size": 64000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:43.915050"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212576.901752,
+        "transaction_size": 64000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:16.901752"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212610.860675,
+        "transaction_size": 64000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:50.860675"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212643.64869,
+        "transaction_size": 64000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:23.648690"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212677.158709,
+        "transaction_size": 64000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:57.158709"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212709.5583591,
+        "transaction_size": 64000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:29.558359"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212742.516438,
+        "transaction_size": 64000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:02.516438"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212775.744734,
+        "transaction_size": 64000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:35.744734"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212809.22898,
+        "transaction_size": 64000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:09.228980"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212841.6882482,
+        "transaction_size": 64000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:41.688248"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212875.7206101,
+        "transaction_size": 64000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:15.720610"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212907.859753,
+        "transaction_size": 64000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:47.859753"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212942.2190669,
+        "transaction_size": 64000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:22.219067"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757212975.0517209,
+        "transaction_size": 64000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:55.051721"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213012.6269262,
+        "transaction_size": 64000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:32.626926"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213045.55389,
+        "transaction_size": 64000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:05.553890"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213083.166703,
+        "transaction_size": 64000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:43.166703"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213116.872767,
+        "transaction_size": 64000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:16.872767"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213149.149261,
+        "transaction_size": 64000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:49.149261"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213182.8252091,
+        "transaction_size": 64000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:22.825209"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213221.015819,
+        "transaction_size": 64000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:47:01.015819"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213257.560203,
+        "transaction_size": 64000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:37.560203"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213292.9000509,
+        "transaction_size": 64000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:12.900051"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213328.365449,
+        "transaction_size": 64000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:48.365449"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213365.429564,
+        "transaction_size": 64000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:25.429564"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213399.5573509,
+        "transaction_size": 64000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:59.557351"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213434.42668,
+        "transaction_size": 64000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:34.426680"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213470.636698,
+        "transaction_size": 64000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:10.636698"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213506.262038,
+        "transaction_size": 64000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:46.262038"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213540.605443,
+        "transaction_size": 64000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:20.605443"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213575.5379698,
+        "transaction_size": 64000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:55.537970"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213609.9664881,
+        "transaction_size": 64000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:29.966488"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213645.624167,
+        "transaction_size": 64000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:05.624167"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213679.0490339,
+        "transaction_size": 64000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:39.049034"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213713.0654988,
+        "transaction_size": 64000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:13.065499"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213747.0017018,
+        "transaction_size": 64000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:47.001702"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213779.857404,
+        "transaction_size": 64000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:19.857404"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213813.007375,
+        "transaction_size": 64000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:53.007375"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213849.207127,
+        "transaction_size": 64000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:29.207127"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213882.2868512,
+        "transaction_size": 64000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:58:02.286851"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213915.5313091,
+        "transaction_size": 64000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:35.531309"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213949.485069,
+        "transaction_size": 64000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:09.485069"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757213982.114032,
+        "transaction_size": 64000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:42.114032"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214015.998425,
+        "transaction_size": 64000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:15.998425"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214048.981781,
+        "transaction_size": 64000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:48.981781"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214082.7642891,
+        "transaction_size": 64000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:22.764289"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214117.354269,
+        "transaction_size": 64000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:57.354269"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214151.476413,
+        "transaction_size": 64000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:31.476413"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214185.321171,
+        "transaction_size": 64000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:05.321171"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214219.877735,
+        "transaction_size": 64000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:39.877735"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214253.958059,
+        "transaction_size": 64000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:13.958059"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214287.0373251,
+        "transaction_size": 64000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:47.037325"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214321.8370109,
+        "transaction_size": 64000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:21.837011"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214355.139895,
+        "transaction_size": 64000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:55.139895"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214389.020424,
+        "transaction_size": 64000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:29.020424"
+      },
+      {
+        "fee": 224.0,
+        "timestamp": 1757214422.397483,
+        "transaction_size": 64000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:07:02.397483"
+      }
+    ],
+    "128000.0": [
+      {
+        "fee": 448.0,
+        "timestamp": 1757211571.539489,
+        "transaction_size": 128000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:31.539489"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211603.330716,
+        "transaction_size": 128000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:20:03.330716"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211635.807471,
+        "transaction_size": 128000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:35.807471"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211668.346981,
+        "transaction_size": 128000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:08.346981"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211700.8552399,
+        "transaction_size": 128000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:40.855240"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211733.985267,
+        "transaction_size": 128000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:13.985267"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211767.553063,
+        "transaction_size": 128000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:47.553063"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211801.187586,
+        "transaction_size": 128000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:21.187586"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211834.369916,
+        "transaction_size": 128000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:54.369916"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211867.4683478,
+        "transaction_size": 128000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:27.468348"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211900.3662589,
+        "transaction_size": 128000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:00.366259"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211937.681719,
+        "transaction_size": 128000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:37.681719"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757211971.197689,
+        "transaction_size": 128000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:11.197689"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212004.8192158,
+        "transaction_size": 128000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:44.819216"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212037.721544,
+        "transaction_size": 128000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:17.721544"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212071.704625,
+        "transaction_size": 128000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:51.704625"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212104.080099,
+        "transaction_size": 128000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:24.080099"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212137.531327,
+        "transaction_size": 128000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:57.531327"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212169.291938,
+        "transaction_size": 128000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:29.291938"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212204.321471,
+        "transaction_size": 128000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:04.321471"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212241.919279,
+        "transaction_size": 128000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:41.919279"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212275.828543,
+        "transaction_size": 128000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:15.828543"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212310.414958,
+        "transaction_size": 128000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:50.414958"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212343.301655,
+        "transaction_size": 128000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:23.301655"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212375.889865,
+        "transaction_size": 128000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:55.889865"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212410.1128142,
+        "transaction_size": 128000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:30.112814"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212443.671933,
+        "transaction_size": 128000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:03.671933"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212476.430022,
+        "transaction_size": 128000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:36.430022"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212510.625862,
+        "transaction_size": 128000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:10.625862"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212544.8243752,
+        "transaction_size": 128000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:44.824375"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212577.79173,
+        "transaction_size": 128000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:17.791730"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212611.737918,
+        "transaction_size": 128000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:51.737918"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212644.590326,
+        "transaction_size": 128000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:24.590326"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212678.025323,
+        "transaction_size": 128000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:58.025323"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212710.456673,
+        "transaction_size": 128000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:30.456673"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212743.360893,
+        "transaction_size": 128000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:03.360893"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212776.594976,
+        "transaction_size": 128000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:36.594976"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212810.100041,
+        "transaction_size": 128000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:10.100041"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212842.527606,
+        "transaction_size": 128000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:42.527606"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212876.5957792,
+        "transaction_size": 128000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:16.595779"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212908.746636,
+        "transaction_size": 128000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:48.746636"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212943.079138,
+        "transaction_size": 128000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:23.079138"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757212975.911844,
+        "transaction_size": 128000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:55.911844"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213013.5653691,
+        "transaction_size": 128000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:33.565369"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213046.4058099,
+        "transaction_size": 128000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:06.405810"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213084.3234959,
+        "transaction_size": 128000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:44.323496"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213117.744065,
+        "transaction_size": 128000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:17.744065"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213150.0173178,
+        "transaction_size": 128000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:50.017318"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213184.113772,
+        "transaction_size": 128000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:24.113772"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213221.9215739,
+        "transaction_size": 128000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:47:01.921574"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213258.476767,
+        "transaction_size": 128000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:38.476767"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213293.8216362,
+        "transaction_size": 128000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:13.821636"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213329.259796,
+        "transaction_size": 128000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:49.259796"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213366.3036292,
+        "transaction_size": 128000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:26.303629"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213400.456907,
+        "transaction_size": 128000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:50:00.456907"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213435.366413,
+        "transaction_size": 128000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:35.366413"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213471.611365,
+        "transaction_size": 128000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:11.611365"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213507.299829,
+        "transaction_size": 128000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:47.299829"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213541.5279539,
+        "transaction_size": 128000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:21.527954"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213576.419828,
+        "transaction_size": 128000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:56.419828"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213610.849028,
+        "transaction_size": 128000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:30.849028"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213646.540519,
+        "transaction_size": 128000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:06.540519"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213679.912555,
+        "transaction_size": 128000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:39.912555"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213714.26602,
+        "transaction_size": 128000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:14.266020"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213747.8730838,
+        "transaction_size": 128000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:47.873084"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213780.719311,
+        "transaction_size": 128000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:20.719311"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213813.860655,
+        "transaction_size": 128000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:53.860655"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213850.075082,
+        "transaction_size": 128000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:30.075082"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213883.175503,
+        "transaction_size": 128000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:58:03.175503"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213916.383604,
+        "transaction_size": 128000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:36.383604"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213950.3755379,
+        "transaction_size": 128000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:10.375538"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757213982.983522,
+        "transaction_size": 128000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:42.983522"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214016.9127162,
+        "transaction_size": 128000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:16.912716"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214049.873108,
+        "transaction_size": 128000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:49.873108"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214083.673219,
+        "transaction_size": 128000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:23.673219"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214118.23821,
+        "transaction_size": 128000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:58.238210"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214152.344754,
+        "transaction_size": 128000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:32.344754"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214186.201946,
+        "transaction_size": 128000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:06.201946"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214221.764409,
+        "transaction_size": 128000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:41.764409"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214254.82219,
+        "transaction_size": 128000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:14.822190"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214287.9828632,
+        "transaction_size": 128000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:47.982863"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214322.773024,
+        "transaction_size": 128000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:22.773024"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214356.0213141,
+        "transaction_size": 128000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:56.021314"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214389.9294112,
+        "transaction_size": 128000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:29.929411"
+      },
+      {
+        "fee": 448.0,
+        "timestamp": 1757214423.2693062,
+        "transaction_size": 128000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:07:03.269306"
+      }
+    ],
+    "256000.0": [
+      {
+        "fee": 896.0,
+        "timestamp": 1757211572.3830662,
+        "transaction_size": 256000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:32.383066"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211604.208398,
+        "transaction_size": 256000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:20:04.208398"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211636.659363,
+        "transaction_size": 256000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:36.659363"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211669.210612,
+        "transaction_size": 256000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:09.210612"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211701.7364259,
+        "transaction_size": 256000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:41.736426"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211734.856056,
+        "transaction_size": 256000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:14.856056"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211768.4214709,
+        "transaction_size": 256000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:48.421471"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211802.0496728,
+        "transaction_size": 256000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:22.049673"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211835.331591,
+        "transaction_size": 256000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:55.331591"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211868.336216,
+        "transaction_size": 256000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:28.336216"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211901.418185,
+        "transaction_size": 256000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:01.418185"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211938.635027,
+        "transaction_size": 256000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:38.635027"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757211972.072523,
+        "transaction_size": 256000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:12.072523"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212005.712209,
+        "transaction_size": 256000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:45.712209"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212038.5784981,
+        "transaction_size": 256000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:18.578498"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212072.5885901,
+        "transaction_size": 256000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:52.588590"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212104.9396522,
+        "transaction_size": 256000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:24.939652"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212138.372881,
+        "transaction_size": 256000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:58.372881"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212170.211742,
+        "transaction_size": 256000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:30.211742"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212205.153035,
+        "transaction_size": 256000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:05.153035"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212242.788186,
+        "transaction_size": 256000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:42.788186"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212276.711089,
+        "transaction_size": 256000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:16.711089"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212311.279613,
+        "transaction_size": 256000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:51.279613"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212344.175267,
+        "transaction_size": 256000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:24.175267"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212376.765874,
+        "transaction_size": 256000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:56.765874"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212410.9987588,
+        "transaction_size": 256000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:30.998759"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212444.5201159,
+        "transaction_size": 256000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:04.520116"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212477.312315,
+        "transaction_size": 256000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:37.312315"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212511.512058,
+        "transaction_size": 256000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:11.512058"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212545.712595,
+        "transaction_size": 256000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:45.712595"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212578.6657841,
+        "transaction_size": 256000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:18.665784"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212612.6137788,
+        "transaction_size": 256000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:52.613779"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212645.473155,
+        "transaction_size": 256000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:25.473155"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212678.908917,
+        "transaction_size": 256000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:58.908917"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212711.333573,
+        "transaction_size": 256000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:31.333573"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212744.220465,
+        "transaction_size": 256000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:04.220465"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212777.4532402,
+        "transaction_size": 256000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:37.453240"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212811.014082,
+        "transaction_size": 256000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:11.014082"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212843.4064388,
+        "transaction_size": 256000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:43.406439"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212877.453247,
+        "transaction_size": 256000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:17.453247"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212909.664564,
+        "transaction_size": 256000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:49.664564"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212943.9499562,
+        "transaction_size": 256000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:23.949956"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757212976.7938108,
+        "transaction_size": 256000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:56.793811"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213014.527102,
+        "transaction_size": 256000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:34.527102"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213047.27022,
+        "transaction_size": 256000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:07.270220"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213085.380366,
+        "transaction_size": 256000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:45.380366"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213118.627051,
+        "transaction_size": 256000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:18.627051"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213150.874212,
+        "transaction_size": 256000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:50.874212"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213185.678934,
+        "transaction_size": 256000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:25.678934"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213222.88237,
+        "transaction_size": 256000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:47:02.882370"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213259.4351108,
+        "transaction_size": 256000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:39.435111"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213294.728183,
+        "transaction_size": 256000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:14.728183"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213330.2137449,
+        "transaction_size": 256000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:50.213745"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213367.187168,
+        "transaction_size": 256000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:27.187168"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213401.3928099,
+        "transaction_size": 256000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:50:01.392810"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213436.274955,
+        "transaction_size": 256000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:36.274955"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213472.676975,
+        "transaction_size": 256000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:12.676975"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213508.199213,
+        "transaction_size": 256000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:48.199213"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213542.420716,
+        "transaction_size": 256000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:22.420716"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213577.3438778,
+        "transaction_size": 256000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:57.343878"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213611.741589,
+        "transaction_size": 256000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:31.741589"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213647.4558232,
+        "transaction_size": 256000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:07.455823"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213680.7778518,
+        "transaction_size": 256000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:40.777852"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213715.184948,
+        "transaction_size": 256000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:15.184948"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213748.730557,
+        "transaction_size": 256000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:48.730557"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213781.559124,
+        "transaction_size": 256000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:21.559124"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213814.7459111,
+        "transaction_size": 256000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:54.745911"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213850.946848,
+        "transaction_size": 256000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:30.946848"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213884.044533,
+        "transaction_size": 256000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:58:04.044533"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213917.281777,
+        "transaction_size": 256000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:37.281777"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213951.210127,
+        "transaction_size": 256000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:11.210127"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757213983.8140538,
+        "transaction_size": 256000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:43.814054"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214017.784866,
+        "transaction_size": 256000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:17.784866"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214050.849469,
+        "transaction_size": 256000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:50.849469"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214084.5677938,
+        "transaction_size": 256000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:24.567794"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214119.110132,
+        "transaction_size": 256000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:01:59.110132"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214153.2129102,
+        "transaction_size": 256000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:33.212910"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214187.08026,
+        "transaction_size": 256000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:07.080260"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214222.650749,
+        "transaction_size": 256000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:42.650749"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214255.69089,
+        "transaction_size": 256000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:15.690890"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214288.910059,
+        "transaction_size": 256000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:48.910059"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214323.700702,
+        "transaction_size": 256000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:23.700702"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214356.9098082,
+        "transaction_size": 256000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:56.909808"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214390.775389,
+        "transaction_size": 256000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:30.775389"
+      },
+      {
+        "fee": 896.0,
+        "timestamp": 1757214424.170111,
+        "transaction_size": 256000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:07:04.170111"
+      }
+    ],
+    "512000.0": [
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211573.2683678,
+        "transaction_size": 512000.0,
+        "coin_price": 110506.53,
+        "datetime": "2025-09-06T22:19:33.268368"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211605.0670562,
+        "transaction_size": 512000.0,
+        "coin_price": 110502.05,
+        "datetime": "2025-09-06T22:20:05.067056"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211637.5460548,
+        "transaction_size": 512000.0,
+        "coin_price": 110486.69,
+        "datetime": "2025-09-06T22:20:37.546055"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211670.0851269,
+        "transaction_size": 512000.0,
+        "coin_price": 110468.46,
+        "datetime": "2025-09-06T22:21:10.085127"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211702.618957,
+        "transaction_size": 512000.0,
+        "coin_price": 110485.88,
+        "datetime": "2025-09-06T22:21:42.618957"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211735.71057,
+        "transaction_size": 512000.0,
+        "coin_price": 110480.85,
+        "datetime": "2025-09-06T22:22:15.710570"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211769.310304,
+        "transaction_size": 512000.0,
+        "coin_price": 110497.23,
+        "datetime": "2025-09-06T22:22:49.310304"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211802.901778,
+        "transaction_size": 512000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:22.901778"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211836.204863,
+        "transaction_size": 512000.0,
+        "coin_price": 110534.27,
+        "datetime": "2025-09-06T22:23:56.204863"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211869.189174,
+        "transaction_size": 512000.0,
+        "coin_price": 110526.75,
+        "datetime": "2025-09-06T22:24:29.189174"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211902.363295,
+        "transaction_size": 512000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:02.363295"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211939.5890088,
+        "transaction_size": 512000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:25:39.589009"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757211972.943201,
+        "transaction_size": 512000.0,
+        "coin_price": 110546.06,
+        "datetime": "2025-09-06T22:26:12.943201"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212006.5798888,
+        "transaction_size": 512000.0,
+        "coin_price": 110538.03,
+        "datetime": "2025-09-06T22:26:46.579889"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212039.460108,
+        "transaction_size": 512000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:19.460108"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212073.434788,
+        "transaction_size": 512000.0,
+        "coin_price": 110543.16,
+        "datetime": "2025-09-06T22:27:53.434788"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212105.796766,
+        "transaction_size": 512000.0,
+        "coin_price": 110547.92,
+        "datetime": "2025-09-06T22:28:25.796766"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212139.215966,
+        "transaction_size": 512000.0,
+        "coin_price": 110544.34,
+        "datetime": "2025-09-06T22:28:59.215966"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212171.082979,
+        "transaction_size": 512000.0,
+        "coin_price": 110543.81,
+        "datetime": "2025-09-06T22:29:31.082979"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212205.998492,
+        "transaction_size": 512000.0,
+        "coin_price": 110561.26,
+        "datetime": "2025-09-06T22:30:05.998492"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212243.6721542,
+        "transaction_size": 512000.0,
+        "coin_price": 110564.52,
+        "datetime": "2025-09-06T22:30:43.672154"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212277.580641,
+        "transaction_size": 512000.0,
+        "coin_price": 110568.52,
+        "datetime": "2025-09-06T22:31:17.580641"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212312.1614962,
+        "transaction_size": 512000.0,
+        "coin_price": 110571.86,
+        "datetime": "2025-09-06T22:31:52.161496"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212345.049185,
+        "transaction_size": 512000.0,
+        "coin_price": 110574.05,
+        "datetime": "2025-09-06T22:32:25.049185"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212377.6351948,
+        "transaction_size": 512000.0,
+        "coin_price": 110566.33,
+        "datetime": "2025-09-06T22:32:57.635195"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212411.856433,
+        "transaction_size": 512000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:33:31.856433"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212445.388116,
+        "transaction_size": 512000.0,
+        "coin_price": 110558.95,
+        "datetime": "2025-09-06T22:34:05.388116"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212478.18431,
+        "transaction_size": 512000.0,
+        "coin_price": 110539.84,
+        "datetime": "2025-09-06T22:34:38.184310"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212512.403552,
+        "transaction_size": 512000.0,
+        "coin_price": 110551.9,
+        "datetime": "2025-09-06T22:35:12.403552"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212546.6248908,
+        "transaction_size": 512000.0,
+        "coin_price": 110546.18,
+        "datetime": "2025-09-06T22:35:46.624891"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212579.545501,
+        "transaction_size": 512000.0,
+        "coin_price": 110554.2,
+        "datetime": "2025-09-06T22:36:19.545501"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212613.482144,
+        "transaction_size": 512000.0,
+        "coin_price": 110542.19,
+        "datetime": "2025-09-06T22:36:53.482144"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212646.3334432,
+        "transaction_size": 512000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:26.333443"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212679.7756858,
+        "transaction_size": 512000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:37:59.775686"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212712.201438,
+        "transaction_size": 512000.0,
+        "coin_price": 110540.87,
+        "datetime": "2025-09-06T22:38:32.201438"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212745.0679538,
+        "transaction_size": 512000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:05.067954"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212778.29575,
+        "transaction_size": 512000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:39:38.295750"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212811.94671,
+        "transaction_size": 512000.0,
+        "coin_price": 110536.76,
+        "datetime": "2025-09-06T22:40:11.946710"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212844.308724,
+        "transaction_size": 512000.0,
+        "coin_price": 110544.98,
+        "datetime": "2025-09-06T22:40:44.308724"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212878.308116,
+        "transaction_size": 512000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:18.308116"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212910.6048079,
+        "transaction_size": 512000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:41:50.604808"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212944.841944,
+        "transaction_size": 512000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:24.841944"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757212977.671582,
+        "transaction_size": 512000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:42:57.671582"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213015.473411,
+        "transaction_size": 512000.0,
+        "coin_price": 110524.19,
+        "datetime": "2025-09-06T22:43:35.473411"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213048.183882,
+        "transaction_size": 512000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:08.183882"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213086.238416,
+        "transaction_size": 512000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:44:46.238416"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213119.479709,
+        "transaction_size": 512000.0,
+        "coin_price": 110533.9,
+        "datetime": "2025-09-06T22:45:19.479709"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213151.745812,
+        "transaction_size": 512000.0,
+        "coin_price": 110556.44,
+        "datetime": "2025-09-06T22:45:51.745812"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213186.951126,
+        "transaction_size": 512000.0,
+        "coin_price": 110564.0,
+        "datetime": "2025-09-06T22:46:26.951126"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213223.8058429,
+        "transaction_size": 512000.0,
+        "coin_price": 110553.52,
+        "datetime": "2025-09-06T22:47:03.805843"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213260.548058,
+        "transaction_size": 512000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:47:40.548058"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213295.636108,
+        "transaction_size": 512000.0,
+        "coin_price": 110565.0,
+        "datetime": "2025-09-06T22:48:15.636108"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213331.1294038,
+        "transaction_size": 512000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:48:51.129404"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213368.085058,
+        "transaction_size": 512000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:49:28.085058"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213402.290747,
+        "transaction_size": 512000.0,
+        "coin_price": 110553.72,
+        "datetime": "2025-09-06T22:50:02.290747"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213437.2061179,
+        "transaction_size": 512000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:50:37.206118"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213473.704961,
+        "transaction_size": 512000.0,
+        "coin_price": 110580.48,
+        "datetime": "2025-09-06T22:51:13.704961"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213509.110465,
+        "transaction_size": 512000.0,
+        "coin_price": 110600.16,
+        "datetime": "2025-09-06T22:51:49.110465"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213543.329679,
+        "transaction_size": 512000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:23.329679"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213578.24719,
+        "transaction_size": 512000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:52:58.247190"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213612.6283038,
+        "transaction_size": 512000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:53:32.628304"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213648.3697522,
+        "transaction_size": 512000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:08.369752"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213681.648212,
+        "transaction_size": 512000.0,
+        "coin_price": 110597.52,
+        "datetime": "2025-09-06T22:54:41.648212"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213716.052914,
+        "transaction_size": 512000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:16.052914"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213749.589449,
+        "transaction_size": 512000.0,
+        "coin_price": 110655.63,
+        "datetime": "2025-09-06T22:55:49.589449"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213782.433582,
+        "transaction_size": 512000.0,
+        "coin_price": 110697.95,
+        "datetime": "2025-09-06T22:56:22.433582"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213815.636914,
+        "transaction_size": 512000.0,
+        "coin_price": 110677.66,
+        "datetime": "2025-09-06T22:56:55.636914"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213851.808382,
+        "transaction_size": 512000.0,
+        "coin_price": 110687.35,
+        "datetime": "2025-09-06T22:57:31.808382"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213884.914411,
+        "transaction_size": 512000.0,
+        "coin_price": 110686.54,
+        "datetime": "2025-09-06T22:58:04.914411"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213918.176377,
+        "transaction_size": 512000.0,
+        "coin_price": 110713.45,
+        "datetime": "2025-09-06T22:58:38.176377"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213952.049345,
+        "transaction_size": 512000.0,
+        "coin_price": 110692.13,
+        "datetime": "2025-09-06T22:59:12.049345"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757213984.679969,
+        "transaction_size": 512000.0,
+        "coin_price": 110685.15,
+        "datetime": "2025-09-06T22:59:44.679969"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214018.710973,
+        "transaction_size": 512000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:18.710973"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214051.712867,
+        "transaction_size": 512000.0,
+        "coin_price": 110686.66,
+        "datetime": "2025-09-06T23:00:51.712867"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214085.458726,
+        "transaction_size": 512000.0,
+        "coin_price": 110696.98,
+        "datetime": "2025-09-06T23:01:25.458726"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214120.0048158,
+        "transaction_size": 512000.0,
+        "coin_price": 110701.08,
+        "datetime": "2025-09-06T23:02:00.004816"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214154.092614,
+        "transaction_size": 512000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:02:34.092614"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214187.951434,
+        "transaction_size": 512000.0,
+        "coin_price": 110698.46,
+        "datetime": "2025-09-06T23:03:07.951434"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214223.546987,
+        "transaction_size": 512000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:03:43.546987"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214256.569532,
+        "transaction_size": 512000.0,
+        "coin_price": 110670.57,
+        "datetime": "2025-09-06T23:04:16.569532"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214289.8244889,
+        "transaction_size": 512000.0,
+        "coin_price": 110674.92,
+        "datetime": "2025-09-06T23:04:49.824489"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214324.6754181,
+        "transaction_size": 512000.0,
+        "coin_price": 110677.56,
+        "datetime": "2025-09-06T23:05:24.675418"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214358.132896,
+        "transaction_size": 512000.0,
+        "coin_price": 110677.55,
+        "datetime": "2025-09-06T23:05:58.132896"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214391.677702,
+        "transaction_size": 512000.0,
+        "coin_price": 110658.91,
+        "datetime": "2025-09-06T23:06:31.677702"
+      },
+      {
+        "fee": 1792.0,
+        "timestamp": 1757214425.0387268,
+        "transaction_size": 512000.0,
+        "coin_price": 110656.37,
+        "datetime": "2025-09-06T23:07:05.038727"
+      }
+    ]
+  },
+  "ratio_analysis": {
+    "average": 285.7142857142857,
+    "total_ratios": 765
+  }
+}
