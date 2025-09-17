@@ -11,7 +11,7 @@ import csv
 from math import floor
 from Exchanges.exchange import Exchange
 from Test.DataFetchException import DataFetchException
-from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
+from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from threading import Lock
 
 class BinanceBacktestClient(Exchange):

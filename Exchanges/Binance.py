@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 from math import floor
 from Exchanges.exchange import Exchange
-from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
+from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 
 class Binance(Exchange):
     """

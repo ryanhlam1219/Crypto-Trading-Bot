@@ -2,7 +2,7 @@ import time
 import traceback
 import uuid
 from Strategies.Strategy import Strategy
-from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
+from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from Test.DataFetchException import DataFetchException
 
 class GridTradingStrategy(Strategy):

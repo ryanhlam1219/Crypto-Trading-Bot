@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 from Exchanges.exchange import Exchange
-from Strategies.ExhcangeModels import TradeDirection
+from Strategies.ExchangeModels import TradeDirection
 
 if TYPE_CHECKING:
     from Utils.MetricsCollector import MetricsCollector

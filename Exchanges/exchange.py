@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from Strategies.ExhcangeModels import CandleStickData, OrderType, TradeDirection
+    from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
     from Utils.MetricsCollector import MetricsCollector
 
 class Exchange(ABC):

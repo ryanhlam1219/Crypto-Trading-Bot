@@ -1,6 +1,6 @@
 from .GridTradingStrategy import GridTradingStrategy
 from .Strategy import Strategy
-from .ExhcangeModels import CandleStickData, OrderType, TradeDirection
+from .ExchangeModels import CandleStickData, OrderType, TradeDirection
 
 # If you add more strategies
 #from .OtherStrategy import OtherStrategy 
