@@ -1,0 +1,137 @@
+[tool.pytest.ini_options]
+# Pytest configuration for Crypto Trading Bot
+
+# Test discovery
+testpaths = ["Tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Markers for test categorization
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests", 
+    "slow: Slow running tests",
+    "api: Tests that hit external APIs",
+    "mock: Tests using mocked dependencies"
+]
+
+# Output formatting and coverage
+addopts = [
+    "-v",                           # Verbose output
+    "--tb=short",                  # Shorter traceback format
+    "--strict-markers",            # Strict marker enforcement
+    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
+    "--cov=Exchanges",                 # Coverage for Exchanges module
+    "--cov=Strategies",                 # Coverage for Strategies module
+    "--cov=Utils",                 # Coverage for Utils module
+    "--cov=build",                 # Coverage for build module
+    "--cov-report=term-missing",   # Show missing lines in terminal
+    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
+    "--cov=Exchanges",                 # Coverage for Exchanges module
+    "--cov=Strategies",                 # Coverage for Strategies module
+    "--cov=Utils",                 # Coverage for Utils module
+    "--cov=build",                 # Coverage for build module
+    "--cov-report=html:htmlcov",   # Generate HTML coverage report
+    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
+    "--cov=Exchanges",                 # Coverage for Exchanges module
+    "--cov=Strategies",                 # Coverage for Strategies module
+    "--cov=Utils",                 # Coverage for Utils module
+    "--cov=build",                 # Coverage for build module
+    "--cov-report=xml:coverage.xml", # Generate XML coverage report
+    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
+    "--cov=Exchanges",                 # Coverage for Exchanges module
+    "--cov=Strategies",                 # Coverage for Strategies module
+    "--cov=Utils",                 # Coverage for Utils module
+    "--cov=build",                 # Coverage for build module
+    "--cov-report=json:coverage.json", # Generate JSON coverage report
+    "--cov-fail-under=90",         # Fail if coverage below 90%
+    "--html=reports/test_report.html", # Generate HTML test report
+    "--self-contained-html",       # Self-contained HTML report
+]
+
+# Minimum Python version
+minversion = "6.0"
+
+# Filter warnings
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning"
+]
+
+[tool.coverage.run]
+# Coverage.py configuration for detailed coverage tracking
+
+# Source code to include in coverage
+source = ['Collect-Fees', 'Exchanges', 'Strategies', 'Utils', 'build']
+
+# Files to omit from coverage
+omit = [
+    "Tests/*",              # Exclude test files themselves
+    "*/__pycache__/*",      # Exclude cache files
+    "*/migrations/*",       # Exclude migrations if any
+    "setup.py",             # Exclude setup files
+    "*/venv/*",             # Exclude virtual environment
+    "*/.venv/*",            # Exclude virtual environment
+    "*/site-packages/*",    # Exclude installed packages
+    "main.py",              # Exclude main entry point (integration tested)
+    "*/__init__.py",        # Exclude __init__.py files
+]
+
+# Branch coverage (tracks if/else branches)
+branch = true
+
+# Parallel processing
+parallel = true
+
+[tool.coverage.report]
+# Coverage reporting configuration
+
+# Minimum coverage percentage required
+fail_under = 90
+
+# Show missing line numbers in report
+show_missing = true
+
+# Skip covered files in terminal output
+skip_covered = false
+
+# Skip empty files
+skip_empty = true
+
+# Precision for coverage percentages
+precision = 2
+
+# Exclude lines from coverage (pragma: no cover)
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+    "class.*\\(ABC\\):",           # Exclude abstract base classes
+    "class.*\\(.*ABC.*\\):",      # Exclude classes inheriting from ABC
+    "from abc import",            # Exclude ABC imports
+    "import abc",                 # Exclude abc module imports
+    "@abstractmethod",            # Exclude abstract method decorators
+    "@abc\\.abstractmethod",      # Exclude qualified abstract method decorators
+]
+
+[tool.coverage.html]
+# HTML report configuration
+directory = "htmlcov"
+title = "Crypto Trading Bot - Test Coverage Report"
+
+[tool.coverage.xml]
+# XML report configuration  
+output = "coverage.xml"
+
+[tool.coverage.json]
+# JSON report configuration
+output = "coverage.json"
+pretty_print = true

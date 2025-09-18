@@ -10,15 +10,15 @@ import csv
 
 from math import floor
 from ..exchange import Exchange
-from Test.DataFetchException import DataFetchException
+from Tests.utils import DataFetchException
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from threading import Lock
 
 class KrakenBackTestClient(Exchange):
     api_url = "https://api.kraken.com"
 
-    def __init__(self, key: str, secret: str, currency: str, asset: str):
-        super().__init__(key, secret, currency, asset) #calls parent constructor
+    def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector=None):
+        super().__init__(key, secret, currency, asset, metrics_collector) #calls parent constructor
         self.test_data = []
         self.testIndex = 0
     # ---------- Helpers ----------

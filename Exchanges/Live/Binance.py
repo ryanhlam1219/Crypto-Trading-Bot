@@ -146,6 +146,7 @@ class Binance(Exchange):
                 )
             
             print("POST {}: {}".format(uri_path, result))
+            return json.loads(result)
             
         except Exception as e:
             response_time = time.time() - start_time

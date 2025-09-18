@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 from math import floor
 from ..exchange import Exchange
-from Test.DataFetchException import DataFetchException
+from Tests.utils import DataFetchException
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from threading import Lock
 

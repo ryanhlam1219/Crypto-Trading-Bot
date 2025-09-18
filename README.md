@@ -249,9 +249,14 @@ Crypto-Trading-Bot/
 ├── Strategies/
 │   ├── Strategy.py          # Base strategy interface
 │   └── GridTradingStrategy.py   # Grid trading implementation
-└── Test/
-    ├── StrategyWrapper.py   # Testing utilities
-    └── DataFetchException.py   # Exception handling
+└── Tests/
+    ├── unit/                # Unit tests for all components
+    ├── fixtures/            # Test data and mocks
+    ├── utils/               # Testing utilities
+    │   ├── strategy_wrapper.py     # Strategy testing wrapper
+    │   └── data_fetch_exception.py # Exception handling
+    ├── data/                # Historical data for testing
+    └── conftest.py          # Pytest configuration
 ```
 
 ## 📈 Supported Strategies

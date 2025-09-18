@@ -3,7 +3,7 @@ import traceback
 import uuid
 from Strategies.Strategy import Strategy
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
-from Test.DataFetchException import DataFetchException
+from Tests.utils import DataFetchException
 
 class GridTradingStrategy(Strategy):
     def __init__(self, client, interval, stop_loss_percentage, metrics_collector, grid_percentage=1, num_levels=3, min_candles=10):
@@ -11,6 +11,7 @@ class GridTradingStrategy(Strategy):
         self.grid_percentage = grid_percentage  # Grid size as a percentage of market price
         self.num_levels = num_levels
         self.min_candles = min_candles  # Minimum number of candlesticks required before trading
+        self.threshold = 0.01  # Default threshold for trade decisions
         self.candlestick_data = []  # Store collected candlestick data
         # Trade tracking is now handled by MetricsCollector
         print(f"Initialized GridTradingStrategy with grid percentage: {self.grid_percentage}, levels: {self.num_levels}, stop-loss: {self.stop_loss_percentage}%, and min candles: {self.min_candles}")
@@ -151,3 +152,70 @@ class GridTradingStrategy(Strategy):
         except Exception as e:
             print(f"Error initializing grid: {e}")
             traceback.print_exc()
+
+    def should_enter_trade(self, price: float) -> bool:
+        """
+        Determine if the strategy should enter a trade at the given price.
+        
+        Args:
+            price: Current market price
+            
+        Returns:
+            bool: True if should enter trade
+        """
+        try:
+            # Check if we have enough candlestick data
+            if len(self.candlestick_data) < self.min_candles:
+                return False
+                
+            # Check if price change exceeds threshold
+            if self.candlestick_data:
+                last_price = self.candlestick_data[-1].close_price
+                price_change = abs(price - last_price) / last_price
+                return price_change >= self.threshold
+                
+            return False
+        except Exception as e:
+            print(f"Error in should_enter_trade: {e}")
+            return False
+
+    def should_exit_trade(self, price: float, trade_id: str = None) -> bool:
+        """
+        Determine if the strategy should exit a trade at the given price.
+        
+        Args:
+            price: Current market price
+            trade_id: Optional specific trade ID to check
+            
+        Returns:
+            bool: True if should exit trade
+        """
+        try:
+            if not self.metrics_collector:
+                return False
+                
+            # Check active trades for stop-loss or profit target conditions
+            active_trades = self.metrics_collector.get_active_trades()
+            
+            for trade in active_trades:
+                if trade_id and trade['trade_id'] != trade_id:
+                    continue
+                    
+                # Check stop-loss condition
+                if 'stop_loss' in trade and trade['stop_loss']:
+                    if trade['direction'] == 'BUY' and price <= trade['stop_loss']:
+                        return True
+                    elif trade['direction'] == 'SELL' and price >= trade['stop_loss']:
+                        return True
+                        
+                # Check profit target condition  
+                if 'profit_target' in trade and trade['profit_target']:
+                    if trade['direction'] == 'BUY' and price >= trade['profit_target']:
+                        return True
+                    elif trade['direction'] == 'SELL' and price <= trade['profit_target']:
+                        return True
+                        
+            return False
+        except Exception as e:
+            print(f"Error in should_exit_trade: {e}")
+            return False

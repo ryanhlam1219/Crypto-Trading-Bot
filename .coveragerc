@@ -1,0 +1,119 @@
+# Coverage.py configuration file
+# Enhanced configuration for 90% coverage requirement
+
+[run]
+# Source directories to include in coverage
+source = Strategies, Exchanges, Utils
+
+# Files and directories to omit from coverage
+omit = 
+    Tests/*
+    */__pycache__/*
+    */migrations/*
+    */venv/*
+    */.venv/*
+    */site-packages/*
+    setup.py
+    main.py
+    validate_env.py
+    test_progress_bar.py
+    Collect-Fees/*
+    views/*
+    */__init__.py
+    Exchanges/exchange.py
+    Strategies/Strategy.py
+
+# Enable branch coverage (tracks if/else, try/except branches)
+branch = True
+
+# Parallel processing for faster coverage collection
+parallel = True
+
+# Include patterns (files that must be included)
+include = 
+    Strategies/*
+    Exchanges/*
+    Utils/*
+
+[report]
+# Minimum coverage percentage to pass
+fail_under = 90
+
+# Show missing line numbers in terminal report
+show_missing = True
+
+# Skip files with 100% coverage in summary
+skip_covered = False
+
+# Skip empty files
+skip_empty = True
+
+# Number of decimal places in coverage percentages
+precision = 2
+
+# Sort the report by coverage percentage
+sort = Cover
+
+# Lines to exclude from coverage analysis
+exclude_lines =
+    # Standard pragma comments
+    pragma: no cover
+    pragma: nocover
+    
+    # Don't complain about missing debug-only code
+    def __repr__
+    if self\.debug
+    if settings\.DEBUG
+    
+    # Don't complain about abstract methods
+    @(abc\.)?abstractmethod
+    raise NotImplementedError
+    
+    # Don't complain about defensive assertions
+    raise AssertionError
+    
+    # Don't complain about script entry points
+    if __name__ == .__main__.:
+    
+    # Don't complain about type checking imports
+    if TYPE_CHECKING:
+    
+    # Don't complain about platform-specific code
+    if sys\.platform
+    
+    # Don't complain about debugging statements
+    if 0:
+    
+    # Don't complain about logging statements in error handlers
+    except.*:
+        logger\.(debug|info|warning|error|critical)
+
+[html]
+# HTML report directory
+directory = htmlcov
+
+# Title for HTML report  
+title = Crypto Trading Bot - Test Coverage Report
+
+# Show contexts in HTML report (which tests cover which lines)
+show_contexts = True
+
+# Skip files with 100% coverage in HTML report
+skip_covered = False
+
+# Skip empty files in HTML report
+skip_empty = True
+
+[xml]
+# XML report file
+output = coverage.xml
+
+[json]
+# JSON report file
+output = coverage.json
+
+# Pretty print JSON
+pretty_print = True
+
+# Show contexts in JSON report
+show_contexts = True

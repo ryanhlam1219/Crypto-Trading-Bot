@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.join(current_dir, 'utils'))
 
 # Local imports
 import Exchanges
-import Test
+from Tests.utils import StrategyWrapper
 from MetricsCollector import MetricsCollector
 
 # Constants for configuration keys
@@ -28,7 +28,7 @@ ASSET = "asset"
 API_KEY = "key"
 API_SECRET = "secret"
 TRADE_INTERVAL = "trade_interval"
-TEST_DATA_DIRECTORY = "Test/HistoricalData"
+TEST_DATA_DIRECTORY = "Tests/data"
 
 def load_configuration():
     """Loads configuration from environment variables."""
@@ -125,7 +125,7 @@ def run_test_mode(config):
     
     # Initialize Strategy and Strategy Wrapper
     strategy_instance = initialize_strategy(config[STRATEGY], TestClient, config[INTERVAL], metrics_collector)
-    strategy_wrapper = Test.StrategyWrapper(strategy_instance)
+    strategy_wrapper = StrategyWrapper(strategy_instance)
 
     # Execute the Backtest
     strategy_wrapper.run_strategy()
