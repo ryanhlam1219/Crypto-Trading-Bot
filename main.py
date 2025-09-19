@@ -67,8 +67,11 @@ def handle_cli_arguments(currency, asset):
 def initialize_exchange_client(exchange_name, key, secret, currency, asset, metrics_collector):
     """Dynamically imports and initializes the exchange client."""
     if exchange_name.endswith("BacktestClient"):
-        # Test/Backtest clients
+        # Backtest clients
         exchange_module = importlib.import_module(f"Exchanges.Test.{exchange_name}")
+    elif exchange_name == "TestExchange":
+        # Test exchange - file name is testExchange.py but class is TestExchange
+        exchange_module = importlib.import_module("Exchanges.Test.testExchange")
     else:
         # Live clients
         exchange_module = importlib.import_module(f"Exchanges.Live.{exchange_name}")

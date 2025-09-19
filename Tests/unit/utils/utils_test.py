@@ -57,6 +57,8 @@ class TestStrategyWrapper:
         mock_strategy = Mock(spec=Strategy)
         mock_strategy.run_strategy.side_effect = DataFetchException("Test exception")
         mock_strategy.metrics_collector = None
+        mock_strategy.client = Mock()  # Add mock client to prevent AttributeError
+        mock_strategy.candlestick_data = []  # Add empty candlestick data
         
         wrapper = StrategyWrapper(mock_strategy)
         wrapper.run_strategy()

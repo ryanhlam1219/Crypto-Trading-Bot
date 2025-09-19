@@ -248,10 +248,19 @@ class CoverageReportGenerator:
     def generate_dynamic_homepage(self, directories: Dict[str, DirectoryInfo]):
         """Generate the dynamic coverage homepage"""
         
-        # Calculate overall stats
-        total_statements = sum(d.total_statements for d in directories.values())
-        total_missing = sum(d.total_missing for d in directories.values())
-        overall_coverage = ((total_statements - total_missing) / total_statements * 100) if total_statements > 0 else 0
+        # Load coverage data to get the actual overall coverage percentage
+        coverage_data = self.load_coverage_data()
+        
+        # Use the actual coverage percentage from coverage.py (includes branch coverage)
+        if coverage_data and 'totals' in coverage_data:
+            overall_coverage = coverage_data['totals'].get('percent_covered', 0.0)
+            total_statements = coverage_data['totals'].get('num_statements', 0)
+            total_missing = coverage_data['totals'].get('missing_lines', 0)
+        else:
+            # Fallback to simple calculation if no coverage data available
+            total_statements = sum(d.total_statements for d in directories.values())
+            total_missing = sum(d.total_missing for d in directories.values())
+            overall_coverage = ((total_statements - total_missing) / total_statements * 100) if total_statements > 0 else 0
         
         # Generate directory cards
         directory_cards = []

@@ -105,24 +105,24 @@ class TestCrossImplementationConsistency:
     def test_currency_asset_format_consistency(self):
         """Test all exchanges format currency_asset consistently."""
         exchanges = [
-            Binance("key", "secret", "BTC", "USD", Mock()),
-            BinanceBacktestClient("key", "secret", "BTC", "USD", Mock()),
-            KrakenBackTestClient("key", "secret", "BTC", "USD", Mock()),
-            TestExchange("key", "secret", "BTC", "USD", Mock()),
+            Binance("key", "secret", "USD", "BTC", Mock()),
+            BinanceBacktestClient("key", "secret", "USD", "BTC", Mock()),
+            KrakenBackTestClient("key", "secret", "USD", "BTC", Mock()),
+            TestExchange("key", "secret", "USD", "BTC", Mock()),
         ]
         
         for exchange in exchanges:
             assert exchange.currency_asset == "BTCUSD"
-            assert exchange.currency == "BTC" 
-            assert exchange.asset == "USD"
+            assert exchange.currency == "USD" 
+            assert exchange.asset == "BTC"
     
     def test_all_exchanges_instantiable(self):
         """Test that all exchange implementations can be instantiated."""
         exchange_configs = [
-            (Binance, ("key", "secret", "BTC", "USD", Mock())),
-            (BinanceBacktestClient, ("key", "secret", "BTC", "USD", Mock())),
-            (KrakenBackTestClient, ("key", "secret", "BTC", "USD", Mock())),
-            (TestExchange, ("key", "secret", "BTC", "USD", Mock())),
+            (Binance, ("key", "secret", "USD", "BTC", Mock())),
+            (BinanceBacktestClient, ("key", "secret", "USD", "BTC", Mock())),
+            (KrakenBackTestClient, ("key", "secret", "USD", "BTC", Mock())),
+            (TestExchange, ("key", "secret", "USD", "BTC", Mock())),
         ]
         
         for exchange_class, params in exchange_configs:

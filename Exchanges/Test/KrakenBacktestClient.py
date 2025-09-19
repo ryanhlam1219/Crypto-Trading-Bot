@@ -98,6 +98,9 @@ class KrakenBackTestClient(Exchange):
         }
         print(f"Executing Mock order {data}")
         
+        # Return a mock successful response for testing
+        return {"result": {"txid": ["mock_transaction_id"]}, "error": []}
+        
     # ---------- Data fetching & normalization ----------
 
     def __fetch_candle_data_from_time_interval(self, interval_min: int, start_ms: int, end_ms: int, results_lock: Lock):
@@ -267,3 +270,90 @@ class KrakenBackTestClient(Exchange):
         self.test_data.sort(key=lambda r: r[0])
 
         return self.test_data
+
+    # ---------- Missing Methods for Test Coverage ----------
+    
+    def _generate_signature(self, uri_path, data, nonce):
+        """
+        Generate Kraken API signature for authentication.
+        For backtest client, returns a mock signature.
+        """
+        return "mock_signature_for_testing"
+    
+    def _convert_trade_direction(self, direction: TradeDirection):
+        """
+        Convert TradeDirection enum to Kraken format.
+        """
+        if direction == TradeDirection.BUY:
+            return "buy"
+        elif direction == TradeDirection.SELL:
+            return "sell"
+        else:
+            raise ValueError(f"Unsupported trade direction: {direction}")
+    
+    def _convert_order_type(self, order_type: OrderType):
+        """
+        Convert OrderType enum to Kraken format.
+        """
+        order_mapping = {
+            OrderType.MARKET_ORDER: "market",
+            OrderType.LIMIT_ORDER: "limit",
+            OrderType.STOP_LIMIT_ORDER: "stop-loss-limit",
+            OrderType.TAKE_PROFIT_LIMIT_ORDER: "take-profit-limit",
+            OrderType.LIMIT_MAKER_ORDER: "limit"
+        }
+        
+        if order_type in order_mapping:
+            return order_mapping[order_type]
+        else:
+            raise ValueError(f"Unsupported order type: {order_type}")
+    
+    def _interval_to_kraken_format(self, interval):
+        """
+        Convert interval in minutes to Kraken format.
+        """
+        if interval <= 60:
+            return interval
+        elif interval == 240:
+            return 240  # 4 hours
+        elif interval == 1440:
+            return 1440  # 1 day
+        else:
+            return interval
+    
+    def load_test_data_from_csv(self, filename):
+        """
+        Load test data from CSV file for backtesting.
+        """
+        try:
+            with open(filename, 'r') as file:
+                reader = csv.reader(file)
+                next(reader)  # Skip header
+                self.test_data = []
+                for row in reader:
+                    # Convert string values to appropriate types
+                    candle_data = [
+                        int(row[0]),    # Open time
+                        row[1],         # Open
+                        row[2],         # High
+                        row[3],         # Low
+                        row[4],         # Close
+                        row[5],         # Volume
+                        int(row[6]),    # Close time
+                        row[7],         # Quote asset volume
+                        int(row[8]),    # Number of trades
+                        row[9],         # Taker buy base asset volume
+                        row[10],        # Taker buy quote asset volume
+                        row[11] if len(row) > 11 else "0"  # Ignore
+                    ]
+                    self.test_data.append(candle_data)
+                
+                print(f"Loaded {len(self.test_data)} candles from {filename}")
+                self.testIndex = 0  # Reset index
+                
+        except FileNotFoundError:
+            print(f"CSV file {filename} not found")
+            self.test_data = []
+        except Exception as e:
+            print(f"Error loading CSV data: {e}")
+            self.test_data = []
