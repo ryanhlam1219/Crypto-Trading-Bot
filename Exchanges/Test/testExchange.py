@@ -1,7 +1,3 @@
-import urllib.parse
-import hashlib
-import hmac
-import requests
 import time
 import json
 from typing import TYPE_CHECKING
@@ -9,11 +5,13 @@ from typing import TYPE_CHECKING
 from math import floor
 from ..exchange import Exchange
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
+from ApiProxy import APIProxy, ExchangeConfig
 
 if TYPE_CHECKING:
     from Utils.MetricsCollector import MetricsCollector
 
-class TestExchange(Exchange):
+
+class testExchange(Exchange):
     """
     A class representing an exchange for testing purposes, specifically interfacing with Binance US.
     """
@@ -30,6 +28,10 @@ class TestExchange(Exchange):
         :param metrics_collector: MetricsCollector instance for performance tracking.
         """
         super().__init__(key, secret, currency, asset, metrics_collector)
+        
+        # Initialize API Proxy with Binance US configuration
+        self.api_proxy = APIProxy(ExchangeConfig.binance_us(key, secret))
+        
         # Default test data for predictable testing
         self.test_data = [
             [
@@ -48,20 +50,6 @@ class TestExchange(Exchange):
             ]
         ]
 
-    def __get_binanceus_signature(self, data, secret):
-        """
-        Generates an HMAC SHA256 signature for Binance US API requests.
-        
-        :param data: Dictionary containing the request parameters.
-        :param secret: API secret key used for signing.
-        :return: Hexadecimal representation of the HMAC signature.
-        """
-        postdata = urllib.parse.urlencode(data)
-        message = postdata.encode()
-        byte_key = bytes(secret, 'UTF-8')
-        mac = hmac.new(byte_key, message, hashlib.sha256).hexdigest()
-        return mac
-
     def __submit_get_request(self, uri_path, data):
         """
         Submits an authenticated GET request to the Binance US API.
@@ -70,11 +58,7 @@ class TestExchange(Exchange):
         :param data: Dictionary containing request parameters.
         :return: Response object from the GET request.
         """
-        headers = {'X-MBX-APIKEY': self.apiKey}
-        signature = self.__get_binanceus_signature(data, self.apiSecret)
-        payload = {**data, "signature": signature}
-        response = requests.get((self.api_url + uri_path), params=payload, headers=headers)
-        return response
+        return self.api_proxy.make_request('GET', uri_path, params=data)
 
     def get_connectivity_status(self):
         """
@@ -83,7 +67,7 @@ class TestExchange(Exchange):
         :return: True if the API is reachable, otherwise False.
         """
         uri_path = '/api/v3/ping'
-        response = requests.get(self.api_url + uri_path)
+        response = self.api_proxy.make_public_request('GET', uri_path)
         return True if response.text == '{}' else False
     
     def get_account_status(self):
@@ -114,11 +98,8 @@ class TestExchange(Exchange):
         :param data: Dictionary containing request parameters.
         :return: Response text from the POST request.
         """
-        headers = {'X-MBX-APIKEY': self.apiKey}
-        signature = self.__get_binanceus_signature(data, self.apiSecret)
-        payload = {**data, "signature": signature}
-        req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
-        return req.text
+        response = self.api_proxy.make_request('POST', uri_path, data=data)
+        return response.text
 
     def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None, time_in_force="GTC"):
         """

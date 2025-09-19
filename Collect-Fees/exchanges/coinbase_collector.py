@@ -5,16 +5,18 @@ Coinbase Fee Collector
 Collects trading fee data from Coinbase Advanced Trade API
 """
 
-import hashlib
-import hmac
-import base64
-import requests
 import time
 import json
 import logging
 from typing import Optional, Dict, Any
 from decouple import config
 from .base_collector import BaseExchangeCollector
+
+# Import APIProxy
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from ApiProxy import APIProxy, ExchangeConfig
 
 logger = logging.getLogger(__name__)
 
@@ -28,21 +30,12 @@ class CoinbaseCollector(BaseExchangeCollector):
         self.api_secret = config('COINBASE_API_SECRET', default='')
         self.passphrase = config('COINBASE_PASSPHRASE', default='')
         
+        # Initialize API Proxy with Coinbase configuration
+        self.api_proxy = APIProxy(ExchangeConfig.coinbase(self.api_key, self.api_secret, self.passphrase))
+        
         # Coinbase uses dash format (BTC-USD)
         self.symbol = f"{base_currency.upper()}-{quote_currency.upper()}"
         
-    def _get_signature(self, timestamp: str, method: str, request_path: str, body: str = '') -> str:
-        """Generate signature for Coinbase API"""
-        try:
-            message = timestamp + method + request_path + body
-            hmac_key = base64.b64decode(self.api_secret)
-            signature = hmac.new(hmac_key, message.encode(), hashlib.sha256)
-            signature_b64 = base64.b64encode(signature.digest()).decode()
-            return signature_b64
-        except Exception as e:
-            logger.error(f"Coinbase signature error: {e}")
-            return ""
-    
     def _make_signed_request(self, method: str, endpoint: str, params: dict = None, json_data: dict = None) -> Optional[dict]:
         """Make a signed request to Coinbase API"""
         if not all([self.api_key, self.api_secret, self.passphrase]):
@@ -50,28 +43,10 @@ class CoinbaseCollector(BaseExchangeCollector):
             return None
             
         try:
-            timestamp = str(time.time())
-            body = ''
-            
-            if method == 'GET' and params:
-                endpoint += '?' + '&'.join([f"{k}={v}" for k, v in params.items()])
-            elif method == 'POST' and json_data:
-                body = json.dumps(json_data)
-            
-            signature = self._get_signature(timestamp, method, endpoint, body)
-            
-            headers = {
-                'CB-ACCESS-KEY': self.api_key,
-                'CB-ACCESS-SIGN': signature,
-                'CB-ACCESS-TIMESTAMP': timestamp,
-                'CB-ACCESS-PASSPHRASE': self.passphrase,
-                'Content-Type': 'application/json'
-            }
-            
             if method == 'GET':
-                response = requests.get(f"{self.api_url}{endpoint}", headers=headers, timeout=10)
+                response = self.api_proxy.make_request('GET', endpoint, params=params)
             else:
-                response = requests.post(f"{self.api_url}{endpoint}", headers=headers, json=json_data, timeout=10)
+                response = self.api_proxy.make_request('POST', endpoint, json=json_data)
             
             if response.status_code == 200:
                 return response.json()
@@ -86,11 +61,7 @@ class CoinbaseCollector(BaseExchangeCollector):
     def _make_public_request(self, endpoint: str, params: dict = None) -> Optional[dict]:
         """Make a public request to Coinbase API"""
         try:
-            response = requests.get(
-                f"{self.api_url}{endpoint}",
-                params=params,
-                timeout=10
-            )
+            response = self.api_proxy.make_public_request('GET', endpoint, params=params)
             
             if response.status_code == 200:
                 return response.json()

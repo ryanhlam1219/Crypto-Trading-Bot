@@ -5,17 +5,18 @@ Kraken Fee Collector
 Collects trading fee data from Kraken API
 """
 
-import urllib.parse
-import hashlib
-import hmac
-import base64
-import requests
 import time
 import json
 import logging
 from typing import Optional, Dict, Any
 from decouple import config
 from .base_collector import BaseExchangeCollector
+
+# Import APIProxy
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from ApiProxy import APIProxy, ExchangeConfig
 
 # Use exchange-specific logger
 logger = logging.getLogger('exchange.kraken')
@@ -28,6 +29,9 @@ class KrakenCollector(BaseExchangeCollector):
         self.api_url = "https://api.kraken.com"
         self.api_key = config('KRAKEN_API_KEY', default='')
         self.api_secret = config('KRAKEN_API_SECRET', default='')
+        
+        # Initialize API Proxy with Kraken configuration
+        self.api_proxy = APIProxy(ExchangeConfig.kraken(self.api_key, self.api_secret))
         
         # Kraken uses different symbol format (XBTUSD for BTCUSD)
         self.symbol = self._get_kraken_symbol(base_currency, quote_currency)
@@ -63,20 +67,6 @@ class KrakenCollector(BaseExchangeCollector):
         
         return f"{kraken_base}{kraken_quote}"
     
-    def _get_signature(self, uri_path: str, data: dict) -> str:
-        """Generate signature for Kraken API"""
-        try:
-            postdata = urllib.parse.urlencode(data)
-            encoded = (str(data['nonce']) + postdata).encode()
-            message = uri_path.encode() + hashlib.sha256(encoded).digest()
-            
-            mac = hmac.new(base64.b64decode(self.api_secret), message, hashlib.sha512)
-            sigdigest = base64.b64encode(mac.digest())
-            return sigdigest.decode()
-        except Exception as e:
-            logger.error(f"Kraken signature error: {e}")
-            return ""
-    
     def _make_signed_request(self, endpoint: str, params: dict = None) -> Optional[dict]:
         """Make a signed request to Kraken API"""
         if not self.api_key or not self.api_secret:
@@ -87,19 +77,7 @@ class KrakenCollector(BaseExchangeCollector):
             if params is None:
                 params = {}
                 
-            params['nonce'] = str(int(1000 * time.time()))
-            
-            headers = {
-                'API-Key': self.api_key,
-                'API-Sign': self._get_signature(endpoint, params)
-            }
-            
-            response = requests.post(
-                f"{self.api_url}{endpoint}",
-                headers=headers,
-                data=params,
-                timeout=10
-            )
+            response = self.api_proxy.make_request('POST', endpoint, data=params)
             
             if response.status_code == 200:
                 data = response.json()
@@ -118,11 +96,7 @@ class KrakenCollector(BaseExchangeCollector):
     def _make_public_request(self, endpoint: str, params: dict = None) -> Optional[dict]:
         """Make a public request to Kraken API"""
         try:
-            response = requests.get(
-                f"{self.api_url}{endpoint}",
-                params=params,
-                timeout=10
-            )
+            response = self.api_proxy.make_public_request('GET', endpoint, params=params)
             
             if response.status_code == 200:
                 data = response.json()

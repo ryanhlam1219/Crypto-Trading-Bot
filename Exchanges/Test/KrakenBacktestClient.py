@@ -1,8 +1,3 @@
-import urllib.parse
-import hashlib
-import hmac
-import base64
-import requests
 import time
 import json
 import threading
@@ -13,6 +8,7 @@ from ..exchange import Exchange
 from Tests.utils import DataFetchException
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from threading import Lock
+from ApiProxy import APIProxy, ExchangeConfig
 
 class KrakenBackTestClient(Exchange):
     api_url = "https://api.kraken.com"
@@ -21,6 +17,10 @@ class KrakenBackTestClient(Exchange):
         super().__init__(key, secret, currency, asset, metrics_collector) #calls parent constructor
         self.test_data = []
         self.testIndex = 0
+        
+        # Initialize API Proxy for Kraken
+        config = ExchangeConfig.create_kraken_config(key, secret)
+        self.api_proxy = APIProxy(config)
     # ---------- Helpers ----------
     def __to_kraken_pair(self) -> str:
         """
@@ -73,8 +73,8 @@ class KrakenBackTestClient(Exchange):
         Checks connectivity to Kraken public API (lightweight).
         """
         try:
-            r = requests.get(self.api_url + "/0/public/Time", timeout=5)
-            return r.status_code == 200 and "result" in r.json()
+            response = self.api_proxy.make_public_request('GET', '/0/public/Time')
+            return response is not None and "result" in response
         except Exception:
             return False
 
@@ -118,18 +118,16 @@ class KrakenBackTestClient(Exchange):
         per_candle_secs = interval * 60
 
         while since_sec < end_sec:
-            url = f"{self.api_url}/0/public/OHLC"
             params = {"pair": pair, "interval": interval, "since": since_sec}
-            resp = requests.get(url, params=params)
-            if resp.status_code != 200:
-                print(f"Error fetching data: {resp.status_code}, {resp.text}")
+            response = self.api_proxy.make_public_request('GET', '/0/public/OHLC', params)
+            if response is None:
+                print(f"Error fetching data from Kraken API")
                 break
-            payload = resp.json()
-            if "error" in payload and payload["error"]:
-                print(f"Kraken error: {payload['error']}")
+            if "error" in response and response["error"]:
+                print(f"Kraken error: {response['error']}")
                 break
 
-            result = payload.get("result", {})
+            result = response.get("result", {})
             # Kraken returns a dict with key == canonical pair name
             # We don't know the exact canonical key, so pick the first list in result (excluding 'last')
             ohlc_key = None
@@ -237,8 +235,8 @@ class KrakenBackTestClient(Exchange):
         """
         # Quick connectivity check
         try:
-            pong = requests.get(self.api_url + "/0/public/SystemStatus", timeout=5)
-            if pong.status_code != 200:
+            response = self.api_proxy.make_public_request('GET', '/0/public/SystemStatus')
+            if response is None:
                 raise ConnectionError("Failed to connect to Kraken Exchange")
         except Exception:
             raise ConnectionError("Failed to connect to Kraken Exchange")
@@ -307,6 +305,11 @@ class KrakenBackTestClient(Exchange):
             return order_mapping[order_type]
         else:
             raise ValueError(f"Unsupported order type: {order_type}")
+    
+    def __del__(self):
+        """Clean up API proxy when object is destroyed"""
+        if hasattr(self, 'api_proxy'):
+            self.api_proxy.close()
     
     def _interval_to_kraken_format(self, interval):
         """

@@ -5,16 +5,18 @@ Gemini Fee Collector
 Collects trading fee data from Gemini API
 """
 
-import hashlib
-import hmac
-import base64
-import requests
 import time
 import json
 import logging
 from typing import Optional, Dict, Any
 from decouple import config
 from .base_collector import BaseExchangeCollector
+
+# Import APIProxy
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from ApiProxy import APIProxy, ExchangeConfig
 
 # Use exchange-specific logger
 logger = logging.getLogger('exchange.gemini')
@@ -33,26 +35,13 @@ class GeminiCollector(BaseExchangeCollector):
         # Use sandbox if configured
         if self.use_sandbox:
             self.api_url = self.sandbox_url
+            
+        # Initialize API Proxy with Gemini configuration
+        self.api_proxy = APIProxy(ExchangeConfig.gemini(self.api_key, self.api_secret, self.use_sandbox))
         
         # Gemini uses lowercase format (btcusd)
         self.symbol = f"{base_currency.lower()}{quote_currency.lower()}"
         
-    def _get_signature(self, payload: dict) -> tuple:
-        """Generate signature for Gemini API"""
-        try:
-            encoded_payload = json.dumps(payload).encode()
-            b64 = base64.b64encode(encoded_payload)
-            signature = hmac.new(self.api_secret.encode(), b64, hashlib.sha384).hexdigest()
-            
-            return {
-                'X-GEMINI-APIKEY': self.api_key,
-                'X-GEMINI-PAYLOAD': b64.decode(),
-                'X-GEMINI-SIGNATURE': signature
-            }
-        except Exception as e:
-            logger.error(f"Gemini signature error: {e}")
-            return {}
-    
     def _make_signed_request(self, endpoint: str, params: dict = None) -> Optional[dict]:
         """Make a signed request to Gemini API"""
         if not self.api_key or not self.api_secret:
@@ -63,21 +52,7 @@ class GeminiCollector(BaseExchangeCollector):
             if params is None:
                 params = {}
                 
-            payload = {
-                'request': endpoint,
-                'nonce': str(int(time.time() * 1000000)),
-                **params
-            }
-            
-            headers = self._get_signature(payload)
-            if not headers:
-                return None
-            
-            response = requests.post(
-                f"{self.api_url}{endpoint}",
-                headers=headers,
-                timeout=10
-            )
+            response = self.api_proxy.make_request('POST', endpoint, data=params)
             
             if response.status_code == 200:
                 return response.json()
@@ -92,11 +67,7 @@ class GeminiCollector(BaseExchangeCollector):
     def _make_public_request(self, endpoint: str, params: dict = None) -> Optional[dict]:
         """Make a public request to Gemini API"""
         try:
-            response = requests.get(
-                f"{self.api_url}{endpoint}",
-                params=params,
-                timeout=10
-            )
+            response = self.api_proxy.make_public_request('GET', endpoint, params=params)
             
             if response.status_code == 200:
                 return response.json()
