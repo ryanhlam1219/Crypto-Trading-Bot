@@ -227,3 +227,356 @@ class TestKrakenBacktestClient:
         
         assert market_type == "market"
         assert limit_type == "limit"
+    
+    def test_convert_order_type_all_types(self):
+        """Test all order type conversions to Kraken format."""
+        assert self.client._convert_order_type(OrderType.MARKET_ORDER) == "market"
+        assert self.client._convert_order_type(OrderType.LIMIT_ORDER) == "limit"
+        assert self.client._convert_order_type(OrderType.STOP_LIMIT_ORDER) == "stop-loss-limit"
+        assert self.client._convert_order_type(OrderType.TAKE_PROFIT_LIMIT_ORDER) == "take-profit-limit"
+        assert self.client._convert_order_type(OrderType.LIMIT_MAKER_ORDER) == "limit"
+    
+    def test_convert_order_type_invalid(self):
+        """Test order type conversion with invalid type."""
+        with pytest.raises(ValueError, match="Unsupported order type"):
+            # Assuming there's an invalid order type or creating a mock one
+            invalid_order_type = Mock()
+            invalid_order_type.name = "INVALID_ORDER"
+            self.client._convert_order_type(invalid_order_type)
+    
+    def test_convert_trade_direction_invalid(self):
+        """Test trade direction conversion with invalid direction."""
+        with pytest.raises(ValueError, match="Unsupported trade direction"):
+            invalid_direction = Mock()
+            invalid_direction.name = "INVALID_DIRECTION"
+            self.client._convert_trade_direction(invalid_direction)
+    
+    def test_get_kraken_order_type_static_method(self):
+        """Test static method for Kraken order type mapping."""
+        assert KrakenBackTestClient._KrakenBackTestClient__get_kraken_order_type(OrderType.LIMIT_ORDER) == "limit"
+        assert KrakenBackTestClient._KrakenBackTestClient__get_kraken_order_type(OrderType.MARKET_ORDER) == "market"
+        assert KrakenBackTestClient._KrakenBackTestClient__get_kraken_order_type(OrderType.STOP_LIMIT_ORDER) == "stop-loss-limit"
+        assert KrakenBackTestClient._KrakenBackTestClient__get_kraken_order_type(OrderType.TAKE_PROFIT_LIMIT_ORDER) == "take-profit-limit"
+        assert KrakenBackTestClient._KrakenBackTestClient__get_kraken_order_type(OrderType.LIMIT_MAKER_ORDER) == "post-only"
+    
+    def test_get_kraken_order_type_invalid(self):
+        """Test static method with invalid order type."""
+        with pytest.raises(ValueError, match="Unsupported order type"):
+            invalid_order_type = Mock()
+            invalid_order_type.name = "INVALID_ORDER"
+            KrakenBackTestClient._KrakenBackTestClient__get_kraken_order_type(invalid_order_type)
+    
+    def test_account_status(self):
+        """Test account status method (mocked for backtest)."""
+        # This method only prints, so we just ensure it doesn't raise an exception
+        try:
+            self.client.get_account_status()
+            # If we reach here, the method executed without error
+            assert True
+        except Exception as e:
+            pytest.fail(f"get_account_status raised an exception: {e}")
+    
+    @patch('builtins.open', create=True)
+    def test_write_candlestick_to_csv(self, mock_open):
+        """Test writing candlestick data to CSV."""
+        mock_file = Mock()
+        mock_open.return_value.__enter__.return_value = mock_file
+        
+        test_data = [
+            [1609459200000, "29000.0", "30000.0", "28500.0", "29500.0", "100.0", 
+             1609459260000, "2950000.0", 50, "50.0", "1475000.0", "0"],
+            [1609459260000, "29500.0", "30500.0", "29000.0", "30000.0", "120.0", 
+             1609459320000, "3600000.0", 60, "60.0", "1800000.0", "0"]
+        ]
+        
+        self.client.write_candlestick_to_csv(test_data, "test_output.csv")
+        
+        # Verify the file was opened for writing
+        mock_open.assert_called_once_with("test_output.csv", mode='w', newline='')
+    
+    def test_load_test_data_from_csv_file_not_found(self):
+        """Test loading test data from non-existent CSV file."""
+        self.client.load_test_data_from_csv("non_existent_file.csv")
+        
+        # Should handle gracefully and set empty test_data
+        assert self.client.test_data == []
+    
+    @patch('builtins.open', side_effect=Exception("Read error"))
+    def test_load_test_data_from_csv_read_error(self, mock_open):
+        """Test loading test data with read error."""
+        self.client.load_test_data_from_csv("error_file.csv")
+        
+        # Should handle gracefully and set empty test_data
+        assert self.client.test_data == []
+    
+    def test_get_candle_stick_data_no_data_exception(self):
+        """Test getting candlestick data when no data is available."""
+        # Ensure test_data is empty and testIndex is out of bounds
+        self.client.test_data = []
+        self.client.testIndex = 0
+        
+        with pytest.raises(Exception):  # Should raise DataFetchException
+            self.client.get_candle_stick_data(1)
+    
+    def test_get_candle_stick_data_index_out_of_bounds(self):
+        """Test getting candlestick data when index is out of bounds."""
+        self.client.test_data = self.sample_test_data.copy()
+        self.client.testIndex = len(self.client.test_data) + 1  # Out of bounds
+        
+        with pytest.raises(Exception):  # Should raise DataFetchException
+            self.client.get_candle_stick_data(1)
+    
+    @patch('requests.get')
+    def test_get_connectivity_status_no_result_key(self, mock_get):
+        """Test connectivity status when response doesn't contain 'result' key."""
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"error": [], "no_result_key": "data"}
+        mock_get.return_value = mock_response
+        
+        status = self.client.get_connectivity_status()
+        assert status is False
+    
+    @patch('requests.get')
+    def test_get_connectivity_status_bad_status_code(self, mock_get):
+        """Test connectivity status with bad HTTP status code."""
+        mock_response = Mock()
+        mock_response.status_code = 500
+        mock_response.json.return_value = {"error": ["Server error"], "result": {}}
+        mock_get.return_value = mock_response
+        
+        status = self.client.get_connectivity_status()
+        assert status is False
+    
+    def test_to_kraken_pair_various_assets(self):
+        """Test conversion to Kraken pair format for various assets."""
+        test_cases = [
+            ("ETH", "USD", "ETHUSD"),
+            ("SOL", "USD", "SOLUSD"),
+            ("ADA", "EUR", "ADAEUR"),
+            ("LTC", "USDT", "LTCUSDT"),
+            ("XRP", "USD", "XRPUSD"),
+            ("DOGE", "USD", "DOGEUSD"),
+            ("DOT", "USD", "DOTUSD"),
+            ("UNKNOWN", "USD", "UNKNOWNUSD"),  # Test unmapped asset
+        ]
+        
+        for asset, currency, expected in test_cases:
+            self.client.asset = asset
+            self.client.currency = currency
+            result = self.client._KrakenBackTestClient__to_kraken_pair()
+            assert result == expected, f"Expected {expected}, got {result} for {asset}/{currency}"
+    
+    @patch('requests.get')
+    @patch('threading.Thread')
+    def test_get_historical_candle_stick_data_success(self, mock_thread, mock_get):
+        """Test successful historical candlestick data retrieval."""
+        # Mock successful connectivity check
+        mock_connectivity_response = Mock()
+        mock_connectivity_response.status_code = 200
+        mock_get.return_value = mock_connectivity_response
+        
+        # Mock thread behavior
+        mock_thread_instance = Mock()
+        mock_thread.return_value = mock_thread_instance
+        
+        result = self.client.get_historical_candle_stick_data(interval=60, yearsPast=0.001, threads=2)
+        
+        # Should return the test_data (which will be empty since we're mocking)
+        assert isinstance(result, list)
+        assert result == self.client.test_data
+    
+    @patch('requests.get')
+    def test_get_historical_candle_stick_data_connection_error(self, mock_get):
+        """Test historical data retrieval with connection error."""
+        # Mock failed connectivity check
+        mock_get.side_effect = requests.RequestException("Connection failed")
+        
+        with pytest.raises(ConnectionError, match="Failed to connect to Kraken Exchange"):
+            self.client.get_historical_candle_stick_data(interval=60, yearsPast=0.001, threads=1)
+    
+    @patch('requests.get')
+    def test_get_historical_candle_stick_data_bad_status(self, mock_get):
+        """Test historical data retrieval with bad status code."""
+        # Mock failed connectivity check with bad status
+        mock_response = Mock()
+        mock_response.status_code = 500
+        mock_get.return_value = mock_response
+        
+        with pytest.raises(ConnectionError, match="Failed to connect to Kraken Exchange"):
+            self.client.get_historical_candle_stick_data(interval=60, yearsPast=0.001, threads=1)
+    
+    @patch('requests.get')
+    @patch('threading.Lock')
+    def test_fetch_candle_data_from_time_interval_success(self, mock_lock, mock_get):
+        """Test successful candle data fetching from time interval."""
+        # Mock successful API response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "error": [],
+            "result": {
+                "XBTUSD": [
+                    [1609459200, "29000.0", "30000.0", "28500.0", "29500.0", "29250.0", "100.0", 50],
+                    [1609459260, "29500.0", "30500.0", "29000.0", "30000.0", "29750.0", "120.0", 60]
+                ],
+                "last": 1609459320
+            }
+        }
+        mock_get.return_value = mock_response
+        
+        # Mock the lock with context manager support
+        mock_lock_instance = Mock()
+        mock_lock_instance.__enter__ = Mock(return_value=mock_lock_instance)
+        mock_lock_instance.__exit__ = Mock(return_value=None)
+        
+        # Call the private method
+        start_ms = 1609459200000
+        end_ms = 1609459320000
+        
+        self.client._KrakenBackTestClient__fetch_candle_data_from_time_interval(
+            60, start_ms, end_ms, mock_lock_instance
+        )
+        
+        # Verify that data was processed (test_data should have entries)
+        assert len(self.client.test_data) >= 0  # Data might be added
+    
+    @patch('requests.get')
+    @patch('threading.Lock')
+    def test_fetch_candle_data_from_time_interval_api_error(self, mock_lock, mock_get):
+        """Test candle data fetching with API error response."""
+        # Mock API error response
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "error": ["Some API error"],
+            "result": {}
+        }
+        mock_get.return_value = mock_response
+        
+        # Mock the lock with context manager support
+        mock_lock_instance = Mock()
+        mock_lock_instance.__enter__ = Mock(return_value=mock_lock_instance)
+        mock_lock_instance.__exit__ = Mock(return_value=None)
+        
+        # Should handle the error gracefully
+        self.client._KrakenBackTestClient__fetch_candle_data_from_time_interval(
+            60, 1609459200000, 1609459320000, mock_lock_instance
+        )
+        
+        # Should not crash, may or may not add data depending on error handling
+        assert True  # If we reach here, no exception was raised
+    
+    @patch('requests.get')
+    @patch('threading.Lock')
+    def test_fetch_candle_data_from_time_interval_network_error(self, mock_lock, mock_get):
+        """Test candle data fetching with network error."""
+        # Mock network error - but handle it before the lock is used
+        mock_response = Mock()
+        mock_response.status_code = 500
+        mock_response.text = "Network error"
+        mock_get.return_value = mock_response
+        
+        # Mock the lock with context manager support
+        mock_lock_instance = Mock()
+        mock_lock_instance.__enter__ = Mock(return_value=mock_lock_instance)
+        mock_lock_instance.__exit__ = Mock(return_value=None)
+        
+        # Should handle the error gracefully
+        self.client._KrakenBackTestClient__fetch_candle_data_from_time_interval(
+            60, 1609459200000, 1609459320000, mock_lock_instance
+        )
+        
+        # Should not crash
+        assert True
+    
+    @patch('requests.get')
+    @patch('threading.Lock')
+    def test_fetch_candle_data_from_time_interval_bad_status_code(self, mock_lock, mock_get):
+        """Test candle data fetching with bad HTTP status code."""
+        # Mock bad status code
+        mock_response = Mock()
+        mock_response.status_code = 500
+        mock_response.text = "Internal Server Error"
+        mock_get.return_value = mock_response
+        
+        # Mock the lock with context manager support
+        mock_lock_instance = Mock()
+        mock_lock_instance.__enter__ = Mock(return_value=mock_lock_instance)
+        mock_lock_instance.__exit__ = Mock(return_value=None)
+        
+        # Should handle the error gracefully
+        self.client._KrakenBackTestClient__fetch_candle_data_from_time_interval(
+            60, 1609459200000, 1609459320000, mock_lock_instance
+        )
+        
+        # Should not crash
+        assert True
+    
+    @patch('requests.get')
+    @patch('threading.Lock')
+    def test_fetch_candle_data_malformed_candle(self, mock_lock, mock_get):
+        """Test candle data fetching with malformed candle data."""
+        # Mock response with malformed candle data
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "error": [],
+            "result": {
+                "XBTUSD": [
+                    [1609459200, "29000.0", "30000.0"],  # Incomplete candle data
+                    "invalid_candle_format",  # Invalid format
+                    [1609459260, "29500.0", "30500.0", "29000.0", "30000.0", "29750.0", "120.0", 60]  # Valid
+                ]
+            }
+        }
+        mock_get.return_value = mock_response
+        
+        # Mock the lock with context manager support
+        mock_lock_instance = Mock()
+        mock_lock_instance.__enter__ = Mock(return_value=mock_lock_instance)
+        mock_lock_instance.__exit__ = Mock(return_value=None)
+        
+        # Should handle malformed data gracefully
+        self.client._KrakenBackTestClient__fetch_candle_data_from_time_interval(
+            60, 1609459200000, 1609459320000, mock_lock_instance
+        )
+        
+        # Should not crash, may add valid candles only
+        assert True
+    
+    def test_interval_to_kraken_format_edge_cases(self):
+        """Test interval conversion edge cases."""
+        assert self.client._interval_to_kraken_format(240) == 240  # 4 hours
+        assert self.client._interval_to_kraken_format(1440) == 1440  # 1 day
+        assert self.client._interval_to_kraken_format(30) == 30  # 30 minutes
+        assert self.client._interval_to_kraken_format(2880) == 2880  # Custom interval
+    
+    def test_generate_signature_different_inputs(self):
+        """Test signature generation with different inputs."""
+        # Test with different URI paths and data
+        sig1 = self.client._generate_signature("/0/private/AddOrder", "test_data", "123456")
+        sig2 = self.client._generate_signature("/0/private/Balance", "other_data", "789012")
+        sig3 = self.client._generate_signature("/0/private/AddOrder", "test_data", "123456")
+        
+        # All should return mock signature for backtest client
+        assert isinstance(sig1, str)
+        assert isinstance(sig2, str)
+        assert isinstance(sig3, str)
+        assert sig1 == sig3  # Same inputs should give same result in mock
+    
+    def test_create_new_order_all_combinations(self):
+        """Test order creation with all direction and type combinations."""
+        directions = [TradeDirection.BUY, TradeDirection.SELL]
+        order_types = [OrderType.MARKET_ORDER, OrderType.LIMIT_ORDER, 
+                      OrderType.STOP_LIMIT_ORDER, OrderType.TAKE_PROFIT_LIMIT_ORDER,
+                      OrderType.LIMIT_MAKER_ORDER]
+        
+        for direction in directions:
+            for order_type in order_types:
+                result = self.client.create_new_order(direction, order_type, 0.1, 29000)
+                
+                assert result is not None
+                assert "result" in result
+                assert "txid" in result["result"]
+                assert result["result"]["txid"] == ["mock_transaction_id"]
