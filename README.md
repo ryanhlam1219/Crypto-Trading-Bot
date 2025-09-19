@@ -6,7 +6,8 @@ Advanced crypto trading bot written in Python with multi-exchange support, compr
 
 - **Multi-Exchange Support**: Binance.US with extensible architecture
 - **Grid Trading Strategy**: Automated buy/sell orders with profit optimization
-- **Comprehensive Testing**: 85% test coverage with automated build system
+- **Graceful Shutdown**: Ctrl+C signal handling for safe strategy termination
+- **Comprehensive Testing**: 94%+ test coverage with automated build system
 - **Performance Analytics**: Real-time P&L tracking and trade analysis
 - **Dual Modes**: Backtesting with historical data and live trading
 
@@ -64,6 +65,30 @@ Configure in your `.env` file:
 MODE="backtest"  # Safe for testing
 # MODE="trade"   # Live trading (use caution!)
 ```
+
+### Graceful Shutdown
+The trading strategy supports graceful shutdown via signal handling:
+
+```bash
+# Start the strategy
+python main.py BTC_USD
+
+# Press Ctrl+C for graceful shutdown
+# The strategy will:
+# 1. Stop accepting new trades
+# 2. Display performance summary
+# 3. Exit cleanly without data loss
+```
+
+**Signal Support:**
+- `Ctrl+C` (SIGINT) - Graceful shutdown
+- `SIGTERM` - Graceful shutdown (Linux/Unix)
+- Automatic cleanup of resources and trade tracking
+
+**Architecture:**
+- Signal handling is managed by the trading strategy itself
+- `main.py` no longer blocks or handles signals directly
+- Clean separation of concerns between launcher and strategy
 
 ### Development
 ```bash
