@@ -1,8 +1,3 @@
-import urllib.parse
-import hashlib
-import hmac
-import base64
-import requests
 import time
 import json
 
@@ -10,6 +5,7 @@ from datetime import datetime
 from math import floor
 from ..exchange import Exchange
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
+from ApiProxy import APIProxy, ExchangeConfig
 
 class Binance(Exchange):
     """
@@ -28,35 +24,10 @@ class Binance(Exchange):
         :param metrics_collector: MetricsCollector instance for performance tracking.
         """
         super().__init__(key, secret, currency, asset, metrics_collector)
-
-    @staticmethod
-    def __get_binanceus_signature(data, secret):
-        """
-        Generates an HMAC SHA256 signature for Binance US API requests.
         
-        :param data: Dictionary containing the request parameters.
-        :param secret: API secret key used for signing.
-        :return: Hexadecimal representation of the HMAC signature.
-        """
-        postdata = urllib.parse.urlencode(data)
-        message = postdata.encode()
-        byte_key = bytes(secret, 'UTF-8')
-        mac = hmac.new(byte_key, message, hashlib.sha256).hexdigest()
-        return mac
-
-    def __submit_get_request(self, uri_path, data):
-        """
-        Submits an authenticated GET request to the Binance US API.
-        
-        :param uri_path: API endpoint path.
-        :param data: Dictionary containing request parameters.
-        :return: Response object from the GET request.
-        """
-        headers = {'X-MBX-APIKEY': self.apiKey}
-        signature = Binance._Binance__get_binanceus_signature(data, self.apiSecret)
-        payload = {**data, "signature": signature}
-        response = requests.get((self.api_url + uri_path), params=payload, headers=headers)
-        return response
+        # Initialize API Proxy
+        config = ExchangeConfig.create_binance_config(key, secret)
+        self.api_proxy = APIProxy(config)
 
     def get_connectivity_status(self):
         """
@@ -65,9 +36,8 @@ class Binance(Exchange):
         :return: True if the API is reachable, otherwise False.
         """
         try:
-            uri_path = '/api/v3/ping'
-            response = requests.get(self.api_url + uri_path)
-            return True if response.text == '{}' else False
+            response = self.api_proxy.make_public_request('GET', '/api/v3/ping')
+            return response == {}
         except Exception:
             return False
     
@@ -75,17 +45,15 @@ class Binance(Exchange):
         """
         Retrieves the account status for the authenticated user.
         """
-        uri_path = '/sapi/v3/accountStatus'
-        data = {"timestamp": int(round(time.time() * 1000))}
         try:
-            response = self.__submit_get_request(uri_path, data)
+            response = self.api_proxy.make_request('GET', '/sapi/v3/accountStatus')
             if self.metrics_collector:
-                self.metrics_collector.record_api_call(endpoint='/api/v3/account', method='GET', success=True)
+                self.metrics_collector.record_api_call(endpoint='/sapi/v3/accountStatus', method='GET', success=True)
             print("Account status:")
-            print(json.dumps(json.loads(response.text), indent=2))
+            print(json.dumps(response, indent=2))
         except Exception as e:
             if self.metrics_collector:
-                self.metrics_collector.record_api_call(endpoint='/api/v3/account', method='GET', success=False, error_message=str(e))
+                self.metrics_collector.record_api_call(endpoint='/sapi/v3/accountStatus', method='GET', success=False, error_message=str(e))
             raise
 
     def get_candle_stick_data(self, interval):
@@ -95,24 +63,13 @@ class Binance(Exchange):
         :param interval: Time interval in minutes for the candlestick data.
         :return: JSON response containing candlestick data.
         """
-        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m&limit=1'
-        response = requests.get(self.api_url + uri_path)
-        json_data = json.loads(response.text)
-        return CandleStickData.from_list(json_data[0])
-
-    def __submit_post_request(self, uri_path, data):
-        """
-        Submits an authenticated POST request to the Binance US API.
-        
-        :param uri_path: API endpoint path.
-        :param data: Dictionary containing request parameters.
-        :return: Response text from the POST request.
-        """
-        headers = {'X-MBX-APIKEY': self.apiKey}
-        signature = Binance._Binance__get_binanceus_signature(data, self.apiSecret)
-        payload = {**data, "signature": signature}
-        req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
-        return req.text
+        params = {
+            'symbol': self.currency_asset,
+            'interval': f'{interval}m',
+            'limit': 1
+        }
+        response = self.api_proxy.make_public_request('GET', '/api/v3/klines', params)
+        return CandleStickData.from_list(response[0])
 
     def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None, time_in_force="GTC"):
         """
@@ -125,45 +82,44 @@ class Binance(Exchange):
         :param time_in_force: Time-in-force policy (default: "GTC").
         """
         start_time = time.time()
-        uri_path = "/api/v3/order/test"
+        endpoint = "/api/v3/order/test"
 
-        data = {
+        params = {
             "symbol": self.currency_asset,
             "side": direction._value_,
             "type": self.__get_binance_order_type(order_type),
-            "quantity": quantity,
-            "timestamp": int(round(time.time() * 1000))
+            "quantity": quantity
         }
 
         # Ensure price is included for LIMIT orders
         if order_type == OrderType.LIMIT_ORDER:
             if price is None:
                 raise ValueError("Price must be provided for LIMIT orders.")
-            data["price"] = price
-            data["timeInForce"] = time_in_force  # Required for limit orders
+            params["price"] = price
+            params["timeInForce"] = time_in_force  # Required for limit orders
 
         try:
-            result = self.__submit_post_request(uri_path, data)
+            result = self.api_proxy.make_request('POST', endpoint, params)
             response_time = time.time() - start_time
             
             # Record API call metrics
             self.metrics_collector.record_api_call(
-                endpoint=uri_path,
+                endpoint=endpoint,
                 method="POST",
                 response_time=response_time,
                 status_code=200,  # Assuming success if no exception
                 success=True
             )
             
-            print("POST {}: {}".format(uri_path, result))
-            return json.loads(result)
+            print("POST {}: {}".format(endpoint, result))
+            return result
             
         except Exception as e:
             response_time = time.time() - start_time
             
             # Record API error metrics
             self.metrics_collector.record_api_call(
-                endpoint=uri_path,
+                endpoint=endpoint,
                 method="POST",
                 response_time=response_time,
                 status_code=500,  # Assuming server error
@@ -193,3 +149,8 @@ class Binance(Exchange):
             return str(order_mapping[order_type])
         else:
             raise ValueError(f"Unsupported order type: {order_type}")
+
+    def __del__(self):
+        """Clean up API proxy when object is destroyed"""
+        if hasattr(self, 'api_proxy'):
+            self.api_proxy.close()
