@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from Utils.MetricsCollector import MetricsCollector
 
 
-class testExchange(Exchange):
+class TestExchange(Exchange):
     """
     A class representing an exchange for testing purposes, specifically interfacing with Binance US.
     """
@@ -30,7 +30,7 @@ class testExchange(Exchange):
         super().__init__(key, secret, currency, asset, metrics_collector)
         
         # Initialize API Proxy with Binance US configuration
-        self.api_proxy = APIProxy(ExchangeConfig.binance_us(key, secret))
+        self.api_proxy = APIProxy(ExchangeConfig.create_binance_config(key, secret))
         
         # Default test data for predictable testing
         self.test_data = [
@@ -68,14 +68,14 @@ class testExchange(Exchange):
         """
         uri_path = '/api/v3/ping'
         response = self.api_proxy.make_public_request('GET', uri_path)
-        return True if response.text == '{}' else False
+        return response == {}
     
     def get_account_status(self):
         """
         Fetches and prints the user's Binance US account status.
         Since this is a test exchange, return mocked status instead of real API call.
         """
-        print("Account status: Mocked due to testExchange usage")
+        print("Account status: Mocked due to TestExchange usage")
 
     def get_candle_stick_data(self, interval):
         """
@@ -98,8 +98,8 @@ class testExchange(Exchange):
         :param data: Dictionary containing request parameters.
         :return: Response text from the POST request.
         """
-        response = self.api_proxy.make_request('POST', uri_path, data=data)
-        return response.text
+        response = self.api_proxy.make_request('POST', uri_path, params=data)
+        return response.get('msg', 'Success') if response else 'Error'
 
     def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None, time_in_force="GTC"):
         """

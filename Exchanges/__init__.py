@@ -7,7 +7,7 @@ from .Live.Binance import Binance
 # Test/Backtest Exchange Implementations
 from .Test.BinanceBacktestClient import BinanceBacktestClient
 from .Test.KrakenBacktestClient import KrakenBackTestClient
-from .Test.testExchange import testExchange
+from .Test.TestExchange import TestExchange
 
 # If you add more exchanges
 #from .Live.OtherExchange import OtherExchange

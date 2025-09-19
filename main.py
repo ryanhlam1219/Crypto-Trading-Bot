@@ -64,8 +64,8 @@ def initialize_exchange_client(exchange_name, key, secret, currency, asset, metr
         # Backtest clients
         exchange_module = importlib.import_module(f"Exchanges.Test.{exchange_name}")
     elif exchange_name == "TestExchange":
-        # Test exchange - file name is testExchange.py but class is TestExchange
-        exchange_module = importlib.import_module("Exchanges.Test.testExchange")
+        # Test exchange - file name is TestExchange.py and class is TestExchange
+        exchange_module = importlib.import_module("Exchanges.Test.TestExchange")
     else:
         # Live clients
         exchange_module = importlib.import_module(f"Exchanges.Live.{exchange_name}")

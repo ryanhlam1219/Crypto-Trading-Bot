@@ -31,7 +31,7 @@ class KrakenCollector(BaseExchangeCollector):
         self.api_secret = config('KRAKEN_API_SECRET', default='')
         
         # Initialize API Proxy with Kraken configuration
-        self.api_proxy = APIProxy(ExchangeConfig.kraken(self.api_key, self.api_secret))
+        self.api_proxy = APIProxy(ExchangeConfig.create_kraken_config(self.api_key, self.api_secret))
         
         # Kraken uses different symbol format (XBTUSD for BTCUSD)
         self.symbol = self._get_kraken_symbol(base_currency, quote_currency)

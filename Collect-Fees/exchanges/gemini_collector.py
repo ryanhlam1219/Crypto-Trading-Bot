@@ -37,7 +37,7 @@ class GeminiCollector(BaseExchangeCollector):
             self.api_url = self.sandbox_url
             
         # Initialize API Proxy with Gemini configuration
-        self.api_proxy = APIProxy(ExchangeConfig.gemini(self.api_key, self.api_secret, self.use_sandbox))
+        self.api_proxy = APIProxy(ExchangeConfig.create_gemini_config(self.api_key, self.api_secret, self.use_sandbox))
         
         # Gemini uses lowercase format (btcusd)
         self.symbol = f"{base_currency.lower()}{quote_currency.lower()}"

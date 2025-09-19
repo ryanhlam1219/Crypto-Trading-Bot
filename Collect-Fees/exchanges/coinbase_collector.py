@@ -31,7 +31,7 @@ class CoinbaseCollector(BaseExchangeCollector):
         self.passphrase = config('COINBASE_PASSPHRASE', default='')
         
         # Initialize API Proxy with Coinbase configuration
-        self.api_proxy = APIProxy(ExchangeConfig.coinbase(self.api_key, self.api_secret, self.passphrase))
+        self.api_proxy = APIProxy(ExchangeConfig.create_coinbase_config(self.api_key, self.api_secret, self.passphrase))
         
         # Coinbase uses dash format (BTC-USD)
         self.symbol = f"{base_currency.upper()}-{quote_currency.upper()}"
