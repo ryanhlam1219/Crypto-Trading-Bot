@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import signal
 import sys
 import threading
 import importlib
@@ -14,7 +13,7 @@ sys.path.insert(0, os.path.join(current_dir, 'utils'))
 # Local imports
 import Exchanges
 from Tests.utils import StrategyWrapper
-from MetricsCollector import MetricsCollector
+from Utils.MetricsCollector import MetricsCollector
 
 # Constants for configuration keys
 EXCHANGE_NAME = "exchange_name"
@@ -45,11 +44,6 @@ def load_configuration():
         API_SECRET: config('API_SECRET'),
         TRADE_INTERVAL: config('TRADE_INTERVAL')
     }
-
-def signal_handler(signal, frame):
-    """Handles termination signals like Ctrl+C."""
-    print("\nStopping client...")
-    sys.exit(0)
 
 def handle_cli_arguments(currency, asset):
     """Handles CLI arguments for currency/asset pair."""
@@ -83,7 +77,28 @@ def initialize_strategy(strategy_name, client, interval, metrics_collector):
     print(f"Using {strategy_name} to determine trades")
     strategy_module = importlib.import_module(f"Strategies.{strategy_name}")
     strategy_class = getattr(strategy_module, strategy_name)
-    return strategy_class(client, interval, 5, metrics_collector)
+    
+    # Initialize strategy with appropriate parameters based on strategy type
+    if strategy_name == "SimpleMovingAverageStrategy":
+        # SMA strategy with default parameters (can be customized via environment variables)
+        short_window = int(config('SMA_SHORT_WINDOW', default=10))
+        long_window = int(config('SMA_LONG_WINDOW', default=20))
+        min_candles = int(config('SMA_MIN_CANDLES', default=50))
+        trade_quantity = float(config('SMA_TRADE_QUANTITY', default=1.0))
+        
+        return strategy_class(
+            client=client, 
+            interval=interval, 
+            stop_loss_percentage=5, 
+            metrics_collector=metrics_collector,
+            short_window=short_window,
+            long_window=long_window,
+            min_candles=min_candles,
+            trade_quantity=trade_quantity
+        )
+    else:
+        # Default initialization for other strategies (e.g., GridTradingStrategy)
+        return strategy_class(client, interval, 5, metrics_collector)
 
 def run_trading_mode(config):
     """Runs the bot in real trading mode."""
@@ -104,10 +119,12 @@ def run_trading_mode(config):
 
     # Initialize and run the strategy
     strategy_instance = initialize_strategy(config[STRATEGY], client, config[INTERVAL], metrics_collector)
+    
+    print("🚀 Starting trading strategy...")
+    print("   Strategy will handle its own execution loop and signal management")
     strategy_instance.run_strategy(int(config[TRADE_INTERVAL]))
-
-    # Keep script running
-    threading.Event().wait()
+    
+    print("✅ Trading strategy completed execution")
 
 def run_test_mode(config):
     """Runs the bot in test mode."""
@@ -135,11 +152,13 @@ def run_test_mode(config):
 
 
 if __name__ == "__main__":
-    # Register signal handler
-    signal.signal(signal.SIGINT, signal_handler)
-
     # Load configuration
     config_data = load_configuration()
+
+    print("🤖 Crypto Trading Bot Starting...")
+    print("📝 Note: Signal handling is now managed by the trading strategy")
+    print("   Press Ctrl+C during strategy execution for graceful shutdown")
+    print()
 
     if config_data[MODE] == "backtest":
         run_test_mode(config_data)

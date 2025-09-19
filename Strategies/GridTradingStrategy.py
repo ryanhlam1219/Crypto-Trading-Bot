@@ -18,14 +18,23 @@ class GridTradingStrategy(Strategy):
         if metrics_collector is None:
             raise ValueError("metrics_collector is required for GridTradingStrategy")
             
+        # Initialize base class (which sets up signal handling)
         super().__init__(client, interval, stop_loss_percentage, metrics_collector)
+        
+        # Grid-specific parameters
         self.grid_percentage = grid_percentage  # Grid size as a percentage of market price
         self.num_levels = num_levels
         self.min_candles = min_candles  # Minimum number of candlesticks required before trading
         self.threshold = threshold  # Store threshold as separate parameter
         self.candlestick_data = []  # Store collected candlestick data
         # Trade tracking is now handled by MetricsCollector
+        
         print(f"Initialized GridTradingStrategy with grid percentage: {self.grid_percentage}, levels: {self.num_levels}, stop-loss: {self.stop_loss_percentage}%, and min candles: {self.min_candles}")
+
+    def on_shutdown_signal(self, signum, frame):
+        """Grid-specific shutdown signal handling."""
+        print("GridTradingStrategy received shutdown signal - stopping grid operations...")
+        # Could add grid-specific cleanup here if needed
 
     def execute_trade(self, price: float, direction: TradeDirection, grid_size: float):
         try:
@@ -112,12 +121,21 @@ class GridTradingStrategy(Strategy):
 
             self.client.get_account_status()
             
-            while len(self.candlestick_data) < self.min_candles:
-                new_data = self.client.get_candle_stick_data(self.interval)
-                if isinstance(new_data, CandleStickData):
-                    self.candlestick_data.append(new_data)
-                print("Not enough candlestick data collected. Waiting...")
-                time.sleep(trade_interval)
+            # Initial data collection phase with shutdown check
+            while len(self.candlestick_data) < self.min_candles and not self.is_shutdown_requested():
+                try:
+                    new_data = self.client.get_candle_stick_data(self.interval)
+                    if isinstance(new_data, CandleStickData):
+                        self.candlestick_data.append(new_data)
+                    print(f"Collecting initial data... ({len(self.candlestick_data)}/{self.min_candles} candles)")
+                    time.sleep(trade_interval)
+                except KeyboardInterrupt:
+                    print("\nKeyboard interrupt during data collection. Shutting down...")
+                    return
+            
+            if self.is_shutdown_requested():
+                print("Shutdown requested during initial data collection. Exiting...")
+                return
             
             base_price = self.__extract_latest_price(self.candlestick_data)
             if base_price is None:
@@ -125,21 +143,57 @@ class GridTradingStrategy(Strategy):
                 return
 
             self.__initialize_grid(base_price)
+            print(f"Grid initialized with base price: {base_price}. Starting trading loop...")
 
-            while True:
-                new_data = self.client.get_candle_stick_data(self.interval)
-                if isinstance(new_data, CandleStickData):
-                    self.candlestick_data.append(new_data)
-                    self.candlestick_data = self.candlestick_data[-self.min_candles:]
-                    current_price = self.__extract_latest_price(self.candlestick_data)
-                    if current_price is not None:
-                        self.check_trades(current_price)
-                time.sleep(trade_interval)
+            # Main trading loop with shutdown check
+            while not self.is_shutdown_requested():
+                try:
+                    new_data = self.client.get_candle_stick_data(self.interval)
+                    if isinstance(new_data, CandleStickData):
+                        self.candlestick_data.append(new_data)
+                        self.candlestick_data = self.candlestick_data[-self.min_candles:]
+                        current_price = self.__extract_latest_price(self.candlestick_data)
+                        if current_price is not None:
+                            self.check_trades(current_price)
+                    time.sleep(trade_interval)
+                except KeyboardInterrupt:
+                    print("\nKeyboard interrupt in trading loop. Shutting down...")
+                    break
+                    
+            # Graceful shutdown using base class method
+            self.perform_graceful_shutdown()
+            
         except DataFetchException as e:
+            print(f"Data fetch error: {e}")
+            self.perform_graceful_shutdown()
             raise DataFetchException(e)
         except Exception as e:
             print(f"Error in strategy execution: {e}")
             traceback.print_exc()
+            self.perform_graceful_shutdown()
+
+    def perform_graceful_shutdown(self):
+        """Grid-specific graceful shutdown operations."""
+        print("\n" + "="*50)
+        print("GRID TRADING STRATEGY - GRACEFUL SHUTDOWN")
+        print("="*50)
+        
+        try:
+            # Grid-specific reporting
+            print(f"Grid Configuration:")
+            print(f"  • Grid Percentage: {self.grid_percentage}%")
+            print(f"  • Grid Levels: {self.num_levels}")
+            print(f"  • Candles Collected: {len(self.candlestick_data)}")
+            
+            # Call parent class shutdown for common functionality
+            super().perform_graceful_shutdown()
+            
+        except Exception as e:
+            print(f"Error during GridTradingStrategy shutdown: {e}")
+            import traceback
+            traceback.print_exc()
+        
+        print("GridTradingStrategy shutdown completed.")
 
     def __extract_latest_price(self, candlestick_data: list) -> float:
         try:
