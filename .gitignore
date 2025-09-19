@@ -42,9 +42,15 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+coverage.html
+coverage.json
 *.cover
 .hypothesis/
 .pytest_cache/
+
+# Build and test reports
+reports/
+reports/test_report.html
 
 # Environments
 .env
