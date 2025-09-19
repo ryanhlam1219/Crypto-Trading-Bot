@@ -111,6 +111,46 @@ class TestGridTradingStrategyComplete:
                 stop_loss_percentage=5
             )
 
+    def test_initialization_with_none_stop_loss_percentage(self, mock_client, mock_metrics_collector):
+        """Test initialization with None stop_loss_percentage uses default value."""
+        strategy = GridTradingStrategy(
+            client=mock_client,
+            interval=60,
+            stop_loss_percentage=None,  # This should trigger default handling
+            metrics_collector=mock_metrics_collector
+        )
+        
+        # Should default to 5%
+        assert strategy.stop_loss_percentage == 5
+        assert strategy.threshold == 0.01  # Default threshold
+
+    def test_initialization_with_none_threshold(self, mock_client, mock_metrics_collector):
+        """Test initialization with None threshold uses default value."""
+        strategy = GridTradingStrategy(
+            client=mock_client,
+            interval=60,
+            stop_loss_percentage=3,
+            threshold=None,  # This should trigger default handling
+            metrics_collector=mock_metrics_collector
+        )
+        
+        # Should default to 0.01
+        assert strategy.threshold == 0.01
+        assert strategy.stop_loss_percentage == 3
+
+    def test_initialization_with_both_none_parameters(self, mock_client, mock_metrics_collector):
+        """Test initialization with both None parameters uses both defaults."""
+        strategy = GridTradingStrategy(
+            client=mock_client,
+            interval=60,
+            stop_loss_percentage=None,  # Should default to 5
+            threshold=None,  # Should default to 0.01
+            metrics_collector=mock_metrics_collector
+        )
+        
+        assert strategy.stop_loss_percentage == 5
+        assert strategy.threshold == 0.01
+
     def test_execute_trade_buy(self, mock_client, mock_metrics_collector):
         """Test execute_trade method for buy orders."""
         strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
@@ -265,6 +305,45 @@ class TestGridTradingStrategyComplete:
         result = strategy.should_enter_trade(100.0)
         assert isinstance(result, bool)
 
+    def test_should_enter_trade_with_threshold_checking(self, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test should_enter_trade with threshold checking and candlestick data."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, threshold=0.02, min_candles=1)  # 2% threshold, 1 min candle
+        
+        # Add candlestick data with a specific close price
+        strategy.candlestick_data = [sample_candle_data]
+        
+        # Test price change that exceeds threshold (should return True)
+        last_price = sample_candle_data.close_price  # 29500.0
+        new_price = last_price * 1.025  # 2.5% increase (exceeds 2% threshold)
+        result = strategy.should_enter_trade(new_price)
+        assert result is True
+        
+        # Test price change that doesn't exceed threshold (should return False)
+        new_price = last_price * 1.01  # 1% increase (below 2% threshold)
+        result = strategy.should_enter_trade(new_price)
+        assert result is False
+
+    def test_should_enter_trade_with_empty_candlestick_data(self, mock_client, mock_metrics_collector):
+        """Test should_enter_trade with empty candlestick data."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, threshold=0.01)
+        
+        # Empty candlestick data should return False
+        strategy.candlestick_data = []
+        result = strategy.should_enter_trade(100.0)
+        assert result is False
+
+    def test_should_enter_trade_exception_handling(self, mock_client, mock_metrics_collector):
+        """Test should_enter_trade exception handling."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Test with None price (should handle gracefully)
+        result = strategy.should_enter_trade(None)
+        assert result is False
+        
+        # Test with negative price (should handle gracefully)
+        result = strategy.should_enter_trade(-100.0)
+        assert result is False
+
     def test_should_exit_trade_basic(self, mock_client, mock_metrics_collector):
         """Test should_exit_trade basic logic."""
         strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
@@ -272,6 +351,142 @@ class TestGridTradingStrategyComplete:
         # Test the method exists and returns a boolean
         result = strategy.should_exit_trade(100.0)
         assert isinstance(result, bool)
+
+    def test_should_exit_trade_with_stop_loss_buy_trade(self, mock_client, mock_metrics_collector):
+        """Test should_exit_trade with stop loss condition for buy trade."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Mock active buy trade with stop loss
+        mock_metrics_collector.active_trades = [
+            {
+                'trade_id': 'test123',
+                'direction': 'BUY',
+                'entry_price': 50000,
+                'stop_loss': 48000,  # Stop loss at 48000
+                'profit_target': 52000
+            }
+        ]
+        
+        # Test price that triggers stop loss (below stop loss)
+        result = strategy.should_exit_trade(47500.0)  # Below stop loss
+        assert result is True
+        
+        # Test price that doesn't trigger stop loss
+        result = strategy.should_exit_trade(49000.0)  # Above stop loss
+        assert result is False
+
+    def test_should_exit_trade_with_stop_loss_sell_trade(self, mock_client, mock_metrics_collector):
+        """Test should_exit_trade with stop loss condition for sell trade."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Mock active sell trade with stop loss
+        mock_metrics_collector.active_trades = [
+            {
+                'trade_id': 'test456',
+                'direction': 'SELL',
+                'entry_price': 50000,
+                'stop_loss': 52000,  # Stop loss at 52000 for sell
+                'profit_target': 48000
+            }
+        ]
+        
+        # Test price that triggers stop loss (above stop loss)
+        result = strategy.should_exit_trade(52500.0)  # Above stop loss
+        assert result is True
+        
+        # Test price that doesn't trigger stop loss
+        result = strategy.should_exit_trade(51000.0)  # Below stop loss
+        assert result is False
+
+    def test_should_exit_trade_with_profit_target_buy_trade(self, mock_client, mock_metrics_collector):
+        """Test should_exit_trade with profit target condition for buy trade."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Mock active buy trade with profit target
+        mock_metrics_collector.active_trades = [
+            {
+                'trade_id': 'test789',
+                'direction': 'BUY',
+                'entry_price': 50000,
+                'stop_loss': 48000,
+                'profit_target': 52000  # Profit target at 52000
+            }
+        ]
+        
+        # Test price that reaches profit target
+        result = strategy.should_exit_trade(52500.0)  # Above profit target
+        assert result is True
+        
+        # Test price that doesn't reach profit target
+        result = strategy.should_exit_trade(51000.0)  # Below profit target
+        assert result is False
+
+    def test_should_exit_trade_with_profit_target_sell_trade(self, mock_client, mock_metrics_collector):
+        """Test should_exit_trade with profit target condition for sell trade."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Mock active sell trade with profit target
+        mock_metrics_collector.active_trades = [
+            {
+                'trade_id': 'test101',
+                'direction': 'SELL',
+                'entry_price': 50000,
+                'stop_loss': 52000,
+                'profit_target': 48000  # Profit target at 48000 for sell
+            }
+        ]
+        
+        # Test price that reaches profit target
+        result = strategy.should_exit_trade(47500.0)  # Below profit target
+        assert result is True
+        
+        # Test price that doesn't reach profit target
+        result = strategy.should_exit_trade(49000.0)  # Above profit target
+        assert result is False
+
+    def test_should_exit_trade_with_specific_trade_id(self, mock_client, mock_metrics_collector):
+        """Test should_exit_trade with specific trade ID filtering."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Mock multiple active trades
+        mock_metrics_collector.active_trades = [
+            {
+                'trade_id': 'trade1',
+                'direction': 'BUY',
+                'stop_loss': 48000,
+                'profit_target': 52000
+            },
+            {
+                'trade_id': 'trade2',
+                'direction': 'BUY',
+                'stop_loss': 45000,  # Different stop loss
+                'profit_target': 55000
+            }
+        ]
+        
+        # Test with specific trade ID - should only check that trade
+        result = strategy.should_exit_trade(47000.0, trade_id='trade1')  # Below trade1 stop loss
+        assert result is True
+        
+        # Test same price with different trade ID - should not trigger
+        result = strategy.should_exit_trade(47000.0, trade_id='trade2')  # Above trade2 stop loss
+        assert result is False
+
+    def test_should_exit_trade_exception_handling(self, mock_client, mock_metrics_collector):
+        """Test should_exit_trade exception handling."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector)
+        
+        # Mock invalid active trades data
+        mock_metrics_collector.active_trades = [
+            {
+                'trade_id': 'invalid_trade',
+                # Missing required fields - should handle gracefully
+            }
+        ]
+        
+        # Should handle exception gracefully and return False
+        result = strategy.should_exit_trade(50000.0)
+        assert result is False
 
     def test_run_strategy_connection_failure(self, mock_client, mock_metrics_collector):
         """Test run_strategy behavior when connection fails."""
@@ -313,6 +528,220 @@ class TestGridTradingStrategyComplete:
         # Verify data was collected
         assert len(strategy.candlestick_data) > 0
         assert mock_sleep.called
+
+    @patch('time.sleep')
+    def test_run_strategy_keyboard_interrupt_during_data_collection(self, mock_sleep, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test KeyboardInterrupt handling during initial data collection phase."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, min_candles=5)
+        
+        # Mock successful initial checks
+        mock_client.get_connectivity_status.return_value = True
+        mock_client.get_account_status.return_value = {"balance": 1000}
+        
+        # Mock KeyboardInterrupt during data collection
+        call_count = 0
+        def get_data_side_effect(*args):
+            nonlocal call_count
+            call_count += 1
+            if call_count == 2:  # Interrupt during data collection
+                raise KeyboardInterrupt("Simulated interrupt")
+            return sample_candle_data
+        
+        mock_client.get_candle_stick_data.side_effect = get_data_side_effect
+        
+        # Run strategy - should handle KeyboardInterrupt gracefully
+        strategy.run_strategy(1)
+        
+        # Verify it collected some data before interruption
+        assert len(strategy.candlestick_data) > 0
+
+    @patch('time.sleep')
+    def test_run_strategy_keyboard_interrupt_during_trading_loop(self, mock_sleep, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test KeyboardInterrupt handling during main trading loop."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, min_candles=2)
+        
+        # Mock successful initial checks
+        mock_client.get_connectivity_status.return_value = True
+        mock_client.get_account_status.return_value = {"balance": 1000}
+        
+        # Mock data collection - interrupt during trading loop
+        call_count = 0
+        def get_data_side_effect(*args):
+            nonlocal call_count
+            call_count += 1
+            if call_count <= 2:  # Allow initial data collection
+                return sample_candle_data
+            elif call_count == 4:  # Interrupt during trading loop
+                raise KeyboardInterrupt("Simulated interrupt in trading loop")
+            return sample_candle_data
+        
+        mock_client.get_candle_stick_data.side_effect = get_data_side_effect
+        
+        # Run strategy - should handle KeyboardInterrupt during trading
+        strategy.run_strategy(1)
+        
+        # Verify it completed initial data collection
+        assert len(strategy.candlestick_data) >= 2
+
+    @patch('time.sleep')  
+    def test_run_strategy_shutdown_requested_during_data_collection(self, mock_sleep, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test shutdown request handling during initial data collection phase."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, min_candles=10)
+        
+        # Mock successful initial checks
+        mock_client.get_connectivity_status.return_value = True
+        mock_client.get_account_status.return_value = {"balance": 1000}
+        
+        # Mock data collection - request shutdown during collection
+        call_count = 0
+        def get_data_side_effect(*args):
+            nonlocal call_count
+            call_count += 1
+            if call_count == 3:  # Request shutdown during data collection
+                strategy.request_shutdown()
+            return sample_candle_data
+        
+        mock_client.get_candle_stick_data.side_effect = get_data_side_effect
+        
+        # Run strategy - should exit due to shutdown request during data collection
+        strategy.run_strategy(1)
+        
+        # Verify it collected some data before shutdown
+        assert len(strategy.candlestick_data) < 10  # Less than required min_candles
+        assert strategy.is_shutdown_requested()
+
+    @patch('time.sleep')
+    def test_run_strategy_failed_price_retrieval(self, mock_sleep, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test run_strategy with failed price retrieval scenario."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, min_candles=2)
+        
+        # Mock successful initial checks
+        mock_client.get_connectivity_status.return_value = True
+        mock_client.get_account_status.return_value = {"balance": 1000}
+        
+        # Mock data collection that provides enough candles but then fails on price extraction
+        call_count = 0
+        def get_data_side_effect(*args):
+            nonlocal call_count
+            call_count += 1
+            if call_count <= 2:  # Provide enough initial data
+                return sample_candle_data
+            else:  # Then request shutdown to avoid infinite loop
+                strategy.request_shutdown()
+                return sample_candle_data
+        
+        mock_client.get_candle_stick_data.side_effect = get_data_side_effect
+        
+        # Mock the __extract_latest_price method to return None (simulating failure)
+        with patch.object(strategy, '_GridTradingStrategy__extract_latest_price', return_value=None):
+            # Run strategy - should exit due to failed price retrieval
+            strategy.run_strategy(1)
+        
+        # Verify strategy attempted to collect data but failed at price extraction
+        assert len(strategy.candlestick_data) >= 2  # Should have collected minimum data
+
+    @patch('time.sleep')
+    def test_run_strategy_successful_grid_initialization(self, mock_sleep, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test run_strategy with successful grid initialization."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, min_candles=2, num_levels=2)
+        
+        # Mock successful initial checks
+        mock_client.get_connectivity_status.return_value = True
+        mock_client.get_account_status.return_value = {"balance": 1000}
+        
+        # Track execute_trade calls to verify grid initialization
+        execute_trade_calls = []
+        original_execute_trade = strategy.execute_trade
+        
+        def mock_execute_trade(*args, **kwargs):
+            execute_trade_calls.append(args)
+            # Mock successful trade execution
+            return {"order_id": "123", "status": "filled"}
+        
+        strategy.execute_trade = mock_execute_trade
+        
+        # Mock data collection
+        call_count = 0
+        def get_data_side_effect(*args):
+            nonlocal call_count
+            call_count += 1
+            if call_count >= 4:  # Allow initial collection then request shutdown
+                strategy.request_shutdown()
+            return sample_candle_data
+        
+        mock_client.get_candle_stick_data.side_effect = get_data_side_effect
+        
+        # Run strategy - should initialize grid and start trading
+        strategy.run_strategy(1)
+        
+        # Verify grid was initialized (should have 2 buy + 2 sell orders)
+        assert len(execute_trade_calls) == 4  # 2 levels * 2 directions = 4 trades
+        
+        # Verify both buy and sell trades were created
+        buy_trades = [call for call in execute_trade_calls if call[1] == TradeDirection.BUY]
+        sell_trades = [call for call in execute_trade_calls if call[1] == TradeDirection.SELL]
+        assert len(buy_trades) == 2
+        assert len(sell_trades) == 2
+
+    @patch('time.sleep')
+    def test_run_strategy_main_trading_loop_with_candlestick_handling(self, mock_sleep, mock_client, mock_metrics_collector, sample_candle_data):
+        """Test main trading loop with proper CandleStickData handling and price checking."""
+        strategy = GridTradingStrategy(mock_client, 60, 5, mock_metrics_collector, min_candles=2)
+        
+        # Mock successful initial checks
+        mock_client.get_connectivity_status.return_value = True
+        mock_client.get_account_status.return_value = {"balance": 1000}
+        
+        # Mock execute_trade to avoid actual trading
+        strategy.execute_trade = Mock(return_value={"order_id": "123", "status": "filled"})
+        
+        # Track check_trades calls
+        check_trades_calls = []
+        original_check_trades = strategy.check_trades
+        
+        def mock_check_trades(price):
+            check_trades_calls.append(price)
+            return original_check_trades(price)
+        
+        strategy.check_trades = mock_check_trades
+        
+        # Mock data collection for trading loop
+        call_count = 0
+        def get_data_side_effect(*args):
+            nonlocal call_count
+            call_count += 1
+            if call_count <= 2:  # Initial data collection
+                return sample_candle_data
+            elif call_count <= 5:  # Trading loop iterations
+                # Return new CandleStickData for trading loop
+                return CandleStickData(
+                    open_time=1600000000 + call_count,
+                    open_price=50000 + call_count,
+                    high_price=51000 + call_count,
+                    low_price=49000 + call_count,
+                    close_price=50500 + call_count,
+                    volume=100,
+                    close_time=1600000060 + call_count,
+                    quote_asset_volume=5000000,
+                    num_trades=50,  # Fixed parameter name
+                    taker_buy_base_asset_volume=60,
+                    taker_buy_quote_asset_volume=3000000
+                )
+            else:  # Request shutdown after several iterations
+                strategy.request_shutdown()
+                return sample_candle_data
+        
+        mock_client.get_candle_stick_data.side_effect = get_data_side_effect
+        
+        # Run strategy - should complete initial collection, initialize grid, and run trading loop
+        strategy.run_strategy(1)
+        
+        # Verify trading loop ran and processed new data
+        assert len(strategy.candlestick_data) == 2  # Should maintain min_candles limit
+        assert len(check_trades_calls) >= 3  # Should have called check_trades multiple times
+        
+        # Verify prices were extracted and checked during trading loop
+        assert all(isinstance(price, (int, float)) for price in check_trades_calls)
 
     def test_candlestick_data_management(self, mock_client, mock_metrics_collector, sample_candle_data):
         """Test candlestick data collection and management."""
