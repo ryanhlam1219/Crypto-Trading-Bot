@@ -113,9 +113,9 @@ def run_test_mode(config):
 
     # Connect to Test Client
     print("BackTest mode enabled...")
-    print(f"Using {config[EXCHANGE_NAME]}BacktestClient for collecting data...")
+    print(f"Using {config[EXCHANGE_NAME]} for collecting data...")
     currency, asset = handle_cli_arguments(config[CURRENCY], config[ASSET])
-    TestClient = initialize_exchange_client(f"{config[EXCHANGE_NAME]}BacktestClient", config[API_KEY], config[API_SECRET], currency, asset, metrics_collector)
+    TestClient = initialize_exchange_client(config[EXCHANGE_NAME], config[API_KEY], config[API_SECRET], currency, asset, metrics_collector)
 
     # Collect Historical Data
     yearsPast = 1

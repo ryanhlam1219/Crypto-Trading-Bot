@@ -6,12 +6,23 @@ from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from Tests.utils import DataFetchException
 
 class GridTradingStrategy(Strategy):
-    def __init__(self, client, interval, stop_loss_percentage, metrics_collector, grid_percentage=1, num_levels=3, min_candles=10):
+    def __init__(self, client, interval, stop_loss_percentage=None, metrics_collector=None, 
+                 grid_percentage=1, num_levels=3, min_candles=10, threshold=None):
+        # Handle backward compatibility and set defaults
+        if stop_loss_percentage is None:
+            stop_loss_percentage = 5  # Default stop loss percentage
+        if threshold is None:
+            threshold = 0.01  # Default threshold value
+        
+        # Ensure metrics_collector is provided (required by base class)
+        if metrics_collector is None:
+            raise ValueError("metrics_collector is required for GridTradingStrategy")
+            
         super().__init__(client, interval, stop_loss_percentage, metrics_collector)
         self.grid_percentage = grid_percentage  # Grid size as a percentage of market price
         self.num_levels = num_levels
         self.min_candles = min_candles  # Minimum number of candlesticks required before trading
-        self.threshold = 0.01  # Default threshold for trade decisions
+        self.threshold = threshold  # Store threshold as separate parameter
         self.candlestick_data = []  # Store collected candlestick data
         # Trade tracking is now handled by MetricsCollector
         print(f"Initialized GridTradingStrategy with grid percentage: {self.grid_percentage}, levels: {self.num_levels}, stop-loss: {self.stop_loss_percentage}%, and min candles: {self.min_candles}")
@@ -29,17 +40,16 @@ class GridTradingStrategy(Strategy):
             trade_id = str(uuid.uuid4())[:8]
             
             # Record trade entry with MetricsCollector
-            if self.metrics_collector:
-                self.metrics_collector.record_trade_entry(
-                    trade_id=trade_id,
-                    symbol=self.client.currency_asset,
-                    direction=direction.value,
-                    entry_price=price,
-                    quantity=1,
-                    stop_loss=stop_loss,
-                    profit_target=profit_target,
-                    strategy_name="GridTradingStrategy"
-                )
+            self.metrics_collector.record_trade_entry(
+                trade_id=trade_id,
+                symbol=self.client.currency_asset,
+                direction=direction.value,
+                entry_price=price,
+                quantity=1,
+                stop_loss=stop_loss,
+                profit_target=profit_target,
+                strategy_name="GridTradingStrategy"
+            )
 
             # Using create_new_order method with correct args
             self.client.create_new_order(direction, OrderType.LIMIT_ORDER, 1, price)
@@ -60,13 +70,12 @@ class GridTradingStrategy(Strategy):
             reason: Reason for closing ('profit_target', 'stop_loss', 'manual')
         """
         try:
-            if self.metrics_collector:
-                closed_trade = self.metrics_collector.record_trade_exit(trade_id, price, reason)
-                if closed_trade:
-                    # Legacy print for compatibility
-                    print(f"Closed {closed_trade['direction']} order at {price}. Profit: ${round(closed_trade['profit_loss'], 2)}")
-                else:
-                    print(f"Warning: Could not find trade {trade_id} to close")
+            closed_trade = self.metrics_collector.record_trade_exit(trade_id, price, reason)
+            if closed_trade:
+                # Legacy print for compatibility
+                print(f"Closed {closed_trade['direction']} order at {price}. Profit: ${round(closed_trade['profit_loss'], 2)}")
+            else:
+                print(f"Warning: Could not find trade {trade_id} to close")
         except Exception as e:
             print(f"Error closing trade: {e}")
             traceback.print_exc()
@@ -76,8 +85,6 @@ class GridTradingStrategy(Strategy):
         Check active trades for profit targets or stop losses.
         Now uses MetricsCollector to track active trades.
         """
-        if not self.metrics_collector:
-            return []
         # Get active trades from MetricsCollector
         active_trades = self.metrics_collector.active_trades.copy()
         
@@ -191,11 +198,8 @@ class GridTradingStrategy(Strategy):
             bool: True if should exit trade
         """
         try:
-            if not self.metrics_collector:
-                return False
-                
             # Check active trades for stop-loss or profit target conditions
-            active_trades = self.metrics_collector.get_active_trades()
+            active_trades = self.metrics_collector.active_trades
             
             for trade in active_trades:
                 if trade_id and trade['trade_id'] != trade_id:

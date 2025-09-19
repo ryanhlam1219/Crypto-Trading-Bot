@@ -18,10 +18,10 @@ from Strategies.GridTradingStrategy import GridTradingStrategy
 
 
 @pytest.mark.parametrize("exchange_class,init_params", [
-    (Binance, ("key", "secret", "BTC", "USD", Mock())),
-    (BinanceBacktestClient, ("key", "secret", "BTC", "USD", Mock())),
-    (KrakenBackTestClient, ("key", "secret", "BTC", "USD", Mock())),
-    (TestExchange, ("key", "secret", "BTC", "USD", Mock())),
+    (Binance, ("key", "secret", "USD", "BTC", Mock())),
+    (BinanceBacktestClient, ("key", "secret", "USD", "BTC", Mock())),
+    (KrakenBackTestClient, ("key", "secret", "USD", "BTC", Mock())),
+    (TestExchange, ("key", "secret", "USD", "BTC", Mock())),
 ])
 class TestExchangeCompliance:
     """Verify all Exchange implementations comply with base interface."""
@@ -55,8 +55,8 @@ class TestExchangeCompliance:
         # Verify attribute values
         assert instance.apiKey == "key"
         assert instance.apiSecret == "secret" 
-        assert instance.currency == "BTC"
-        assert instance.asset == "USD"
+        assert instance.currency == "USD"
+        assert instance.asset == "BTC"
         assert instance.currency_asset == "BTCUSD"
 
 

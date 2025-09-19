@@ -23,6 +23,9 @@ import subprocess
 from pathlib import Path
 from datetime import datetime
 
+# Get the correct Python executable
+PYTHON_EXE = sys.executable
+
 
 def print_banner(title: str):
     """Print a nice banner"""
@@ -48,7 +51,7 @@ def run_command(cmd: str, description: str) -> bool:
 def syntax_check():
     """Quick syntax validation"""
     print_banner("QUICK SYNTAX CHECK")
-    success = run_command("python build/scripts/quick_compile.py --syntax-only", "Syntax validation")
+    success = run_command(f"{PYTHON_EXE} build/scripts/quick_compile.py --syntax-only", "Syntax validation")
     
     if success:
         print("\n🎉 CODE SYNTAX IS VALID!")
@@ -63,7 +66,7 @@ def syntax_check():
 def compile_check():
     """Full compilation validation"""
     print_banner("COMPILATION VALIDATION")
-    success = run_command("python compile.py", "Code compilation")
+    success = run_command(f"{PYTHON_EXE} build/scripts/quick_compile.py", "Code compilation")
     
     if success:
         print("\n🎉 CODE COMPILES SUCCESSFULLY!")
@@ -78,7 +81,7 @@ def compile_check():
 def test_run():
     """Run available tests"""
     print_banner("TEST EXECUTION")
-    success = run_command("python build/scripts/quick_compile.py --full", "Test execution")
+    success = run_command(f"{PYTHON_EXE} build/scripts/quick_compile.py --full", "Test execution")
     
     if success:
         print("\n🎉 TESTS COMPLETED!")
@@ -93,7 +96,7 @@ def test_run():
 def coverage_generation():
     """Generate coverage reports"""
     print_banner("COVERAGE ANALYSIS")
-    success = run_command("python build/core/run_dynamic_coverage.py", "Coverage generation")
+    success = run_command(f"{PYTHON_EXE} build/core/run_dynamic_coverage.py", "Coverage generation")
     
     if success:
         print("\n🎉 COVERAGE REPORTS GENERATED!")
@@ -113,15 +116,15 @@ def complete_build():
     
     # Step 1: Syntax check
     print("\n📋 Step 1: Syntax Validation")
-    results.append(("Syntax Check", run_command("python build/scripts/quick_compile.py --syntax-only", "Syntax validation")))
+    results.append(("Syntax Check", run_command(f"{PYTHON_EXE} build/scripts/quick_compile.py --syntax-only", "Syntax validation")))
     
     # Step 2: Compilation
     print("\n📋 Step 2: Compilation Validation")
-    results.append(("Compilation", run_command("python compile.py", "Code compilation")))
+    results.append(("Compilation", run_command(f"{PYTHON_EXE} build/scripts/quick_compile.py", "Code compilation")))
     
     # Step 3: Dynamic coverage (includes tests)
     print("\n📋 Step 3: Tests and Coverage")
-    results.append(("Tests & Coverage", run_command("python build/core/run_dynamic_coverage.py", "Tests and coverage")))
+    results.append(("Tests & Coverage", run_command(f"{PYTHON_EXE} build/core/run_dynamic_coverage.py", "Tests and coverage")))
     
     # Summary
     print("\n" + "=" * 60)

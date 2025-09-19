@@ -111,7 +111,8 @@ class CoverageReportGenerator:
             '*/.venv/*',
             '*/site-packages/*',
             'main.py',
-            '*/__init__.py'  # Always exclude __init__.py
+            '*/__init__.py',  # Always exclude __init__.py
+            'build/*'  # Always exclude build directory
         ]
         self.detector = AbstractClassDetector()
     
@@ -122,7 +123,8 @@ class CoverageReportGenerator:
             'Tests', 'tests', '__pycache__', '.venv', 'venv', 
             '.git', '.pytest_cache', 'htmlcov', 'reports',
             'coverage', '.coverage', '.idea', '.vscode',
-            'data', 'logs', 'temp', 'tmp'
+            'data', 'logs', 'temp', 'tmp', 'build',  # Exclude build directory
+            'Collect-Fees'  # Exclude Collect-Fees (separate project with no tests)
         }
         
         for item in self.project_root.iterdir():
@@ -237,65 +239,11 @@ class CoverageReportGenerator:
     
     def update_pyproject_config(self, directories: Dict[str, DirectoryInfo]):
         """Update pyproject.toml with discovered directories and exclusions"""
-        pyproject_file = self.project_root / "pyproject.toml"
-        
-        if not pyproject_file.exists():
-            return
-        
-        with open(pyproject_file, 'r') as f:
-            content = f.read()
-        
-        # Find all abstract files to exclude
-        abstract_files = []
-        for dir_info in directories.values():
-            for py_file in (self.project_root / dir_info.name).rglob("*.py"):
-                if self.detector.is_abstract_class(str(py_file)):
-                    relative_path = py_file.relative_to(self.project_root)
-                    abstract_files.append(str(relative_path).replace('\\', '/'))
-        
-        # Update source directories
-        source_list = list(directories.keys())
-        source_pattern = r'source = \[([^\]]*)\]'
-        new_source = f'source = {source_list}'
-        content = re.sub(source_pattern, new_source, content)
-        
-        # Update coverage addopts
-        addopts_cov = [f'"--cov={dir_name}"' for dir_name in source_list]
-        addopts_pattern = r'("--cov=[^"]*",?\s*)+'
-        new_addopts = ',\n    '.join(addopts_cov)
-        
-        # Find the addopts section and replace coverage options
-        lines = content.split('\n')
-        in_addopts = False
-        new_lines = []
-        
-        for line in lines:
-            if 'addopts = [' in line:
-                in_addopts = True
-                new_lines.append(line)
-            elif in_addopts and line.strip().startswith('"--cov='):
-                # Skip old coverage lines, we'll add new ones
-                continue
-            elif in_addopts and '"--cov-report=' in line:
-                # Add our new coverage lines before the first report line
-                for cov_opt in addopts_cov:
-                    module_name = cov_opt.split("=")[1].strip('"')
-                    new_lines.append(f'    {cov_opt},                 # Coverage for {module_name} module')
-                new_lines.append(line)
-            elif in_addopts and line.strip() == ']':
-                in_addopts = False
-                new_lines.append(line)
-            else:
-                new_lines.append(line)
-        
-        # Update omit list to include abstract files
-        updated_excludes = self.exclude_patterns + [f'"{af}"' for af in abstract_files]
-        
-        with open(pyproject_file, 'w') as f:
-            f.write('\n'.join(new_lines))
-        
-        print(f"Updated pyproject.toml with {len(source_list)} source directories")
-        print(f"Excluding {len(abstract_files)} abstract files from coverage")
+        # TEMPORARILY DISABLED: This function was causing duplicate coverage entries
+        # and overriding manual pyproject.toml configurations
+        print("INFO: pyproject.toml update disabled to prevent configuration conflicts")
+        print(f"Discovered {len(directories)} source directories: {list(directories.keys())}")
+        return
     
     def generate_dynamic_homepage(self, directories: Dict[str, DirectoryInfo]):
         """Generate the dynamic coverage homepage"""
@@ -360,7 +308,7 @@ class CoverageReportGenerator:
             
             modal_case = f'''
                 if (directory === '{dir_name}') {{
-                    {''.join(files_html)}
+                    filesHtml += `{''.join(files_html)}`;
                 }}'''
             directory_modals.append(modal_case)
         
@@ -699,6 +647,39 @@ class CoverageReportGenerator:
     </div>
     
     <script>
+        // Directory data
+        const directoryData = {{'''
+        
+        # Add directory data as JavaScript object
+        for dir_name, dir_info in directories.items():
+            files_data = []
+            for file_info in dir_info.files:
+                # Determine coverage color
+                if file_info.coverage >= 80:
+                    color_class = "#4CAF50"
+                elif file_info.coverage >= 50:
+                    color_class = "#ff9800"
+                else:
+                    color_class = "#f44336"
+                
+                # Try to find the HTML file
+                html_file = self.find_html_file(file_info.relative_path)
+                
+                files_data.append({
+                    'path': file_info.relative_path,
+                    'statements': file_info.statements,
+                    'missing': file_info.missing,
+                    'coverage': file_info.coverage,
+                    'color': color_class,
+                    'html_file': html_file
+                })
+            
+            html_content += f'''
+            '{dir_name}': {files_data},'''
+        
+        html_content += f'''
+        }};
+        
         function showDirectoryFiles(directory) {{
             const modal = document.getElementById('directoryModal');
             const title = document.getElementById('modalTitle');
@@ -714,7 +695,25 @@ class CoverageReportGenerator:
             filesHtml += '<th style="padding: 12px; text-align: right;">Coverage</th>';
             filesHtml += '</tr></thead><tbody>';
             
-            {''.join(directory_modals)}
+            if (directoryData[directory]) {{
+                directoryData[directory].forEach(file => {{
+                    let fileLink = file.html_file ? 
+                        `<a href="htmlcov/${{file.html_file}}" style="color: #667eea; text-decoration: none;">${{file.path}}</a>` :
+                        file.path;
+                        
+                    filesHtml += `
+                        <tr style="border-bottom: 1px solid #e0e0e0;">
+                            <td style="padding: 12px;">${{fileLink}}</td>
+                            <td style="padding: 12px; text-align: right;">${{file.statements}}</td>
+                            <td style="padding: 12px; text-align: right;">${{file.missing}}</td>
+                            <td style="padding: 12px; text-align: right;">
+                                <span style="background: ${{file.color}}; color: white; padding: 4px 8px; border-radius: 4px;">
+                                    ${{file.coverage.toFixed(2)}}%
+                                </span>
+                            </td>
+                        </tr>`;
+                }});
+            }}
             
             filesHtml += '</tbody></table>';
             

@@ -53,17 +53,34 @@ class BinanceBacktestClient(Exchange):
             self.strategy_pbar.close()
             self.strategy_pbar = None
 
+    def __convert_minutes_to_binance_interval(self, minutes):
+        """
+        Convert minutes to proper Binance interval format.
+        
+        :param minutes: Number of minutes (int)
+        :return: Binance interval string (e.g., '1m', '1h', '1d')
+        """
+        if minutes < 60:
+            return f"{minutes}m"
+        elif minutes < 1440:  # Less than 24 hours
+            hours = minutes // 60
+            return f"{hours}h"
+        else:  # Days
+            days = minutes // 1440
+            return f"{days}d"
+
     def __fetch_candle_data_from_time_interval(self, interval, start_time, end_time, results_lock: Lock, pbar=None):
         """
         Fetches candlestick data for a given time range and stores unique values in self.test_data.
         Uses a lock to prevent concurrent modification issues.
         """
-        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m'
+        binance_interval = self.__convert_minutes_to_binance_interval(interval)
+        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={binance_interval}'
         limit = 1000
         local_data = []  # List to store data before merging into test_data
 
         while start_time < end_time:
-            response = requests.get(f'{self.api_url}{uri_path}&startTime={start_time}&limit={limit}')
+            response = requests.get(f'{self.api_url}{uri_path}&startTime={int(start_time)}&limit={limit}')
             
             if response.status_code != 200:
                 if pbar:
@@ -152,14 +169,13 @@ class BinanceBacktestClient(Exchange):
         response_time = time.time() - start_time
         
         # Record mock API call metrics
-        if self.metrics_collector:
-            self.metrics_collector.record_api_call(
-                endpoint="/api/v3/order/test",
-                method="POST",
-                response_time=response_time,
-                status_code=200,
-                success=True
-            )
+        self.metrics_collector.record_api_call(
+            endpoint="/api/v3/order/test",
+            method="POST",
+            response_time=response_time,
+            status_code=200,
+            success=True
+        )
 
         print(f"Executing Mock order {data}")
 
@@ -180,14 +196,13 @@ class BinanceBacktestClient(Exchange):
             self.strategy_pbar.update(1)
             current_price = mockCandleStickData[4] if len(mockCandleStickData) > 4 else 0
             
-            # Try to get P&L from metrics collector if available
+            # Try to get P&L from metrics collector
             postfix_data = {"Price": f"${float(current_price):.2f}"}
-            if hasattr(self, 'metrics_collector') and self.metrics_collector:
-                try:
-                    total_pnl = self.metrics_collector.calculate_total_profit_loss()
-                    postfix_data["PnL"] = f"${total_pnl:.2f}"
-                except:
-                    pass  # If metrics not available, just show price
+            try:
+                total_pnl = self.metrics_collector.calculate_total_profit_loss()
+                postfix_data["PnL"] = f"${total_pnl:.2f}"
+            except:
+                pass  # If metrics calculation fails, just show price
             
             self.strategy_pbar.set_postfix(postfix_data)
 
@@ -231,12 +246,12 @@ class BinanceBacktestClient(Exchange):
             raise ConnectionError('Failed to connect to Binance Exchange')
 
         current_time_ms = int(time.time() * 1000)
-        start_time = current_time_ms - (yearsPast * 365 * 24 * 60 * 60 * 1000)
+        start_time = int(current_time_ms - (yearsPast * 365 * 24 * 60 * 60 * 1000))
         end_time = current_time_ms
 
         # Estimate total data points for progress bar
         total_range = end_time - start_time
-        interval_ms = interval * 60 * 1000  # Convert minutes to milliseconds
+        interval_ms = int(interval) * 60 * 1000  # Convert minutes to milliseconds
         estimated_candles = total_range // interval_ms
 
         # Define chunks for multithreading

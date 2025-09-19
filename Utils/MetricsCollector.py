@@ -117,7 +117,11 @@ class MetricsCollector:
         else:  # SELL
             profit_loss = (entry_price - exit_price) * quantity
         
-        profit_loss_percentage = (profit_loss / (entry_price * quantity)) * 100
+        # Avoid division by zero
+        if entry_price * quantity == 0:
+            profit_loss_percentage = 0.0
+        else:
+            profit_loss_percentage = (profit_loss / (entry_price * quantity)) * 100
         
         # Update trade record
         trade_to_close.update({
@@ -233,7 +237,12 @@ class MetricsCollector:
     def get_api_performance_stats(self) -> Dict[str, Any]:
         """Get API performance statistics."""
         if not self.api_calls:
-            return {'avg_response_time': 0, 'success_rate': 0, 'total_calls': 0}
+            return {
+                'avg_response_time': 0, 
+                'success_rate': 0, 
+                'total_calls': 0,
+                'total_errors': len(self.api_errors)
+            }
         
         total_calls = len(self.api_calls) + len(self.api_errors)
         success_rate = (len(self.api_calls) / total_calls) * 100

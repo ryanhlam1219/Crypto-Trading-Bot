@@ -16,34 +16,14 @@ markers = [
     "mock: Tests using mocked dependencies"
 ]
 
-# Output formatting and coverage
+# Output formatting and coverage - no default --cov to allow override
 addopts = [
     "-v",                           # Verbose output
     "--tb=short",                  # Shorter traceback format
     "--strict-markers",            # Strict marker enforcement
-    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
-    "--cov=Exchanges",                 # Coverage for Exchanges module
-    "--cov=Strategies",                 # Coverage for Strategies module
-    "--cov=Utils",                 # Coverage for Utils module
-    "--cov=build",                 # Coverage for build module
     "--cov-report=term-missing",   # Show missing lines in terminal
-    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
-    "--cov=Exchanges",                 # Coverage for Exchanges module
-    "--cov=Strategies",                 # Coverage for Strategies module
-    "--cov=Utils",                 # Coverage for Utils module
-    "--cov=build",                 # Coverage for build module
     "--cov-report=html:htmlcov",   # Generate HTML coverage report
-    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
-    "--cov=Exchanges",                 # Coverage for Exchanges module
-    "--cov=Strategies",                 # Coverage for Strategies module
-    "--cov=Utils",                 # Coverage for Utils module
-    "--cov=build",                 # Coverage for build module
     "--cov-report=xml:coverage.xml", # Generate XML coverage report
-    "--cov=Collect-Fees",                 # Coverage for Collect-Fees module
-    "--cov=Exchanges",                 # Coverage for Exchanges module
-    "--cov=Strategies",                 # Coverage for Strategies module
-    "--cov=Utils",                 # Coverage for Utils module
-    "--cov=build",                 # Coverage for build module
     "--cov-report=json:coverage.json", # Generate JSON coverage report
     "--cov-fail-under=90",         # Fail if coverage below 90%
     "--html=reports/test_report.html", # Generate HTML test report
@@ -63,7 +43,8 @@ filterwarnings = [
 # Coverage.py configuration for detailed coverage tracking
 
 # Source code to include in coverage
-source = ['Collect-Fees', 'Exchanges', 'Strategies', 'Utils', 'build']
+# Default to all main modules, but can be overridden by command-line --cov arguments
+source = ['Exchanges', 'Strategies', 'Utils']
 
 # Files to omit from coverage
 omit = [
@@ -76,6 +57,12 @@ omit = [
     "*/site-packages/*",    # Exclude installed packages
     "main.py",              # Exclude main entry point (integration tested)
     "*/__init__.py",        # Exclude __init__.py files
+    "build/*",              # Exclude build directory and all its contents
+    "build.py",             # Exclude build utility script
+    "compile.py",           # Exclude compile utility script
+    "run_tests.py",         # Exclude test runner utility script
+    "validate_env.py",      # Exclude environment validation script
+    "setup.sh",             # Exclude setup shell script
 ]
 
 # Branch coverage (tracks if/else branches)

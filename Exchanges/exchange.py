@@ -14,7 +14,7 @@ class Exchange(ABC):
         self.apiSecret = secret
         self.currency = currency
         self.asset = asset
-        self.currency_asset = currency + asset
+        self.currency_asset = asset + currency  # Standard trading pair format: BTCUSD (asset+currency)
         self.metrics_collector = metrics_collector
 
     # Abstract methods

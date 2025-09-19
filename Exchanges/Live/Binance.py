@@ -29,7 +29,8 @@ class Binance(Exchange):
         """
         super().__init__(key, secret, currency, asset, metrics_collector)
 
-    def __get_binanceus_signature(self, data, secret):
+    @staticmethod
+    def __get_binanceus_signature(data, secret):
         """
         Generates an HMAC SHA256 signature for Binance US API requests.
         
@@ -52,7 +53,7 @@ class Binance(Exchange):
         :return: Response object from the GET request.
         """
         headers = {'X-MBX-APIKEY': self.apiKey}
-        signature = self.__get_binanceus_signature(data, self.apiSecret)
+        signature = Binance._Binance__get_binanceus_signature(data, self.apiSecret)
         payload = {**data, "signature": signature}
         response = requests.get((self.api_url + uri_path), params=payload, headers=headers)
         return response
@@ -63,19 +64,29 @@ class Binance(Exchange):
         
         :return: True if the API is reachable, otherwise False.
         """
-        uri_path = '/api/v3/ping'
-        response = requests.get(self.api_url + uri_path)
-        return True if response.text == '{}' else False
+        try:
+            uri_path = '/api/v3/ping'
+            response = requests.get(self.api_url + uri_path)
+            return True if response.text == '{}' else False
+        except Exception:
+            return False
     
     def get_account_status(self):
         """
-        Fetches and prints the user's Binance US account status.
+        Retrieves the account status for the authenticated user.
         """
         uri_path = '/sapi/v3/accountStatus'
         data = {"timestamp": int(round(time.time() * 1000))}
-        response = self.__submit_get_request(uri_path, data)
-        print("Account status:")
-        print(json.dumps(json.loads(response.text), indent=2))
+        try:
+            response = self.__submit_get_request(uri_path, data)
+            if self.metrics_collector:
+                self.metrics_collector.record_api_call(endpoint='/api/v3/account', method='GET', success=True)
+            print("Account status:")
+            print(json.dumps(json.loads(response.text), indent=2))
+        except Exception as e:
+            if self.metrics_collector:
+                self.metrics_collector.record_api_call(endpoint='/api/v3/account', method='GET', success=False, error_message=str(e))
+            raise
 
     def get_candle_stick_data(self, interval):
         """
@@ -98,7 +109,7 @@ class Binance(Exchange):
         :return: Response text from the POST request.
         """
         headers = {'X-MBX-APIKEY': self.apiKey}
-        signature = self.__get_binanceus_signature(data, self.apiSecret)
+        signature = Binance._Binance__get_binanceus_signature(data, self.apiSecret)
         payload = {**data, "signature": signature}
         req = requests.post((self.api_url + uri_path), headers=headers, data=payload)
         return req.text
@@ -136,14 +147,13 @@ class Binance(Exchange):
             response_time = time.time() - start_time
             
             # Record API call metrics
-            if self.metrics_collector:
-                self.metrics_collector.record_api_call(
-                    endpoint=uri_path,
-                    method="POST",
-                    response_time=response_time,
-                    status_code=200,  # Assuming success if no exception
-                    success=True
-                )
+            self.metrics_collector.record_api_call(
+                endpoint=uri_path,
+                method="POST",
+                response_time=response_time,
+                status_code=200,  # Assuming success if no exception
+                success=True
+            )
             
             print("POST {}: {}".format(uri_path, result))
             return json.loads(result)
@@ -152,15 +162,14 @@ class Binance(Exchange):
             response_time = time.time() - start_time
             
             # Record API error metrics
-            if self.metrics_collector:
-                self.metrics_collector.record_api_call(
-                    endpoint=uri_path,
-                    method="POST",
-                    response_time=response_time,
-                    status_code=500,  # Assuming server error
-                    success=False,
-                    error_message=str(e)
-                )
+            self.metrics_collector.record_api_call(
+                endpoint=uri_path,
+                method="POST",
+                response_time=response_time,
+                status_code=500,  # Assuming server error
+                success=False,
+                error_message=str(e)
+            )
             raise
 
     @staticmethod

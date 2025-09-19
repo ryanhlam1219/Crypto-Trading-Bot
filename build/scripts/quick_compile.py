@@ -23,6 +23,9 @@ from datetime import datetime
 import argparse
 import ast
 
+# Get the correct Python executable
+PYTHON_EXE = sys.executable
+
 
 class PracticalBuildRunner:
     """Practical build runner focused on what actually works"""
@@ -118,7 +121,7 @@ class PracticalBuildRunner:
         for module in core_modules:
             try:
                 success, output = self.run_command(
-                    f'python -c "import {module}; print(\\"Module {module} imports successfully\\")"',
+                    f'{PYTHON_EXE} -c "import {module}; print(\\"Module {module} imports successfully\\")"',
                     f"Import {module}",
                     critical=False
                 )
@@ -144,11 +147,11 @@ class PracticalBuildRunner:
         
         if run_full:
             # Run all tests, expect some failures
-            cmd = "python -m pytest Tests/ -v --tb=short --continue-on-collection-errors -x"
+            cmd = f"{PYTHON_EXE} -m pytest Tests/ -v --tb=short --continue-on-collection-errors -x"
             success, output = self.run_command(cmd, "Full test suite (some failures expected)", critical=False)
         else:
             # Run only compliance tests which should work
-            cmd = "python -m pytest Tests/unit/compliance/ -v --tb=short"
+            cmd = f"{PYTHON_EXE} -m pytest Tests/unit/compliance/ -v --tb=short"
             success, output = self.run_command(cmd, "Compliance tests", critical=False)
         
         self.results['basic_tests'] = success
@@ -160,7 +163,7 @@ class PracticalBuildRunner:
         
         # Run our dynamic coverage generator
         success, output = self.run_command(
-            "python build/core/generate_coverage_reports.py",
+            f"{PYTHON_EXE} build/core/generate_coverage_reports.py",
             "Dynamic coverage generation",
             critical=False
         )

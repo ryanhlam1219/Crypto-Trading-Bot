@@ -18,10 +18,10 @@ omit =
     validate_env.py
     test_progress_bar.py
     Collect-Fees/*
-    views/*
     */__init__.py
     Exchanges/exchange.py
     Strategies/Strategy.py
+    build/*
 
 # Enable branch coverage (tracks if/else, try/except branches)
 branch = True

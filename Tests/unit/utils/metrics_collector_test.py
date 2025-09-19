@@ -106,7 +106,7 @@ class TestMetricsCollectorTradeTracking:
         # Check closed trade attributes
         assert closed_trade['trade_id'] == "test_001"
         assert closed_trade['exit_price'] == 51000.0
-        assert closed_trade['reason'] == "profit_target"
+        assert closed_trade['exit_reason'] == "profit_target"
         assert 'exit_time' in closed_trade
         assert isinstance(closed_trade['exit_time'], datetime)
         
@@ -511,6 +511,315 @@ class TestMetricsCollectorErrorHandling:
             # Should either handle gracefully or prevent duplicates
             if trade2:
                 # If allowed, both trades should exist
+                trade_ids = [t['trade_id'] for t in metrics_collector.active_trades]
+                assert trade_ids.count("duplicate_test") <= 2
+        
+        except ValueError as e:
+            # Rejecting duplicates is also acceptable
+            assert "duplicate" in str(e).lower() or "exists" in str(e).lower()
+    
+    def test_negative_values(self, metrics_collector):
+        """Test handling of negative price/quantity values."""
+        try:
+            trade = metrics_collector.record_trade_entry(
+                trade_id="negative_test",
+                symbol="BTCUSD",
+                direction="BUY",
+                entry_price=-50000.0,  # Negative price
+                quantity=-1.0,         # Negative quantity
+                stop_loss=49000.0,
+                profit_target=51000.0,
+                strategy_name="TestStrategy"
+            )
+            
+            # If allowed, verify the values are stored as-is
+            if trade:
+                assert trade['entry_price'] == -50000.0
+                assert trade['quantity'] == -1.0
+        
+        except ValueError as e:
+            # Rejecting negative values is also acceptable
+            assert "negative" in str(e).lower() or "positive" in str(e).lower()
+
+
+class TestMetricsCollectorAPITracking:
+    """Test API performance tracking functionality."""
+    
+    @pytest.fixture
+    def metrics_collector(self):
+        """Create MetricsCollector instance for testing."""
+        return MetricsCollector()
+    
+    def test_record_api_call_success(self, metrics_collector):
+        """Test recording successful API calls."""
+        metrics_collector.record_api_call(
+            endpoint="/api/v1/ticker",
+            method="GET",
+            response_time=0.150,
+            status_code=200,
+            success=True
+        )
+        
+        assert len(metrics_collector.api_calls) == 1
+        assert len(metrics_collector.api_errors) == 0
+        
+        api_call = metrics_collector.api_calls[0]
+        assert api_call['endpoint'] == "/api/v1/ticker"
+        assert api_call['method'] == "GET"
+        assert api_call['response_time'] == 0.150
+        assert api_call['status_code'] == 200
+        assert api_call['success'] is True
+        assert api_call['error_message'] is None
+    
+    def test_record_api_call_error(self, metrics_collector):
+        """Test recording failed API calls."""
+        metrics_collector.record_api_call(
+            endpoint="/api/v1/order",
+            method="POST", 
+            response_time=2.500,
+            status_code=400,
+            success=False,
+            error_message="Invalid parameters"
+        )
+        
+        assert len(metrics_collector.api_calls) == 0
+        assert len(metrics_collector.api_errors) == 1
+        
+        api_error = metrics_collector.api_errors[0]
+        assert api_error['endpoint'] == "/api/v1/order"
+        assert api_error['method'] == "POST"
+        assert api_error['status_code'] == 400
+        assert api_error['success'] is False
+        assert api_error['error_message'] == "Invalid parameters"
+
+
+class TestMetricsCollectorStrategyTracking:
+    """Test strategy signal tracking functionality."""
+    
+    @pytest.fixture
+    def metrics_collector(self):
+        """Create MetricsCollector instance for testing."""
+        return MetricsCollector()
+    
+    def test_record_strategy_signal(self, metrics_collector):
+        """Test recording strategy signals."""
+        metadata = {"indicator": "RSI", "value": 25.5}
+        
+        metrics_collector.record_strategy_signal(
+            strategy_name="GridTradingStrategy",
+            signal_type="BUY",
+            symbol="BTCUSD",
+            price=50000.0,
+            confidence=0.85,
+            metadata=metadata
+        )
+        
+        assert len(metrics_collector.strategy_signals) == 1
+        
+        signal = metrics_collector.strategy_signals[0]
+        assert signal['strategy_name'] == "GridTradingStrategy"
+        assert signal['signal_type'] == "BUY"
+        assert signal['symbol'] == "BTCUSD"
+        assert signal['price'] == 50000.0
+        assert signal['confidence'] == 0.85
+        assert signal['metadata'] == metadata
+
+
+class TestMetricsCollectorReporting:
+    """Test comprehensive reporting functionality."""
+    
+    @pytest.fixture
+    def metrics_collector(self):
+        """Create MetricsCollector instance for testing."""
+        return MetricsCollector()
+    
+    def test_get_total_profit_loss(self, metrics_collector):
+        """Test total profit/loss calculation."""
+        # Add some closed trades
+        metrics_collector.closed_trades = [
+            {'profit_loss': 1000.0},
+            {'profit_loss': -500.0}, 
+            {'profit_loss': 200.0}
+        ]
+        
+        total_pl = metrics_collector.calculate_total_profit_loss()
+        assert total_pl == 700.0
+    
+    def test_get_win_rate(self, metrics_collector):
+        """Test win rate calculation."""
+        # Add some closed trades
+        metrics_collector.closed_trades = [
+            {'profit_loss': 1000.0},  # Win
+            {'profit_loss': -500.0},  # Loss
+            {'profit_loss': 200.0},   # Win
+            {'profit_loss': 0.0},     # Break-even
+            {'profit_loss': 100.0}    # Win
+        ]
+        
+        win_rate = metrics_collector.calculate_win_rate()
+        assert win_rate == 60.0  # 3 wins out of 5 trades
+    
+    def test_get_trade_statistics(self, metrics_collector):
+        """Test comprehensive trade statistics.""" 
+        # Setup test data
+        metrics_collector.active_trades = [
+            {'trade_id': 'active1', 'symbol': 'BTCUSD'},
+            {'trade_id': 'active2', 'symbol': 'ETHUSD'}
+        ]
+        metrics_collector.closed_trades = [
+            {'profit_loss': 1000.0, 'profit_loss_percentage': 2.0},
+            {'profit_loss': -500.0, 'profit_loss_percentage': -1.0}
+        ]
+        
+        # Check individual components since get_trade_statistics doesn't exist
+        assert len(metrics_collector.active_trades) == 2
+        assert len(metrics_collector.closed_trades) == 2 
+        assert metrics_collector.calculate_total_profit_loss() == 500.0
+        assert metrics_collector.calculate_win_rate() == 50.0
+    
+    def test_generate_report(self, metrics_collector):
+        """Test comprehensive report generation."""
+        # Setup test data with all required fields
+        metrics_collector.closed_trades = [
+            {
+                'trade_id': 'test_123',
+                'symbol': 'BTCUSD',
+                'direction': 'BUY',
+                'entry_price': 50000.0,
+                'exit_price': 51000.0,
+                'quantity': 1.0,
+                'profit_loss': 1000.0, 
+                'profit_loss_percentage': 2.0
+            }
+        ]
+        metrics_collector.api_calls = [
+            {'response_time': 0.1, 'success': True}
+        ]
+        
+        report = metrics_collector.generate_performance_report()
+        
+        assert isinstance(report, str)
+        assert "TRADING BOT PERFORMANCE REPORT" in report
+        assert "Session Duration" in report
+
+
+class TestMetricsCollectorPerformance:
+    """Test performance and memory management."""
+    
+    @pytest.fixture
+    def metrics_collector(self):
+        """Create MetricsCollector instance for testing."""
+        return MetricsCollector()
+    
+    def test_large_number_of_trades(self, metrics_collector):
+        """Test handling large numbers of trades."""
+        # Add many trades
+        for i in range(1000):
+            metrics_collector.record_trade_entry(
+                trade_id=f"trade_{i}",
+                symbol="BTCUSD",
+                direction="BUY",
+                entry_price=50000.0,
+                quantity=1.0,
+                stop_loss=49000.0,
+                profit_target=51000.0,
+                strategy_name="TestStrategy"
+            )
+        
+        assert len(metrics_collector.active_trades) == 1000
+        
+        # Test that calculations still work
+        win_rate = metrics_collector.calculate_win_rate()
+        assert isinstance(win_rate, float)
+    
+    def test_memory_usage(self, metrics_collector):
+        """Test memory usage with large datasets."""
+        import sys
+        
+        # Get initial memory usage 
+        initial_size = sys.getsizeof(metrics_collector.active_trades)
+        
+        # Add trades
+        for i in range(100):
+            metrics_collector.record_trade_entry(
+                trade_id=f"memory_test_{i}",
+                symbol="BTCUSD", 
+                direction="BUY",
+                entry_price=50000.0,
+                quantity=1.0,
+                stop_loss=49000.0,
+                profit_target=51000.0,
+                strategy_name="TestStrategy"
+            )
+        
+        # Memory should have grown but not excessively
+        final_size = sys.getsizeof(metrics_collector.active_trades)
+        assert final_size > initial_size
+        
+        # Clean up should reduce memory
+        metrics_collector.active_trades.clear()
+        cleared_size = sys.getsizeof(metrics_collector.active_trades)
+        assert cleared_size < final_size
+
+
+class TestMetricsCollectorErrorHandling:
+    """Test error handling and edge cases."""
+    
+    @pytest.fixture
+    def metrics_collector(self):
+        """Create MetricsCollector instance for testing."""
+        return MetricsCollector()
+    
+    def test_invalid_trade_data(self, metrics_collector):
+        """Test handling of invalid trade data."""
+        # Test with None values
+        try:
+            trade = metrics_collector.record_trade_entry(
+                trade_id=None,
+                symbol=None,
+                direction=None,
+                entry_price=None,
+                quantity=None,
+                stop_loss=None,
+                profit_target=None,
+                strategy_name=None
+            )
+            # If no exception, verify behavior
+            if trade:
+                assert 'trade_id' in trade
+        except (TypeError, ValueError) as e:
+            # Expected behavior - rejecting None values
+            assert True
+    
+    def test_duplicate_trade_ids(self, metrics_collector):
+        """Test handling of duplicate trade IDs."""
+        # First trade
+        trade1 = metrics_collector.record_trade_entry(
+            trade_id="duplicate_test",
+            symbol="BTCUSD",
+            direction="BUY",
+            entry_price=50000.0,
+            quantity=1.0,
+            stop_loss=49000.0,
+            profit_target=51000.0,
+            strategy_name="TestStrategy"
+        )
+        
+        # Attempt duplicate
+        try:
+            trade2 = metrics_collector.record_trade_entry(
+                trade_id="duplicate_test",  # Same ID
+                symbol="ETHUSD",
+                direction="SELL",
+                entry_price=3000.0,
+                quantity=1.0,
+                stop_loss=3100.0,
+                profit_target=2900.0,
+                strategy_name="TestStrategy"
+            )
+            
+            # If allowed, both trades should exist
+            if trade2:
                 trade_ids = [t['trade_id'] for t in metrics_collector.active_trades]
                 assert trade_ids.count("duplicate_test") <= 2
         

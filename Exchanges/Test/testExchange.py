@@ -4,10 +4,14 @@ import hmac
 import requests
 import time
 import json
+from typing import TYPE_CHECKING
 
 from math import floor
 from ..exchange import Exchange
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
+
+if TYPE_CHECKING:
+    from Utils.MetricsCollector import MetricsCollector
 
 class TestExchange(Exchange):
     """
@@ -15,17 +19,34 @@ class TestExchange(Exchange):
     """
     api_url = "https://api.binance.us"
 
-    def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector):
+    def __init__(self, key: str, secret: str, currency: str, asset: str, metrics_collector: "MetricsCollector"):
         """
-        Initializes the TestExchange instance with API credentials and trading pair information.
+        Initializes a test exchange client with mock data.
         
-        :param key: API key for authentication.
-        :param secret: API secret for signing requests.
-        :param currency: Base currency (e.g., USD).
+        :param key: API key (not used in test mode).
+        :param secret: API secret (not used in test mode).
+        :param currency: Base currency for trading (e.g., USD).
         :param asset: Trading asset (e.g., BTC).
         :param metrics_collector: MetricsCollector instance for performance tracking.
         """
         super().__init__(key, secret, currency, asset, metrics_collector)
+        # Default test data for predictable testing
+        self.test_data = [
+            [
+                1640995200000,    # Open time
+                "47000.0",        # Open price
+                "47500.0",        # High price
+                "46500.0",        # Low price
+                "47200.0",        # Close price
+                "100.0",          # Volume
+                1640995260000,    # Close time
+                "4720000.0",      # Quote asset volume
+                50,               # Number of trades
+                "50.0",           # Taker buy base asset volume
+                "2360000.0",      # Taker buy quote asset volume
+                "0"               # Ignore
+            ]
+        ]
 
     def __get_binanceus_signature(self, data, secret):
         """
@@ -68,24 +89,22 @@ class TestExchange(Exchange):
     def get_account_status(self):
         """
         Fetches and prints the user's Binance US account status.
+        Since this is a test exchange, return mocked status instead of real API call.
         """
-        uri_path = '/sapi/v3/accountStatus'
-        data = {"timestamp": int(round(time.time() * 1000))}
-        response = self.__submit_get_request(uri_path, data)
-        print("Account status:")
-        print(json.dumps(json.loads(response.text), indent=2))
+        print("Account status: Mocked due to testExchange usage")
 
     def get_candle_stick_data(self, interval):
         """
         Retrieves candlestick (K-line) data for the trading pair.
+        Returns test data instead of making real API calls.
         
         :param interval: Time interval in minutes for the candlestick data.
-        :return: JSON response containing candlestick data.
+        :return: CandleStickData object containing test candlestick data.
         """
-        uri_path = f'/api/v3/klines?symbol={self.currency_asset}&interval={interval}m&limit=1'
-        response = requests.get(self.api_url + uri_path)
-        json_data = json.loads(response.text)
-        return CandleStickData.from_list(json_data[0])
+        if not self.test_data:
+            raise IndexError("No test data available")
+        
+        return CandleStickData.from_list(self.test_data[0])
 
     def __submit_post_request(self, uri_path, data):
         """
@@ -134,28 +153,26 @@ class TestExchange(Exchange):
             response_time = time.time() - start_time
             
             # Record API call metrics
-            if self.metrics_collector:
-                self.metrics_collector.record_api_call(
-                    endpoint=uri_path,
-                    method="POST",
-                    response_time=response_time,
-                    status_code=200,
-                    success=True
-                )
+            self.metrics_collector.record_api_call(
+                endpoint=uri_path,
+                method="POST",
+                response_time=response_time,
+                status_code=200,
+                success=True
+            )
             
             print("POST {}: {}".format(uri_path, result))
             
         except Exception as e:
             # Record API error metrics
-            if self.metrics_collector:
-                self.metrics_collector.record_api_call(
-                    endpoint=uri_path,
-                    method="POST", 
-                    response_time=time.time() - start_time if 'start_time' in locals() else 0,
-                    status_code=500,
-                    success=False,
-                    error_message=str(e)
-                )
+            self.metrics_collector.record_api_call(
+                endpoint=uri_path,
+                method="POST", 
+                response_time=time.time() - start_time if 'start_time' in locals() else 0,
+                status_code=500,
+                success=False,
+                error_message=str(e)
+            )
             raise
 
 
