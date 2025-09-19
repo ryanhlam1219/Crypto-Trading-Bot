@@ -5,11 +5,12 @@ Advanced crypto trading bot written in Python with multi-exchange support, compr
 ## ✨ Key Features
 
 - **Multi-Exchange Support**: Binance.US with extensible architecture
-- **Grid Trading Strategy**: Automated buy/sell orders with profit optimization
+- **Multiple Trading Strategies**: Grid Trading and Simple Moving Average strategies
 - **Graceful Shutdown**: Ctrl+C signal handling for safe strategy termination
 - **Comprehensive Testing**: 94%+ test coverage with automated build system
 - **Performance Analytics**: Real-time P&L tracking and trade analysis
 - **Dual Modes**: Backtesting with historical data and live trading
+- **Extensible Architecture**: Abstract base classes for creating custom strategies
 
 ## 🚀 Quick Start
 
@@ -66,6 +67,70 @@ MODE="backtest"  # Safe for testing
 # MODE="trade"   # Live trading (use caution!)
 ```
 
+### Available Strategies
+
+#### 1. GridTradingStrategy (Default)
+Automated grid trading with buy/sell orders at preset price levels:
+```env
+STRATEGY="GridTradingStrategy"
+```
+
+#### 2. SimpleMovingAverageStrategy
+Classic moving average crossover strategy for trend following:
+```env
+STRATEGY="SimpleMovingAverageStrategy"
+
+# Optional SMA configuration (defaults shown)
+SMA_SHORT_WINDOW=10     # Short moving average periods
+SMA_LONG_WINDOW=20      # Long moving average periods  
+SMA_MIN_CANDLES=50      # Minimum data before trading
+SMA_TRADE_QUANTITY=1.0  # Trade size per order
+```
+
+**SMA Strategy Logic:**
+- **Buy Signal**: Short MA crosses above Long MA (bullish crossover)
+- **Sell Signal**: Short MA crosses below Long MA (bearish crossover)
+- **Position Management**: Automatically closes opposing positions
+- **Risk Management**: Built-in stop-loss and profit targets
+
+### Creating Custom Strategies
+
+The `SimpleMovingAverageStrategy` serves as an excellent reference for building your own strategies. Key implementation points:
+
+```python
+from Strategies.Strategy import Strategy
+
+class MyCustomStrategy(Strategy):
+    def __init__(self, client, interval, stop_loss_percentage, metrics_collector, **kwargs):
+        # Initialize base class (automatic signal handling setup)
+        super().__init__(client, interval, stop_loss_percentage, metrics_collector)
+        # Add your custom parameters
+    
+    # Required abstract methods
+    def execute_trade(self, price, direction): pass
+    def close_trade(self, price): pass  
+    def check_trades(self, price): pass
+    def run_strategy(self, trade_interval): pass
+    
+    # Optional customization
+    def on_shutdown_signal(self, signum, frame): pass
+    def perform_graceful_shutdown(self): pass
+```
+
+**Benefits of inheriting from Strategy base class:**
+- ✅ Automatic Ctrl+C signal handling
+- ✅ Graceful shutdown with cleanup
+- ✅ Consistent interface across all strategies
+- ✅ Built-in metrics integration
+- ✅ Thread-safe shutdown coordination
+
+**Reference Implementation:** See `Strategies/SimpleMovingAverageStrategy.py` for a complete, production-ready example with:
+- Parameter validation and error handling
+- Comprehensive logging and status reporting
+- Position management and trade execution
+- Signal handling integration
+- Full test coverage (28 unit tests)
+
 ### Graceful Shutdown
 The trading strategy supports graceful shutdown via signal handling:
 
@@ -111,13 +176,16 @@ python -m pytest Tests/ -v
 - 🧪 **[Testing Framework](docs/TESTING.md)** - Testing best practices and coverage details
 - 📊 **[Performance Metrics](docs/METRICS.md)** - Analytics and monitoring features
 - 🔧 **[Build System](docs/BUILD_README.md)** - Automation and coverage tools
+- 🎯 **[Strategy Development Guide](docs/SIGNAL_HANDLING_ARCHITECTURE.md)** - Creating custom strategies with signal handling
 
 ## 🎯 Project Status
 
-- ✅ **GridTradingStrategy**: 85% test coverage (29 comprehensive tests)
+- ✅ **GridTradingStrategy**: 85% test coverage with comprehensive signal handling
+- ✅ **SimpleMovingAverageStrategy**: 100% test coverage (28 tests) - Reference implementation
+- ✅ **Abstract Strategy Architecture**: Signal handling and graceful shutdown for all strategies
 - ✅ **Build System**: Automated testing and coverage reporting
 - ✅ **Dependencies**: Consolidated requirements with virtual environment support
-- ✅ **Documentation**: Organized guides in `docs/` folder
+- ✅ **Documentation**: Organized guides in `docs/` folder with strategy development guide
 
 ## 🤝 Contributing
 
