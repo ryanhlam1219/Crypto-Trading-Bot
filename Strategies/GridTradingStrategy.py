@@ -60,8 +60,25 @@ class GridTradingStrategy(Strategy):
                 strategy_name="GridTradingStrategy"
             )
 
-            # Using create_new_order method with correct args
-            self.client.create_new_order(direction, OrderType.LIMIT_ORDER, 1, price)
+            # Round price to appropriate tick size for the asset
+            if "DOGE" in self.client.currency_asset:
+                # DOGE tick size is typically 0.00001 (5 decimal places)
+                tick_size = 0.00001
+                rounded_price = round(price / tick_size) * tick_size
+                rounded_price = round(rounded_price, 5)
+            elif "BTC" in self.client.currency_asset:
+                # BTC tick size is typically 0.01 (2 decimal places)
+                tick_size = 0.01
+                rounded_price = round(price / tick_size) * tick_size
+                rounded_price = round(rounded_price, 2)
+            else:
+                # Default tick size 0.0001 (4 decimal places)
+                tick_size = 0.0001
+                rounded_price = round(price / tick_size) * tick_size
+                rounded_price = round(rounded_price, 4)
+            
+            # Using limit orders (proper grid trading methodology)
+            self.client.create_new_order(direction, OrderType.LIMIT_ORDER, 1, rounded_price)
             
             # Legacy print for compatibility
             print(f"Executed {direction.value} order at {price}. Profit target: {profit_target}, Stop-loss: {stop_loss}")
@@ -206,10 +223,33 @@ class GridTradingStrategy(Strategy):
 
     def __initialize_grid(self, base_price: float):
         try:
-            grid_size = base_price * self.grid_percentage
+            # Get current market price to avoid PERCENT_PRICE_BY_SIDE errors
+            try:
+                current_data = self.client.get_candle_stick_data(self.interval)
+                current_price = float(current_data.close_price)
+                print(f"Using current market price: ${current_price:.2f} (vs historical: ${base_price:.2f})")
+                base_price = current_price
+            except Exception as e:
+                print(f"Could not get current price, using historical: {e}")
+            
+            # Convert percentage to decimal and use very small grid to avoid filter errors
+            safe_percentage = min(self.grid_percentage, 0.01)  # Cap at 0.01% (much smaller)
+            grid_size = base_price * (safe_percentage / 100.0)
+            print(f"Grid initialized with base price: {base_price}, grid size: {grid_size} ({safe_percentage}%)")
+            
             for i in range(1, self.num_levels + 1):
-                self.execute_trade(base_price - (i * grid_size), TradeDirection.BUY, grid_size)
-                self.execute_trade(base_price + (i * grid_size), TradeDirection.SELL, grid_size)
+                buy_price = base_price - (i * grid_size)
+                sell_price = base_price + (i * grid_size)
+                
+                print(f"Level {i}: BUY at ${buy_price:.2f}, SELL at ${sell_price:.2f}")
+                
+                # Only execute trades with positive prices
+                if buy_price > 0:
+                    self.execute_trade(buy_price, TradeDirection.BUY, grid_size)
+                else:
+                    print(f"⚠️ Skipping BUY order at level {i} - price would be ${buy_price:.2f}")
+                    
+                self.execute_trade(sell_price, TradeDirection.SELL, grid_size)
         except Exception as e:
             print(f"Error initializing grid: {e}")
             traceback.print_exc()

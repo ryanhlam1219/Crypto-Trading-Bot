@@ -84,18 +84,29 @@ class Binance(Exchange):
         start_time = time.time()
         endpoint = "/api/v3/order/test"
 
+        # Validate and adjust order parameters
+        if order_type == OrderType.LIMIT_ORDER and price is not None:
+            validated_price = self._validate_and_adjust_price(price)
+            validated_quantity = self._validate_and_adjust_quantity(quantity, validated_price)
+            print(f"📊 Order Validation: Original qty={quantity}, price=${price:.6f}")
+            print(f"📊 Order Validation: Adjusted qty={validated_quantity}, price=${validated_price:.6f}")
+            print(f"📊 Order Validation: Notional value=${validated_quantity * validated_price:.2f}")
+        else:
+            validated_price = price
+            validated_quantity = quantity
+
         params = {
             "symbol": self.currency_asset,
             "side": direction._value_,
             "type": self.__get_binance_order_type(order_type),
-            "quantity": quantity
+            "quantity": validated_quantity
         }
 
         # Ensure price is included for LIMIT orders
         if order_type == OrderType.LIMIT_ORDER:
-            if price is None:
+            if validated_price is None:
                 raise ValueError("Price must be provided for LIMIT orders.")
-            params["price"] = price
+            params["price"] = validated_price
             params["timeInForce"] = time_in_force  # Required for limit orders
 
         try:
@@ -127,6 +138,42 @@ class Binance(Exchange):
                 error_message=str(e)
             )
             raise
+
+    def _validate_and_adjust_price(self, price: float) -> float:
+        """Validate and adjust price to meet exchange requirements."""
+        if "DOGE" in self.currency_asset:
+            tick_size = 0.00001
+            adjusted_price = round(price / tick_size) * tick_size
+            return round(adjusted_price, 5)
+        elif "BTC" in self.currency_asset:
+            tick_size = 0.01
+            adjusted_price = round(price / tick_size) * tick_size
+            return round(adjusted_price, 2)
+        else:
+            tick_size = 0.0001
+            adjusted_price = round(price / tick_size) * tick_size
+            return round(adjusted_price, 4)
+
+    def _validate_and_adjust_quantity(self, quantity: float, price: float) -> float:
+        """Validate and adjust quantity to meet minimum notional requirements."""
+        notional_value = quantity * price
+        
+        if "DOGE" in self.currency_asset:
+            min_notional = 10.0  # $10 minimum for DOGE
+            if notional_value < min_notional:
+                required_quantity = max(1, int(min_notional / price) + 1)
+                print(f"⚠️  MIN_NOTIONAL Adjustment: ${notional_value:.2f} < ${min_notional:.2f}")
+                print(f"   Increasing quantity from {quantity} to {required_quantity}")
+                return required_quantity
+        elif "BTC" in self.currency_asset:
+            min_notional = 10.0  # $10 minimum for BTC
+            if notional_value < min_notional:
+                required_quantity = max(0.0001, min_notional / price)  # BTC has smaller lot sizes
+                print(f"⚠️  MIN_NOTIONAL Adjustment: ${notional_value:.2f} < ${min_notional:.2f}")
+                print(f"   Increasing quantity from {quantity} to {required_quantity:.4f}")
+                return round(required_quantity, 4)
+        
+        return quantity
 
     @staticmethod
     def __get_binance_order_type(order_type: OrderType):

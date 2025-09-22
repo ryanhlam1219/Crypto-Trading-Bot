@@ -30,18 +30,19 @@ python validate_env.py
 
 ```env
 # Trading Mode
-MODE="backtest"              # Safe testing mode
-# MODE="trade"               # Live trading (requires API keys)
+MODE="trade"                     # Recommended for testing with TestExchange
+TRADING_MODE="test"              # Use TestExchange (live data, simulated trades)
+# TRADING_MODE="real"            # Live trading (real money - use caution!)
 
 # Exchange Selection
-EXCHANGE="BinanceBacktestClient"  # For backtesting
-# EXCHANGE="Binance"              # For live trading
-# EXCHANGE="KrakenBacktestClient" # Kraken backtesting
-# EXCHANGE="TestExchange"         # Test mode with live data
+EXCHANGE="TestExchange"          # Recommended for development
+# EXCHANGE="Binance"             # For live trading with real money
+# EXCHANGE="BinanceBacktestClient" # For historical backtesting
 
 # Strategy Configuration
-STRATEGY="GridTradingStrategy"   # Primary strategy
-TRADING_PAIR="BTC_USD"          # Default trading pair
+STRATEGY="GridTradingStrategy"   # Primary strategy with smart order validation
+ASSET="DOGE"                     # Recommended asset (better exchange filter compatibility)
+CURRENCY="USD"                   # Base currency
 ```
 
 ### API Credentials (Live Trading Only)
@@ -138,6 +139,28 @@ Ensure outbound HTTPS (port 443) access to:
 
 ## Trading Modes
 
+### TestExchange Mode (Recommended)
+```env
+MODE="trade"
+TRADING_MODE="test"
+EXCHANGE="TestExchange"
+ASSET="DOGE"
+CURRENCY="USD"
+```
+
+**Features:**
+- **Real market data** from Binance API for accurate price feeds
+- **Simulated trades** using Binance's test endpoint (no real money)
+- **Full exchange validation** including price filters, lot sizes, and minimum notional
+- **Live price discovery** with actual market conditions
+- **Order adjustment logging** shows how orders are validated and corrected
+
+**Benefits for Development:**
+- Test strategies with real market volatility
+- Validate exchange filter compliance
+- Debug order validation issues safely
+- No risk of losing real money
+
 ### Backtest Mode
 ```env
 MODE="backtest"
@@ -157,6 +180,7 @@ EXCHANGE="BinanceBacktestClient"
 ### Live Trading Mode
 ```env
 MODE="trade"
+TRADING_MODE="real"
 EXCHANGE="Binance"
 API_KEY="your_key"
 API_SECRET="your_secret"
@@ -170,23 +194,75 @@ API_SECRET="your_secret"
 
 **Safety Checks:**
 - Start with small amounts
-- Test strategies in backtest mode first
+- Test strategies in TestExchange mode first
 - Monitor positions actively
 - Set appropriate stop-losses
 
-### Test Mode
+### Asset-Specific Configuration
+
+#### DOGE Trading (Recommended for Testing)
 ```env
-MODE="test"
-EXCHANGE="TestExchange"
+ASSET="DOGE"
+CURRENCY="USD"
+# Automatic validation:
+# - Tick size: 0.00001 (5 decimal places)
+# - Min notional: $10.00
+# - Better exchange filter compatibility
 ```
 
-**Features:**
-- Live market data
-- Simulated order execution
-- No real money involved
-- Real-time testing environment
+#### BTC Trading
+```env
+ASSET="BTC"
+CURRENCY="USD"
+# Automatic validation:
+# - Tick size: 0.01 (2 decimal places)  
+# - Min notional: $10.00
+# - Stricter exchange filters (may limit grid trading)
+```
+
+#### Other Assets
+```env
+ASSET="ETH"  # or other supported assets
+CURRENCY="USD"
+# Default validation:
+# - Tick size: 0.0001 (4 decimal places)
+# - Min notional: $10.00
+```
 
 ## Exchange Configuration
+
+### Exchange Order Validation
+
+The bot automatically handles Binance exchange filters and requirements:
+
+#### Supported Exchange Filters
+- **PRICE_FILTER**: Ensures prices meet tick size requirements
+- **LOT_SIZE**: Validates quantity against minimum/step size requirements  
+- **MIN_NOTIONAL**: Adjusts quantities to meet minimum order value
+- **PERCENT_PRICE_BY_SIDE**: Validates prices are within acceptable deviation from market
+
+#### Automatic Order Adjustments
+
+**Price Validation:**
+```
+Original price: $0.240132018
+Adjusted price: $0.24013 (rounded to tick size)
+```
+
+**Quantity Validation:**
+```
+Original: 1 DOGE @ $0.24 = $0.24 notional
+Adjusted: 42 DOGE @ $0.24 = $10.08 notional (meets $10 minimum)
+```
+
+**Logging Output:**
+```
+📊 Order Validation: Original qty=1, price=$0.240132
+📊 Order Validation: Adjusted qty=42, price=$0.240130  
+📊 Order Validation: Notional value=$10.08
+⚠️  MIN_NOTIONAL Adjustment: $0.24 < $10.00
+   Increasing quantity from 1 to 42
+```
 
 ### Binance.US Configuration
 ```env

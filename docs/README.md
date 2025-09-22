@@ -18,9 +18,10 @@ Welcome to the Crypto Trading Bot documentation! This folder contains all detail
 
 ### Configuration & Setup
 - **[Configuration Guide](CONFIGURATION.md)** - Complete API setup, environment variables, and network requirements
+- **[Exchange Validation Guide](EXCHANGE_VALIDATION.md)** - Order validation, filter compliance, and asset-specific requirements
 
 ### Monitoring & Analysis
-- **[Metrics Guide](METRICS.md)** - Performance monitoring, metrics collection, and analysis tools
+- **[Metrics Guide](METRICS.md)** - Performance monitoring, metrics collection, and analysis tools with optimization details
 
 ## 🗂️ Documentation Organization
 

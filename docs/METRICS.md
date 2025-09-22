@@ -1,32 +1,43 @@
 # MetricsCollector
 
-A centralized metrics collection system for the Crypto Trading Bot that provides comprehensive tracking of trading performance, exchange API metrics, and strategy analytics.
+A high-performance, centralized metrics collection system for the Crypto Trading Bot that provides comprehensive tracking of trading performance, exchange API metrics, and strategy analytics with optimized O(1) operations.
 
 ## Overview
 
 The `MetricsCollector` is designed to centralize all metrics collection and reporting in one place, removing the need for individual strategies and exchanges to handle their own profit tracking and performance metrics. This creates a clean separation of concerns and provides a single source of truth for all trading metrics.
 
+**Recent Performance Optimizations:**
+- **O(1) Trade Lookups**: Dictionary-based trade storage for instant access
+- **Bounded Memory Usage**: Configurable limits prevent memory leaks
+- **Running Totals**: Pre-calculated metrics for instant reporting
+- **Efficient Data Structures**: Optimized for high-frequency trading scenarios
+
 ## Features
 
-### 🎯 Trade Tracking
+### 🎯 Trade Tracking (Optimized)
 - **Unique Trade IDs**: Automatically generates unique identifiers for each trade
+- **O(1) Trade Access**: Dictionary-based storage for instant trade lookups by ID
 - **Entry/Exit Tracking**: Records precise entry and exit prices with timestamps
 - **Profit/Loss Calculation**: Automatic P&L calculation for both BUY and SELL trades
 - **Stop-Loss & Profit Targets**: Tracks stop-loss and profit target prices for each trade
 - **Trade Status Management**: Manages trade lifecycle (active, closed, cancelled)
+- **Memory Management**: Bounded trade storage with configurable limits (default: 1000 trades)
 
-### 📊 Performance Analytics
-- **Net Profit Percentage**: Calculates overall portfolio performance
-- **Win Rate**: Tracks percentage of profitable trades
+### 📊 Performance Analytics (Real-time)
+- **Net Profit Percentage**: Calculates overall portfolio performance using running totals
+- **Win Rate**: Tracks percentage of profitable trades with instant calculation
 - **Average Profit Per Trade**: Measures average profit across all trades
-- **Total P&L**: Sum of all realized profits and losses
+- **Total P&L**: Running total of all realized profits and losses (O(1) access)
 - **Session Tracking**: Monitors trading session duration and activity
+- **Performance Caching**: Pre-calculated metrics for instant dashboard updates
 
-### 🌐 API Performance Monitoring
-- **Response Time Tracking**: Measures API call latencies
+### 🌐 API Performance Monitoring (Enhanced)
+- **Response Time Tracking**: Measures API call latencies with detailed statistics
 - **Success Rate Monitoring**: Tracks API call success vs failure rates
 - **Error Logging**: Records detailed error information for failed API calls
 - **Endpoint Analytics**: Performance metrics per API endpoint
+- **Bounded Storage**: Configurable API call history limits (default: 5000 calls)
+- **Memory Efficiency**: Automatic cleanup of old API call records
 
 ### 📈 Strategy Analytics
 - **Signal Recording**: Tracks strategy signal generation and confidence levels
@@ -38,17 +49,34 @@ The `MetricsCollector` is designed to centralize all metrics collection and repo
 ### Core Components
 
 ```
-MetricsCollector
-├── Trade Tracking
-│   ├── active_trades[]
-│   ├── closed_trades[]
-│   └── cancelled_trades[]
-├── API Metrics
-│   ├── api_calls[]
-│   └── api_errors[]
+MetricsCollector (Optimized)
+├── Trade Tracking (O(1) Access)
+│   ├── active_trades: Dict[str, Trade]     # Trade ID → Trade object
+│   ├── closed_trades: Deque[Trade]         # Bounded history (1000 max)
+│   ├── cancelled_trades: Deque[Trade]      # Bounded history (1000 max)
+│   └── running_totals: Dict[str, float]    # Pre-calculated metrics
+├── API Metrics (Bounded)
+│   ├── api_calls: Deque[APICall]          # Bounded history (5000 max)
+│   └── api_errors: Deque[APIError]        # Error tracking
 ├── Strategy Metrics
-│   └── strategy_signals[]
-└── Session Tracking
+│   └── strategy_signals: List[Signal]      # Strategy signal tracking
+└── Performance Cache
+    ├── total_profit_loss: float            # Running total (O(1))
+    ├── total_trades: int                   # Trade counter (O(1))
+    └── win_rate: float                     # Cached win rate (O(1))
+```
+
+### Performance Characteristics
+
+| Operation | Complexity | Description |
+|-----------|------------|-------------|
+| Trade Entry | O(1) | Instant trade recording |
+| Trade Lookup | O(1) | Dictionary-based access |
+| Trade Exit | O(1) | Update existing trade |
+| P&L Calculation | O(1) | Uses running totals |
+| Win Rate | O(1) | Cached calculation |
+| API Call Recording | O(1) | Append to bounded deque |
+| Memory Usage | Bounded | Configurable limits prevent leaks |
     ├── session_start_time
     └── total_trades_executed
 ```

@@ -31,24 +31,6 @@ class TestExchange(Exchange):
         
         # Initialize API Proxy with Binance US configuration
         self.api_proxy = APIProxy(ExchangeConfig.create_binance_config(key, secret))
-        
-        # Default test data for predictable testing
-        self.test_data = [
-            [
-                1640995200000,    # Open time
-                "47000.0",        # Open price
-                "47500.0",        # High price
-                "46500.0",        # Low price
-                "47200.0",        # Close price
-                "100.0",          # Volume
-                1640995260000,    # Close time
-                "4720000.0",      # Quote asset volume
-                50,               # Number of trades
-                "50.0",           # Taker buy base asset volume
-                "2360000.0",      # Taker buy quote asset volume
-                "0"               # Ignore
-            ]
-        ]
 
     def __submit_get_request(self, uri_path, data):
         """
@@ -80,15 +62,18 @@ class TestExchange(Exchange):
     def get_candle_stick_data(self, interval):
         """
         Retrieves candlestick (K-line) data for the trading pair.
-        Returns test data instead of making real API calls.
+        Fetches real data from Binance API.
         
         :param interval: Time interval in minutes for the candlestick data.
-        :return: CandleStickData object containing test candlestick data.
+        :return: CandleStickData object containing real candlestick data.
         """
-        if not self.test_data:
-            raise IndexError("No test data available")
-        
-        return CandleStickData.from_list(self.test_data[0])
+        params = {
+            'symbol': self.currency_asset,
+            'interval': f'{interval}m',
+            'limit': 1
+        }
+        response = self.api_proxy.make_public_request('GET', '/api/v3/klines', params)
+        return CandleStickData.from_list(response[0])
 
     def __submit_post_request(self, uri_path, data):
         """
@@ -103,7 +88,7 @@ class TestExchange(Exchange):
 
     def create_new_order(self, direction: TradeDirection, order_type: OrderType, quantity, price=None, time_in_force="GTC"):
         """
-        Creates a new order on Binance US.
+        Creates a new order on Binance US with proper validation and adjustments.
 
         :param direction: Trade direction (buy/sell).
         :param order_type: Type of order to place.
@@ -113,19 +98,30 @@ class TestExchange(Exchange):
         """
         uri_path = "/api/v3/order/test"
 
+        # Validate and adjust order parameters
+        if order_type == OrderType.LIMIT_ORDER and price is not None:
+            validated_price = self._validate_and_adjust_price(price)
+            validated_quantity = self._validate_and_adjust_quantity(quantity, validated_price)
+            print(f"📊 Order Validation: Original qty={quantity}, price=${price:.6f}")
+            print(f"📊 Order Validation: Adjusted qty={validated_quantity}, price=${validated_price:.6f}")
+            print(f"📊 Order Validation: Notional value=${validated_quantity * validated_price:.2f}")
+        else:
+            validated_price = price
+            validated_quantity = quantity
+
         data = {
             "symbol": self.currency_asset,
             "side": direction.value,
             "type": self.__get_binance_order_type(order_type),
-            "quantity": quantity,
+            "quantity": validated_quantity,
             "timestamp": int(round(time.time() * 1000))
         }
 
         # Ensure price is included for LIMIT orders
         if order_type == OrderType.LIMIT_ORDER:
-            if price is None:
+            if validated_price is None:
                 raise ValueError("Price must be provided for LIMIT orders.")
-            data["price"] = price
+            data["price"] = validated_price
             data["timeInForce"] = time_in_force  # Required for limit orders
 
         try:
@@ -155,6 +151,42 @@ class TestExchange(Exchange):
                 error_message=str(e)
             )
             raise
+
+    def _validate_and_adjust_price(self, price: float) -> float:
+        """Validate and adjust price to meet exchange requirements."""
+        if "DOGE" in self.currency_asset:
+            tick_size = 0.00001
+            adjusted_price = round(price / tick_size) * tick_size
+            return round(adjusted_price, 5)
+        elif "BTC" in self.currency_asset:
+            tick_size = 0.01
+            adjusted_price = round(price / tick_size) * tick_size
+            return round(adjusted_price, 2)
+        else:
+            tick_size = 0.0001
+            adjusted_price = round(price / tick_size) * tick_size
+            return round(adjusted_price, 4)
+
+    def _validate_and_adjust_quantity(self, quantity: float, price: float) -> float:
+        """Validate and adjust quantity to meet minimum notional requirements."""
+        notional_value = quantity * price
+        
+        if "DOGE" in self.currency_asset:
+            min_notional = 10.0  # $10 minimum for DOGE
+            if notional_value < min_notional:
+                required_quantity = max(1, int(min_notional / price) + 1)
+                print(f"⚠️  MIN_NOTIONAL Adjustment: ${notional_value:.2f} < ${min_notional:.2f}")
+                print(f"   Increasing quantity from {quantity} to {required_quantity}")
+                return required_quantity
+        elif "BTC" in self.currency_asset:
+            min_notional = 10.0  # $10 minimum for BTC
+            if notional_value < min_notional:
+                required_quantity = max(0.0001, min_notional / price)  # BTC has smaller lot sizes
+                print(f"⚠️  MIN_NOTIONAL Adjustment: ${notional_value:.2f} < ${min_notional:.2f}")
+                print(f"   Increasing quantity from {quantity} to {required_quantity:.4f}")
+                return round(required_quantity, 4)
+        
+        return quantity
 
 
     @staticmethod

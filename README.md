@@ -4,12 +4,13 @@ Advanced crypto trading bot written in Python with multi-exchange support, compr
 
 ## ✨ Key Features
 
-- **Multi-Exchange Support**: Binance.US with extensible architecture
+- **Multi-Exchange Support**: Binance.US with extensible architecture and intelligent order validation
 - **Multiple Trading Strategies**: Grid Trading and Simple Moving Average strategies
+- **Smart Order Management**: Automatic price/quantity validation with exchange-specific filter compliance
 - **Graceful Shutdown**: Ctrl+C signal handling for safe strategy termination
 - **Comprehensive Testing**: 94%+ test coverage with automated build system
-- **Performance Analytics**: Real-time P&L tracking and trade analysis
-- **Dual Modes**: Backtesting with historical data and live trading
+- **Performance Analytics**: Real-time P&L tracking and trade analysis with optimized MetricsCollector
+- **Dual Modes**: TestExchange with live data + simulated trades, and full live trading
 - **Extensible Architecture**: Abstract base classes for creating custom strategies
 
 ## 🚀 Quick Start
@@ -39,7 +40,10 @@ python validate_env.py
 
 ### 3. Run
 ```bash
-# Backtesting (safe, no real money)
+# Test Mode (recommended) - Live data with simulated trades
+python main.py  # Uses TestExchange with real market data
+
+# Backtesting (safe, historical data)
 python main.py BTC_USD
 
 # Run tests
@@ -58,22 +62,63 @@ source .venv/bin/activate  # You should see (.venv) in your prompt
 ```
 
 ### Trading Modes
-- **Backtest Mode**: Uses historical data, no real money involved
-- **Live Trading**: Connects to real exchange APIs (requires API keys)
 
-Configure in your `.env` file:
+#### TestExchange Mode (Recommended for Development)
+- **Real market data** from Binance API for accurate price feeds
+- **Simulated trades** using Binance's test endpoint (no real money)
+- **Full validation** including exchange filters and order requirements
+- **Live price discovery** with actual market conditions
+
 ```env
-MODE="backtest"  # Safe for testing
-# MODE="trade"   # Live trading (use caution!)
+MODE="trade"
+TRADING_MODE="test"  # Uses TestExchange
+ASSET="DOGE"         # Recommended for testing (lower price volatility)
+CURRENCY="USD"
+```
+
+#### Backtest Mode
+- Uses historical data, no real money involved
+- Good for strategy validation with past market conditions
+
+```env
+MODE="backtest"
+```
+
+#### Live Trading Mode
+- Connects to real exchange APIs with real money (use extreme caution!)
+
+```env
+MODE="trade"
+TRADING_MODE="real"  # Real trading - requires valid API keys
 ```
 
 ### Available Strategies
 
 #### 1. GridTradingStrategy (Default)
-Automated grid trading with buy/sell orders at preset price levels:
+Automated grid trading with intelligent order management:
+
 ```env
 STRATEGY="GridTradingStrategy"
+ASSET="DOGE"           # Recommended - better filter compatibility than BTC
+CURRENCY="USD"
 ```
+
+**Key Features:**
+- **Smart Grid Calculation**: Uses current market prices to avoid exchange filter rejections
+- **Automatic Validation**: Price precision and minimum notional requirements handled automatically
+- **Exchange Filter Compliance**: Supports PERCENT_PRICE_BY_SIDE, PRICE_FILTER, MIN_NOTIONAL filters
+- **Asset-Specific Optimization**: Different tick sizes and minimums for BTC vs DOGE vs others
+- **Comprehensive Logging**: Detailed order validation and adjustment reporting
+
+**Supported Assets:**
+- **DOGE/USD**: Recommended for testing (tick size: 0.00001, min notional: $10)
+- **BTC/USD**: Higher value (tick size: 0.01, min notional: $10) 
+- **Others**: Default validation (tick size: 0.0001, min notional: $10)
+
+**Grid Strategy Notes:**
+- Classical grid trading requires specific exchange filter compatibility
+- Binance has strict price deviation limits that may conflict with traditional grid approaches
+- TestExchange mode recommended for development and validation
 
 #### 2. SimpleMovingAverageStrategy
 Classic moving average crossover strategy for trend following:
@@ -180,8 +225,11 @@ python -m pytest Tests/ -v
 
 ## 🎯 Project Status
 
-- ✅ **GridTradingStrategy**: 85% test coverage with comprehensive signal handling
+- ✅ **GridTradingStrategy**: Enhanced with exchange filter compliance and smart order validation
 - ✅ **SimpleMovingAverageStrategy**: 100% test coverage (28 tests) - Reference implementation
+- ✅ **MetricsCollector**: Optimized with O(1) performance and bounded memory usage
+- ✅ **Exchange Integration**: Smart validation for Binance price filters and order requirements
+- ✅ **TestExchange**: Real market data with simulated trades for safe development
 - ✅ **Abstract Strategy Architecture**: Signal handling and graceful shutdown for all strategies
 - ✅ **Build System**: Automated testing and coverage reporting
 - ✅ **Dependencies**: Consolidated requirements with virtual environment support
