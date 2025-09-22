@@ -14,7 +14,7 @@ from unittest.mock import Mock, patch, MagicMock
 from Strategies.GridTradingStrategy import GridTradingStrategy
 from Exchanges.Test.BinanceBacktestClient import BinanceBacktestClient
 from Exchanges.Test.KrakenBacktestClient import KrakenBackTestClient
-from Exchanges.Test.testExchange import TestExchange
+from Exchanges.Test.TestExchange import TestExchange
 from Strategies.ExchangeModels import CandleStickData, OrderType, TradeDirection
 from Tests.utils import DataFetchException, StrategyWrapper
 

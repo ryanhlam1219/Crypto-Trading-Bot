@@ -18,7 +18,7 @@ from unittest.mock import Mock, patch, MagicMock
 import requests
 import time
 
-from Exchanges.Test.testExchange import TestExchange
+from Exchanges.Test.TestExchange import TestExchange
 from Exchanges.Live.Binance import Binance
 from Strategies.ExchangeModels import OrderType, TradeDirection, CandleStickData
 
@@ -48,7 +48,7 @@ class TestExchangeImplementation:
         """Test account status prints mocked message."""
         self.exchange.get_account_status()
         captured = capsys.readouterr()
-        assert "Account status: Mocked due to testExchange usage" in captured.out
+        assert "Account status: Mocked due to TestExchange usage" in captured.out
     
     def test_get_candle_stick_data_success(self):
         """Test successful candlestick data retrieval."""

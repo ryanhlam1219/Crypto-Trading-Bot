@@ -13,7 +13,7 @@ from unittest.mock import Mock
 from Exchanges.Live.Binance import Binance
 from Exchanges.Test.BinanceBacktestClient import BinanceBacktestClient
 from Exchanges.Test.KrakenBacktestClient import KrakenBackTestClient
-from Exchanges.Test.testExchange import TestExchange
+from Exchanges.Test.TestExchange import TestExchange
 from Strategies.GridTradingStrategy import GridTradingStrategy
 
 
